@@ -23,7 +23,7 @@ public interface JSONPlaceHolderApi {
 
     @POST("home/info/")
     @FormUrlEncoded
-    Call<Data> getJson(@Field("city_id") int city_id);
+    Call<UserModelRes> getJson(@Field("city_id") int city_id);
 
    // @POST("/posts")
    // public Call<Post> postData(@Body Post data);

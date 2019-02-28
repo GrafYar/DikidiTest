@@ -10,18 +10,19 @@ public class RetrofitService {
     private static RetrofitService mInstance;
     private static final String BASE_URL = "http://api.beauty.dikidi.ru/";
     private Retrofit mRetrofit;
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private RetrofitService() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        OkHttpClient.Builder client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor);
+        //OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+        //        .addInterceptor(interceptor);
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client.build())
+                .client(httpClient.addInterceptor(interceptor).build())
                 .build();
     }
 

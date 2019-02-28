@@ -34,7 +34,7 @@ import retrofit2.Retrofit;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Data post;
+    UserModelRes post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity
         RetrofitService.getInstance()
                 .getJSONApi()
                 .getJson(468902)
-                .enqueue(new Callback<Data>() {
+                .enqueue(new Callback<UserModelRes>() {
                     @Override
-                    public void onResponse(Call<Data> call, Response<Data> response) {
+                    public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
 
                         try {
-                            Data post = response.body();
+                            UserModelRes post = response.body();
 
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Тест " + post.getTitle(),
+                                    "Тест " + post.getData().getTitle(),
                                     Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(Call<Data> call, Throwable t) {
+                    public void onFailure(Call<UserModelRes> call, Throwable t) {
 
                     }
                 });
