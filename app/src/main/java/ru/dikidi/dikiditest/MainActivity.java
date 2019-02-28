@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -72,11 +73,15 @@ public class MainActivity extends AppCompatActivity
                         try {
                             UserModelRes post = response.body();
 
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Тест " + post.getData().getTitle(),
-                                    Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+
+
+                            TextView mText = findViewById(R.id.hello_world);
+                        mText.setText(post.getData().getTitle());
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Тест " + post.getData().getTitle(),
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         } catch (NullPointerException e) {
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     "Хрен там ",
@@ -94,11 +99,13 @@ public class MainActivity extends AppCompatActivity
 
                     @Override
                     public void onFailure(Call<UserModelRes> call, Throwable t) {
-
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Провал ",
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                     }
                 });
-
-
 
 
 
