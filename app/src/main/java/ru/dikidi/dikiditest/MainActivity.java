@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,8 +16,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -29,6 +33,8 @@ import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Data post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,10 +65,26 @@ public class MainActivity extends AppCompatActivity
         RetrofitService.getInstance()
                 .getJSONApi()
                 .getJson(468902)
-                .enqueue(new Callback<ResponseBody>() {
+                .enqueue(new Callback<Data>() {
                     @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        ResponseBody post = response.body();
+                    public void onResponse(Call<Data> call, Response<Data> response) {
+
+                        try {
+                            Data post = response.body();
+
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Тест " + post.getTitle(),
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        } catch (NullPointerException e) {
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Хрен там ",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+
 
                         //textView.append(post.getId() + "\n");
                         //textView.append(post.getUserId() + "\n");
@@ -71,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    public void onFailure(Call<Data> call, Throwable t) {
 
                     }
                 });

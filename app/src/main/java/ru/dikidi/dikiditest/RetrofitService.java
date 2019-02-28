@@ -8,7 +8,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class RetrofitService {
 
     private static RetrofitService mInstance;
-    private static final String BASE_URL = "http://api.beauty.dikidi.ru";
+    private static final String BASE_URL = "http://api.beauty.dikidi.ru/";
     private Retrofit mRetrofit;
 
     private RetrofitService() {
