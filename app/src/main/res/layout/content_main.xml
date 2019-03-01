@@ -8,6 +8,8 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <include layout="@layout/user_list_content"/>
+
     <TextView
         android:id="@+id/hello_world"
         android:layout_width="wrap_content"

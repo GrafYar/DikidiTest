@@ -15,17 +15,11 @@ import retrofit2.http.Query;
 
 public interface JSONPlaceHolderApi {
 
-    /*@POST("home/info/")
-    public Call<Post> getPostWithID(@Path("id") int id);*/
 
- //   @POST("home/info/")
- //   Call<ResponseData> getJson(@Body Post post);
 
     @POST("home/info/")
     @FormUrlEncoded
-    Call<UserModelRes> getJson(@Field("city_id") int city_id);
+    Call<UserListRes> getJson(@Field("city_id") int city_id);
 
-   // @POST("/posts")
-   // public Call<Post> postData(@Body Post data);
 
 }

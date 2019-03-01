@@ -5,6 +5,7 @@ import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -31,11 +32,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import ru.dikidi.dikiditest.adapters.UsersAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    UserModelRes post;
+    RecyclerView mRecyclerView;
+    List<UserListRes.New> post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,29 +65,35 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mRecyclerView = findViewById(R.id.user_list);
+
 
         RetrofitService.getInstance()
                 .getJSONApi()
                 .getJson(468902)
-                .enqueue(new Callback<UserModelRes>() {
+                .enqueue(new Callback<UserListRes>() {
                     @Override
-                    public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
+                    public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
 
                         try {
-                            UserModelRes post = response.body();
+                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
+                            post = response.body().getData().getBlocks().getNew();
+                            String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+                             //String mTest = response.body().getData().getBlocks().getNew();
+                          // UsersAdapter mUserAdapter = new UsersAdapter(post);
+                           // mRecyclerView.setAdapter(mUserAdapter);
 
 
-
-                            TextView mText = findViewById(R.id.hello_world);
-                        mText.setText(post.getData().getTitle());
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Тест " + post.getData().getTitle(),
-                                Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+//                            TextView mText = findViewById(R.id.hello_world);
+//                            mText.setText(post);
+//                            Toast toast = Toast.makeText(getApplicationContext(),
+//                                    "Тест " + post.getData().getTitle(),
+//                                    Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
                         } catch (NullPointerException e) {
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Хрен там ",
+                                    "Хрен там",
                                     Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
@@ -98,7 +107,7 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     @Override
-                    public void onFailure(Call<UserModelRes> call, Throwable t) {
+                    public void onFailure(Call<UserListRes> call, Throwable t) {
                         Toast toast = Toast.makeText(getApplicationContext(),
                                 "Провал ",
                                 Toast.LENGTH_LONG);
