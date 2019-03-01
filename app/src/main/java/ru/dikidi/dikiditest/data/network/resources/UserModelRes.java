@@ -1,4 +1,4 @@
-package ru.dikidi.dikiditest;
+package ru.dikidi.dikiditest.data.network.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

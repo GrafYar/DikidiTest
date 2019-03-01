@@ -1,4 +1,4 @@
-package ru.dikidi.dikiditest;
+package ru.dikidi.dikiditest.data.network.services;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

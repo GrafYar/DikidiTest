@@ -1,12 +1,10 @@
-package ru.dikidi.dikiditest;
+package ru.dikidi.dikiditest.ui.activities;
 
 import android.os.Bundle;
-import android.provider.SyncStateContract;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,22 +15,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import ru.dikidi.dikiditest.adapters.UsersAdapter;
+import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.services.RetrofitService;
+import ru.dikidi.dikiditest.data.network.resources.UserListRes;
+import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,7 +58,10 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mRecyclerView = findViewById(R.id.user_list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        UsersAdapter mUserAdapter = new UsersAdapter(post);
+        mRecyclerView.setAdapter(mUserAdapter);
 
 
         RetrofitService.getInstance()
@@ -80,8 +76,8 @@ public class MainActivity extends AppCompatActivity
                             post = response.body().getData().getBlocks().getNew();
                             String mText = response.body().getData().getBlocks().getNew().get(0).getId();
                              //String mTest = response.body().getData().getBlocks().getNew();
-                          // UsersAdapter mUserAdapter = new UsersAdapter(post);
-                           // mRecyclerView.setAdapter(mUserAdapter);
+//                           UsersAdapter mUserAdapter = new UsersAdapter(post);
+//                            mRecyclerView.setAdapter(mUserAdapter);
 
 
 //                            TextView mText = findViewById(R.id.hello_world);

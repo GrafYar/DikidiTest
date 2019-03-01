@@ -1,4 +1,4 @@
-package ru.dikidi.dikiditest.adapters;
+package ru.dikidi.dikiditest.ui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,16 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.UserModelRes;
+import ru.dikidi.dikiditest.data.network.resources.UserListRes;
+import ru.dikidi.dikiditest.data.network.resources.UserModelRes;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     Context mContext;
-    UserModelRes mUser;
+    List<UserListRes.New> mNews;
+    int mi;
 
-    public UsersAdapter (UserModelRes user) {
-        mUser = user;
+    public UsersAdapter (List<UserListRes.New> news) {
+        mNews = news;
+
     }
 
     @NonNull
@@ -25,17 +30,23 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     public UsersAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
         View convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list,viewGroup, false);
+        mi = 1;
         return new UserViewHolder(convertView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UsersAdapter.UserViewHolder userViewHolder, int i) {
-        userViewHolder.mFullName.setText(mUser.getData().getTitle());
+
+        UserListRes.New mNew = mNews.get(i);
+        //userViewHolder.mFullName.setText(mNews.getData().getTitle());
+        userViewHolder.mFullName.setText(mNew.getName());
+
+        mi = 1;
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mNews.size();
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
