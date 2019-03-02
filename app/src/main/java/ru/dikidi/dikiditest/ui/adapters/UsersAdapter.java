@@ -22,7 +22,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     public UsersAdapter (List<UserListRes.New> news) {
         mNews = news;
-
+        int mi=0;
     }
 
     @NonNull

@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity
 
         mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        UsersAdapter mUserAdapter = new UsersAdapter(post);
-        mRecyclerView.setAdapter(mUserAdapter);
+//        UsersAdapter mUserAdapter = new UsersAdapter(post);
+//        mRecyclerView.setAdapter(mUserAdapter);
+
 
 
         RetrofitService.getInstance()
@@ -75,6 +76,9 @@ public class MainActivity extends AppCompatActivity
                             // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
                             post = response.body().getData().getBlocks().getNew();
                             String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+
+                            UsersAdapter mUserAdapter = new UsersAdapter(post);
+                            mRecyclerView.setAdapter(mUserAdapter);
                              //String mTest = response.body().getData().getBlocks().getNew();
 //                           UsersAdapter mUserAdapter = new UsersAdapter(post);
 //                            mRecyclerView.setAdapter(mUserAdapter);
