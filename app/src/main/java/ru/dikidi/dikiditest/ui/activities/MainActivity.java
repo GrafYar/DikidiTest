@@ -1,8 +1,11 @@
 package ru.dikidi.dikiditest.ui.activities;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -26,12 +29,14 @@ import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.data.network.resources.UserListRes;
 import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
+import ru.dikidi.dikiditest.ui.fragments.BlankFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView mRecyclerView;
     List<UserListRes.New> post;
+    FragmentTransaction fTrans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,63 +63,71 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        UsersAdapter mUserAdapter = new UsersAdapter(post);
-//        mRecyclerView.setAdapter(mUserAdapter);
+        Fragment frag1 = new BlankFragment();
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.lnrlay, frag1);
+        fragmentTransaction.commit();
 
-
-        RetrofitService.getInstance()
-                .getJSONApi()
-                .getJson(468902)
-                .enqueue(new Callback<UserListRes>() {
-                    @Override
-                    public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
-
-                        try {
-                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
-                            post = response.body().getData().getBlocks().getNew();
-                            String mText = response.body().getData().getBlocks().getNew().get(0).getId();
-
-                            UsersAdapter mUserAdapter = new UsersAdapter(post);
-                            mRecyclerView.setAdapter(mUserAdapter);
-                             //String mTest = response.body().getData().getBlocks().getNew();
-//                           UsersAdapter mUserAdapter = new UsersAdapter(post);
+//        mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//
+//
+//
+//
+//
+//        RetrofitService.getInstance()
+//                .getJSONApi()
+//                .getJson(468902)
+//                .enqueue(new Callback<UserListRes>() {
+//                    @Override
+//                    public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
+//
+//                        try {
+//                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
+//                            post = response.body().getData().getBlocks().getNew();
+//                            String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+//
+//                            UsersAdapter mUserAdapter = new UsersAdapter(post);
 //                            mRecyclerView.setAdapter(mUserAdapter);
-
-
-//                            TextView mText = findViewById(R.id.hello_world);
-//                            mText.setText(post);
+//                             //String mTest = response.body().getData().getBlocks().getNew();
+////                           UsersAdapter mUserAdapter = new UsersAdapter(post);
+////                            mRecyclerView.setAdapter(mUserAdapter);
+//
+//
+////                            TextView mText = findViewById(R.id.hello_world);
+////                            mText.setText(post);
+////                            Toast toast = Toast.makeText(getApplicationContext(),
+////                                    "Тест " + post.getData().getTitle(),
+////                                    Toast.LENGTH_LONG);
+////                            toast.setGravity(Gravity.CENTER, 0, 0);
+////                            toast.show();
+//                        } catch (NullPointerException e) {
 //                            Toast toast = Toast.makeText(getApplicationContext(),
-//                                    "Тест " + post.getData().getTitle(),
+//                                    "Хрен там",
 //                                    Toast.LENGTH_LONG);
 //                            toast.setGravity(Gravity.CENTER, 0, 0);
 //                            toast.show();
-                        } catch (NullPointerException e) {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Хрен там",
-                                    Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
-
-
-                        //textView.append(post.getId() + "\n");
-                        //textView.append(post.getUserId() + "\n");
-                        //textView.append(post.getTitle() + "\n");
-                        //textView.append(post.getBody() + "\n");
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserListRes> call, Throwable t) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Провал ",
-                                Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                    }
-                });
+//                        }
+//
+//
+//                        //textView.append(post.getId() + "\n");
+//                        //textView.append(post.getUserId() + "\n");
+//                        //textView.append(post.getTitle() + "\n");
+//                        //textView.append(post.getBody() + "\n");
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<UserListRes> call, Throwable t) {
+//                        Toast toast = Toast.makeText(getApplicationContext(),
+//                                "Провал ",
+//                                Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
+//                    }
+//                });
 
 
 
