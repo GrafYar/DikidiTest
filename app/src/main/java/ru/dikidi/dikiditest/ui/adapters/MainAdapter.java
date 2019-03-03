@@ -12,37 +12,31 @@ import java.util.List;
 
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.data.network.resources.UserListRes;
-import ru.dikidi.dikiditest.data.network.resources.UserModelRes;
 
-public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
+public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
 
     Context mContext;
     List<MainListRes.Category> mNews;
     int mi;
 
-    public UsersAdapter (List<MainListRes.Category> news) {
+    public MainAdapter (List<MainListRes.Category> news) {
         mNews = news;
-        int mi=0;
     }
 
     @NonNull
     @Override
-    public UsersAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MainAdapter.MainViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         mContext = viewGroup.getContext();
         View convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list, viewGroup, false);
         mi = 1;
-        return new UserViewHolder(convertView);
+        return new MainAdapter.MainViewHolder(convertView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UsersAdapter.UserViewHolder userViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MainAdapter.MainViewHolder userViewHolder, int i) {
 
         MainListRes.Category mNew = mNews.get(i);
-       // userViewHolder.mFullName.setText(mNews.getName());
         userViewHolder.mFullName.setText(mNew.getName());
-
-        mi = 1;
     }
 
     @Override
@@ -50,11 +44,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         return mNews.size();
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class MainViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView mFullName;
 
-        public UserViewHolder(@NonNull View itemView) {
+        public MainViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);

@@ -26,16 +26,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
-import ru.dikidi.dikiditest.data.network.resources.UserListRes;
 import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
-import ru.dikidi.dikiditest.ui.fragments.BlankFragment;
+import ru.dikidi.dikiditest.ui.fragments.CategoriesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView mRecyclerView;
-    List<UserListRes.New> post;
+    List<MainListRes.Category> post;
     FragmentTransaction fTrans;
 
     @Override
@@ -63,21 +63,67 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Fragment frag1 = new BlankFragment();
+        openMainFragment();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.lnrlay, frag1);
-        fragmentTransaction.commit();
 
-//        mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        Fragment frag1 = new CategoriesFragment();
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.lnrlay, frag1);
+//        fragmentTransaction.commit();
 //
 //
 //
 //
+//        RetrofitService.getInstance()
+//                .getJSONApi()
+//                .getMainJson(468902)
+//                .enqueue(new Callback<MainListRes>() {
+//                    @Override
+//                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
+//
+//                        try {
+//                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
+//                            post = response.body().getData().getBlocks().getCategories();
+//                            //String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+//
+//                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+//                            LinearLayoutManager layoutManager
+//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+//                            mRecyclerView.setLayoutManager(layoutManager);
+//
+//                            UsersAdapter mUserAdapter = new UsersAdapter(post);
+//                            mRecyclerView.setAdapter(mUserAdapter);
 //
 //
+//
+//                        } catch (NullPointerException e) {
+//                            Toast toast = Toast.makeText(getApplicationContext(),
+//                                    "Хрен там",
+//                                    Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MainListRes> call, Throwable t) {
+//                        Toast toast = Toast.makeText(getApplicationContext(),
+//                                "Провал ",
+//                                Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
+//                    }
+//                });
+
+
+
+
+
+
+
+
 //        RetrofitService.getInstance()
 //                .getJSONApi()
 //                .getJson(468902)
@@ -89,6 +135,11 @@ public class MainActivity extends AppCompatActivity
 //                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
 //                            post = response.body().getData().getBlocks().getNew();
 //                            String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+//
+//                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+//                            LinearLayoutManager layoutManager
+//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+//                            mRecyclerView.setLayoutManager(layoutManager);
 //
 //                            UsersAdapter mUserAdapter = new UsersAdapter(post);
 //                            mRecyclerView.setAdapter(mUserAdapter);
@@ -143,6 +194,63 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void openMainFragment (){
+
+        Fragment frag1 = new CategoriesFragment();
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.lnrlay, frag1);
+        fragmentTransaction.commit();
+
+
+
+
+        RetrofitService.getInstance()
+                .getJSONApi()
+                .getMainJson(468902)
+                .enqueue(new Callback<MainListRes>() {
+                    @Override
+                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
+
+                        try {
+                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
+                            post = response.body().getData().getBlocks().getCategories();
+                            //String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+
+                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+                            LinearLayoutManager layoutManager
+                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+                            mRecyclerView.setLayoutManager(layoutManager);
+
+                            UsersAdapter mUserAdapter = new UsersAdapter(post);
+                            mRecyclerView.setAdapter(mUserAdapter);
+
+
+
+                        } catch (NullPointerException e) {
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Хрен там",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MainListRes> call, Throwable t) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Провал ",
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                });
+
+    }
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -182,13 +290,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_main) {
 
-        } else if (id == R.id.nav_slideshow) {
+            openMainFragment();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_shares) {
+
+        } else if (id == R.id.nav_appointments) {
 
         } else if (id == R.id.nav_share) {
 
