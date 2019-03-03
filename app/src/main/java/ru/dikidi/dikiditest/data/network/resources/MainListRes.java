@@ -74,7 +74,7 @@ public class MainListRes {
         private List<Category> categories = null;
         @SerializedName("shares")
         @Expose
-        private SharesListRes shares;
+        private SharesListRes shares = null;
         @SerializedName("catalog")
         @Expose
         private List<CatalogListRes> catalog = null;

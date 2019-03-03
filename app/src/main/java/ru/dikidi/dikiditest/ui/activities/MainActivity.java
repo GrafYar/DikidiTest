@@ -19,15 +19,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
+import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
+import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
+import ru.dikidi.dikiditest.ui.adapters.MainCatalogAdapter;
 import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
@@ -38,11 +40,16 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Integer mCityId = 468902;
     RecyclerView mRecyclerView;
+    RecyclerView mRecyclerView2;
+    RecyclerView mRecyclerView3;
     Fragment mFrag;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
-    List<MainListRes.Category> post;
+    List<SharesListRes.ListShares> post;
+    List<MainListRes.Category> post2;
+    List<CatalogListRes> post3;
     FragmentTransaction fTrans;
 
     @Override
@@ -71,7 +78,6 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         openMainFragment();
 
@@ -190,18 +196,6 @@ public class MainActivity extends AppCompatActivity
 //                    }
 //                });
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public void openMainFragment (){
@@ -212,28 +206,43 @@ public class MainActivity extends AppCompatActivity
        mFragmentTransaction.commit();
 
 
-
-
-
         RetrofitService.getInstance()
                 .getJSONApi()
-                .getMainJson(468902)
+                .getMainJson(mCityId)
                 .enqueue(new Callback<MainListRes>() {
                     @Override
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
 
                         try {
-                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
-                            post = response.body().getData().getBlocks().getCategories();
-                            //String mText = response.body().getData().getBlocks().getNew().get(0).getId();
+                            post2 = response.body().getData().getBlocks().getCategories();
 
-                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
+                            post = response.body().getData().getBlocks().getShares().getList();
+
+                            post3 = response.body().getData().getBlocks().getCatalog();
+
+                            mRecyclerView = findViewById(R.id.user_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            UsersAdapter mUserAdapter = new UsersAdapter(post);
+//                            mRecyclerView2 = findViewById(R.id.user_categories);
+//                            LinearLayoutManager layoutManager2
+//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+//                            mRecyclerView2.setLayoutManager(layoutManager2);
+
+                            mRecyclerView3 = findViewById(R.id.user_catalog);
+                            LinearLayoutManager layoutManager3
+                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+                            mRecyclerView3.setLayoutManager(layoutManager3);
+
+                            MainAdapter mUserAdapter = new MainAdapter(post2);
                             mRecyclerView.setAdapter(mUserAdapter);
+
+//                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post2);
+//                            mRecyclerView.setAdapter(mMainCatalogAdapter);
+
+                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post3);
+                            mRecyclerView3.setAdapter(mMainCatalogAdapter);
 
 
 
@@ -249,7 +258,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onFailure(Call<MainListRes> call, Throwable t) {
                         Toast toast = Toast.makeText(getApplicationContext(),
-                                "Провал ",
+                                "Провал",
                                 Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
@@ -335,25 +344,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_main) {
-
             openMainFragment();
-
         } else if (id == R.id.nav_shares) {
-
             openSharesFragment();
-
         } else if (id == R.id.nav_appointments) {
-
             openAppointmentFragment();
-
         } else if (id == R.id.nav_share) {
-
             openShareAppFragment();
-
         } else if (id == R.id.nav_support) {
-
             openSupportFragment();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
