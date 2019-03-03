@@ -29,12 +29,19 @@ import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
-import ru.dikidi.dikiditest.ui.fragments.CategoriesFragment;
+import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
+import ru.dikidi.dikiditest.ui.fragments.MainFragment;
+import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
+import ru.dikidi.dikiditest.ui.fragments.SharesFragment;
+import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView mRecyclerView;
+    Fragment mFrag;
+    FragmentManager mFragmentManager;
+    FragmentTransaction mFragmentTransaction;
     List<MainListRes.Category> post;
     FragmentTransaction fTrans;
 
@@ -62,6 +69,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         openMainFragment();
 
@@ -196,12 +206,11 @@ public class MainActivity extends AppCompatActivity
 
     public void openMainFragment (){
 
-        Fragment frag1 = new CategoriesFragment();
+       mFrag = new MainFragment();
+       mFragmentTransaction = mFragmentManager.beginTransaction();
+       mFragmentTransaction.replace(R.id.lnrlay, mFrag);
+       mFragmentTransaction.commit();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.lnrlay, frag1);
-        fragmentTransaction.commit();
 
 
 
@@ -249,6 +258,41 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    public void openSharesFragment () {
+
+        mFrag = new SharesFragment();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
+        mFragmentTransaction.commit();
+
+    }
+
+    public void openAppointmentFragment () {
+
+        mFrag = new AppointmentFragment();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
+        mFragmentTransaction.commit();
+
+    }
+
+    public void openShareAppFragment () {
+
+        mFrag = new ShareAppFragment();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
+        mFragmentTransaction.commit();
+
+    }
+
+    public void openSupportFragment () {
+
+        mFrag = new SupportFragment();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
+        mFragmentTransaction.commit();
+
+    }
 
 
 
@@ -296,11 +340,19 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_shares) {
 
+            openSharesFragment();
+
         } else if (id == R.id.nav_appointments) {
+
+            openAppointmentFragment();
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+            openShareAppFragment();
+
+        } else if (id == R.id.nav_support) {
+
+            openSupportFragment();
 
         }
 
