@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CatalogListRes {
+public class CatalogListRes implements ItemList{
 
     @SerializedName("id")
     @Expose
@@ -40,6 +40,11 @@ public class CatalogListRes {
     @SerializedName("isMaster")
     @Expose
     private boolean isMaster;
+
+    @Override
+    public int getItemType() {
+        return CATALOG_TYPE;
+    }
 
     public String getId() {
         return id;

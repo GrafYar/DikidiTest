@@ -19,18 +19,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.resources.AbstractListRes;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
+import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainCatalogAdapter;
-import ru.dikidi.dikiditest.ui.adapters.UsersAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity
     List<SharesListRes.ListShares> post;
     List<MainListRes.Category> post2;
     List<CatalogListRes> post3;
+    ArrayList<ItemList> mList = new ArrayList();
+    ArrayList<AbstractListRes> mList2 = new ArrayList();
+
     FragmentTransaction fTrans;
 
     @Override
@@ -81,121 +87,6 @@ public class MainActivity extends AppCompatActivity
 
         openMainFragment();
 
-
-//        Fragment frag1 = new CategoriesFragment();
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.lnrlay, frag1);
-//        fragmentTransaction.commit();
-//
-//
-//
-//
-//        RetrofitService.getInstance()
-//                .getJSONApi()
-//                .getMainJson(468902)
-//                .enqueue(new Callback<MainListRes>() {
-//                    @Override
-//                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
-//
-//                        try {
-//                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
-//                            post = response.body().getData().getBlocks().getCategories();
-//                            //String mText = response.body().getData().getBlocks().getNew().get(0).getId();
-//
-//                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
-//                            LinearLayoutManager layoutManager
-//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
-//                            mRecyclerView.setLayoutManager(layoutManager);
-//
-//                            UsersAdapter mUserAdapter = new UsersAdapter(post);
-//                            mRecyclerView.setAdapter(mUserAdapter);
-//
-//
-//
-//                        } catch (NullPointerException e) {
-//                            Toast toast = Toast.makeText(getApplicationContext(),
-//                                    "Хрен там",
-//                                    Toast.LENGTH_LONG);
-//                            toast.setGravity(Gravity.CENTER, 0, 0);
-//                            toast.show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<MainListRes> call, Throwable t) {
-//                        Toast toast = Toast.makeText(getApplicationContext(),
-//                                "Провал ",
-//                                Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.CENTER, 0, 0);
-//                        toast.show();
-//                    }
-//                });
-
-
-
-
-
-
-
-
-//        RetrofitService.getInstance()
-//                .getJSONApi()
-//                .getJson(468902)
-//                .enqueue(new Callback<UserListRes>() {
-//                    @Override
-//                    public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
-//
-//                        try {
-//                            // post = (List<UserListRes.New>) response.body().getData().getBlocks().getNew();
-//                            post = response.body().getData().getBlocks().getNew();
-//                            String mText = response.body().getData().getBlocks().getNew().get(0).getId();
-//
-//                            mRecyclerView = (RecyclerView) findViewById(R.id.user_list);
-//                            LinearLayoutManager layoutManager
-//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
-//                            mRecyclerView.setLayoutManager(layoutManager);
-//
-//                            UsersAdapter mUserAdapter = new UsersAdapter(post);
-//                            mRecyclerView.setAdapter(mUserAdapter);
-//                             //String mTest = response.body().getData().getBlocks().getNew();
-////                           UsersAdapter mUserAdapter = new UsersAdapter(post);
-////                            mRecyclerView.setAdapter(mUserAdapter);
-//
-//
-////                            TextView mText = findViewById(R.id.hello_world);
-////                            mText.setText(post);
-////                            Toast toast = Toast.makeText(getApplicationContext(),
-////                                    "Тест " + post.getData().getTitle(),
-////                                    Toast.LENGTH_LONG);
-////                            toast.setGravity(Gravity.CENTER, 0, 0);
-////                            toast.show();
-//                        } catch (NullPointerException e) {
-//                            Toast toast = Toast.makeText(getApplicationContext(),
-//                                    "Хрен там",
-//                                    Toast.LENGTH_LONG);
-//                            toast.setGravity(Gravity.CENTER, 0, 0);
-//                            toast.show();
-//                        }
-//
-//
-//                        //textView.append(post.getId() + "\n");
-//                        //textView.append(post.getUserId() + "\n");
-//                        //textView.append(post.getTitle() + "\n");
-//                        //textView.append(post.getBody() + "\n");
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<UserListRes> call, Throwable t) {
-//                        Toast toast = Toast.makeText(getApplicationContext(),
-//                                "Провал ",
-//                                Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.CENTER, 0, 0);
-//                        toast.show();
-//                    }
-//                });
-
     }
 
     public void openMainFragment (){
@@ -213,12 +104,23 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
 
-                        try {
+//                        try {
                             post2 = response.body().getData().getBlocks().getCategories();
 
                             post = response.body().getData().getBlocks().getShares().getList();
+                            //post = response.body().Blocks();
+
+
+                            //post2.getType();
 
                             post3 = response.body().getData().getBlocks().getCatalog();
+
+
+                            mList.addAll(post);
+                            mList.addAll(post2);
+                            mList.addAll(post3);
+
+//                            mList2.addAll( post2);
 
                             mRecyclerView = findViewById(R.id.user_list);
                             LinearLayoutManager layoutManager
@@ -230,29 +132,65 @@ public class MainActivity extends AppCompatActivity
 //                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
 //                            mRecyclerView2.setLayoutManager(layoutManager2);
 
-                            mRecyclerView3 = findViewById(R.id.user_catalog);
-                            LinearLayoutManager layoutManager3
-                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
-                            mRecyclerView3.setLayoutManager(layoutManager3);
+//                            mRecyclerView3 = findViewById(R.id.user_catalog);
+//                            LinearLayoutManager layoutManager3
+//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
+//                            mRecyclerView3.setLayoutManager(layoutManager3);
 
-                            MainAdapter mUserAdapter = new MainAdapter(post2);
+                            MainAdapter mUserAdapter = new MainAdapter(mList);
                             mRecyclerView.setAdapter(mUserAdapter);
-
-//                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post2);
+//
+////                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post2);
+////                            mRecyclerView.setAdapter(mMainCatalogAdapter);
+//
+//                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post3);
 //                            mRecyclerView.setAdapter(mMainCatalogAdapter);
 
-                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post3);
-                            mRecyclerView3.setAdapter(mMainCatalogAdapter);
 
 
 
-                        } catch (NullPointerException e) {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Хрен там",
-                                    Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
+                            //--------------------------------------------------------------
+
+//
+//                            MainListRes.Blocks mResponse = response.body().getData().getBlocks();
+
+
+
+//                            GridLayoutManager manager = new GridLayoutManager(getBaseContext(), 2);
+//                            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                                @Override
+//                                public int getSpanSize(int position) {
+////                                    AbstractListRes item = mResponse.get(position);
+////                                    switch (item.getType()) {
+////                                        case AbstractItem.GRID_TYPE:
+////                                            // grid items to take 1 column
+////                                            return 1;
+////                                        default:
+////                                            // list items to take 2 columns
+////                                            return 2;
+////                                    }
+//                                }
+//                            });
+//
+//                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.user_list);
+//                            recyclerView.setLayoutManager(manager);
+//
+//                            TestAdapter adapter = new TestAdapter(mResponse);
+//                            recyclerView.setAdapter(adapter);
+
+
+
+
+
+
+//----------------------------------------------------------------------------------
+//                        } catch (NullPointerException e) {
+//                            Toast toast = Toast.makeText(getApplicationContext(),
+//                                    "Хрен там",
+//                                    Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
+//                        }
                     }
 
                     @Override

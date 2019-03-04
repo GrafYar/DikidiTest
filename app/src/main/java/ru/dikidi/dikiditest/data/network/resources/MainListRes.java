@@ -4,11 +4,24 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
-public class MainListRes {
+public class MainListRes extends AbstractListRes{
 
     @SerializedName("data")
     @Expose
     private Data data;
+
+//    int type;
+//
+//    @Override
+//    public int getItemType() {
+//        return type;
+//    }
+
+    @Override
+    public int getType() {
+        return CATALOG_TYPE;
+    }
+
 
     public Data getData() {
         return data;
@@ -18,7 +31,7 @@ public class MainListRes {
         this.data = data;
     }
 
-    public class Data {
+    public class Data{
 
         @SerializedName("title")
         @Expose
@@ -67,7 +80,7 @@ public class MainListRes {
 
     }
 
-    public class Blocks {
+    public class Blocks{
 
         @SerializedName("categories")
         @Expose
@@ -105,7 +118,7 @@ public class MainListRes {
 
     }
 
-    public class Category {
+    public class Category implements ItemList {
 
         @SerializedName("id")
         @Expose
@@ -116,6 +129,11 @@ public class MainListRes {
         @SerializedName("image")
         @Expose
         private String image;
+
+        @Override
+        public int getItemType() {
+            return CATEGORY_TYPE;
+        }
 
         public String getId() {
             return id;

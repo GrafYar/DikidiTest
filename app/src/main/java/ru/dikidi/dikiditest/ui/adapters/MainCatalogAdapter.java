@@ -13,8 +13,10 @@ import java.util.List;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
+import ru.dikidi.dikiditest.ui.viewholders.ViewHolder1;
+import ru.dikidi.dikiditest.ui.viewholders.ViewHolder2;
 
-public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.MainCatalogViewHolder>{
+public class MainCatalogAdapter extends RecyclerView.Adapter<ViewHolder2>{
 
     Context mContext;
     List<CatalogListRes> mNews;
@@ -25,17 +27,33 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
     @NonNull
     @Override
-    public MainCatalogAdapter.MainCatalogViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        mContext = viewGroup.getContext();
-        View convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list, viewGroup, false);
-        return new MainCatalogAdapter.MainCatalogViewHolder(convertView);
+    public ViewHolder2 onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+//        mContext = viewGroup.getContext();
+//        View convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list, viewGroup, false);
+//        return new ViewHolder2(convertView);
+
+        ViewHolder2 viewHolder;
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+
+        View v1 = inflater.inflate(R.layout.item_user_list, viewGroup, false);
+        viewHolder = new ViewHolder2(v1);
+
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainCatalogAdapter.MainCatalogViewHolder userViewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder2 userViewHolder, int i) {
 
+//        CatalogListRes mNew = mNews.get(i);
+//        userViewHolder.mFullName.setText(mNew.getName());
+
+        ViewHolder2 vh1 = (ViewHolder2) userViewHolder;
+        configureViewHolder1(vh1, i);
+    }
+
+    private void configureViewHolder1(ViewHolder2 userViewHolder, int i) {
         CatalogListRes mNew = mNews.get(i);
-        userViewHolder.mFullName.setText(mNew.getName());
+        userViewHolder.getText().setText(mNew.getName());
     }
 
     @Override
@@ -43,15 +61,15 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         return mNews.size();
     }
 
-    public static class MainCatalogViewHolder extends RecyclerView.ViewHolder {
-
-        protected TextView mFullName;
-
-        public MainCatalogViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
-        }
-    }
+//    public static class MainCatalogViewHolder extends RecyclerView.ViewHolder {
+//
+//        protected TextView mFullName;
+//
+//        public MainCatalogViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//
+//            mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
+//        }
+//    }
 
 }

@@ -29,7 +29,7 @@ public class SharesListRes {
             this.count = count;
         }
 
-    public class ListShares {
+    public class ListShares implements ItemList{
 
         @SerializedName("id")
         @Expose
@@ -70,6 +70,13 @@ public class SharesListRes {
         @SerializedName("company_image")
         @Expose
         private String companyImage;
+
+
+        @Override
+        public int getItemType() {
+            return SHARES_TYPE;
+        }
+
 
         public String getId() {
             return id;
