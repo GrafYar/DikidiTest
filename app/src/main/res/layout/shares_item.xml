@@ -7,10 +7,12 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="2dp"
     android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
-    android:layout_marginLeft="8dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginLeft="4dp"
     app:cardBackgroundColor="@color/white"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,34 +21,33 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/user_full_name_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:paddingLeft="@dimen/spacing_normal_16"
-                android:paddingRight="@dimen/spacing_normal_16"
-                android:paddingBottom="@dimen/spacing_medial_24"
-                android:text="Название"
-                android:textSize="@dimen/font_large_24" />
 
             <ru.dikidi.dikiditest.ui.views.AspectRatioImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user_photo"
-                app:aspect_ratio="1.5" />
+                app:aspect_ratio="1.51" />
+
+            <TextView
+                android:id="@+id/user_full_name_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/white"
+                android:paddingLeft="@dimen/spacing_small_8"
+                android:paddingRight="@dimen/spacing_small_8"
+                android:paddingTop="@dimen/spacing_small_8"
+                android:paddingBottom="@dimen/spacing_small_8"
+                android:textSize="@dimen/font_small_14"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Название"/>
         </FrameLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/light_grey"></View>
     </LinearLayout>
 
     </android.support.v7.widget.CardView>
