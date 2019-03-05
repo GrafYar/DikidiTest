@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 
@@ -64,6 +66,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         switch (holder.getItemViewType()) {
                 case ItemList.SHARES_TYPE:
                     sharesView ((ViewHolder1) holder);
+                    ((ViewHolder1) holder).mCountShares.setText(String.format(Locale.getDefault(), "%d", mShares.size()));
                     break;
                 case ItemList.CATEGORY_TYPE:
                     categoryView ((ViewHolder2) holder);
@@ -117,22 +120,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public class ViewHolder1 extends RecyclerView.ViewHolder {
 
-        private TextView mFullName;
+        private TextView mCountShares;
         private RecyclerView mRecyclerView;
 
         private ViewHolder1(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.shares_recycler_view);
-
-            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
-        }
-
-        public TextView getText() {
-            return mFullName;
-        }
-
-        public void setText(TextView mFullName) {
-            this.mFullName = mFullName;
+            mCountShares = itemView.findViewById(R.id.shares_count_shares);
         }
 
     }
@@ -145,16 +139,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private ViewHolder2(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.category_recycler_view);
-
-            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
-        }
-
-        public TextView getText() {
-            return mFullName;
-        }
-
-        public void setText(TextView mFullName) {
-            this.mFullName = mFullName;
         }
 
     }
@@ -167,16 +151,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         private ViewHolder3(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
-
-            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
-        }
-
-        public TextView getText() {
-            return mFullName;
-        }
-
-        public void setText(TextView mFullName) {
-            this.mFullName = mFullName;
         }
 
     }
