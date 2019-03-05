@@ -7,176 +7,95 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-
 import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
-import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
-import ru.dikidi.dikiditest.ui.viewholders.ViewHolder1;
-import ru.dikidi.dikiditest.ui.viewholders.ViewHolder2;
-
-import static ru.dikidi.dikiditest.data.network.resources.ItemList.CATALOG_TYPE;
-import static ru.dikidi.dikiditest.data.network.resources.ItemList.CATEGORY_TYPE;
-import static ru.dikidi.dikiditest.data.network.resources.ItemList.SHARES_TYPE;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    Context mContext;
-    ArrayList<ArrayList<ItemList>> mList = new ArrayList();
-    ArrayList<ItemList> mShares = new ArrayList();
-    ArrayList<ItemList> mCategory = new ArrayList();
-    ArrayList<ItemList> mCatalog = new ArrayList();
+    private Context mContext;
+    private ArrayList<ArrayList<ItemList>> mList;
+    private ArrayList<ItemList> mShares;
+    private ArrayList<ItemList> mCategory;
+    private ArrayList<ItemList> mCatalog;
 
-    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category) {
+    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category, ArrayList<ItemList> catalog) {
         mContext = context;
         mList = news;
         mShares = shares;
         mCategory = category;
+        mCatalog = catalog;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-//        mContext = viewGroup.getContext();
-//        View convertView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list2, viewGroup, false);
-//        mi = 1;
 
-//        ViewHolder1 viewHolder;
-//        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//
-//        View v1 = inflater.inflate(R.layout.item_user_list2, viewGroup, false);
-//        viewHolder = new ViewHolder1(v1);
-
-        RecyclerView.ViewHolder mHolder;
         View view;
         LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
-       // LayoutInflater mLayoutInflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        ViewHolder2 viewHolder2;
-//        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        RecyclerView.ViewHolder holder;
 
-//        switch (getItemViewType(i)) {
-//            case SHARES_TYPE:
-////                ViewHolder1 viewHolder1;
-////                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//
-//                v = inflater.inflate(R.layout.item_user_list2, viewGroup, false);
-//                viewHolder = new ViewHolder1(v);
-//                break;
-//            case CATALOG_TYPE:
-////                ViewHolder2 viewHolder2;
-////                LayoutInflater inflater2 = LayoutInflater.from(viewGroup.getContext());
-//
-//                v = inflater.inflate(R.layout.item_user_list2, viewGroup, false);
-//                viewHolder = new ViewHolder2(v);
-//                break;
-//            default:
-//                v = inflater.inflate(R.layout.item_user_list2, viewGroup, false);
-//                viewHolder = new ViewHolder2(v);
-//                break;
-//        }
-//------------------Рабочий вариант
-//        if(i == ItemList.SHARES_TYPE) {
-//            v = mLayoutInflater.inflate(R.layout.item_user_list, viewGroup, false);
-//            return new ViewHolder1(v);
-//        }
-//        else if (i == ItemList.CATALOG_TYPE) {
-//            v = mLayoutInflater.inflate(R.layout.item_user_list2, viewGroup, false);
-//            return new ViewHolder1(v);
-//        }
-//        else if (i == ItemList.CATEGORY_TYPE) {
-//            v = mLayoutInflater.inflate(R.layout.item_user_list, viewGroup, false);
-//            return new ViewHolder1(v);
-//        }
-        //--------------------------------------
-        if(i == ItemList.SHARES_TYPE) {
-            view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder1(view);
-            return mHolder;
-        }
-        else if (i == ItemList.CATEGORY_TYPE) {
-            view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder2(view);
-            return mHolder;
-        }
-        else if (i == ItemList.CATALOG_TYPE) {
-            view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder1(view);
-            return mHolder;
+        switch (i){
+            case ItemList.SHARES_TYPE:
+                view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
+                holder = new ViewHolder1(view);
+                break;
+            case ItemList.CATEGORY_TYPE:
+                view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
+                holder = new ViewHolder2(view);
+                break;
+            case ItemList.CATALOG_TYPE:
+                view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
+                holder = new ViewHolder3(view);
+                break;
+            default:
+                view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
+                holder = new ViewHolder3(view);
+                break;
         }
 
-
-        return null;
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
 
-//        int type = getItemViewType(i);
-//
-//        MainListRes.Category mNew = mNews.get(i);
-//        userViewHolder.mFullName.setText(mNew.getName());
-
-      //  ViewHolder1 vh1 = (ViewHolder1) userViewHolder;
-//------------------------Рабочий вариант
-//        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
-//            SharesListRes.ListShares item = (SharesListRes.ListShares) mList.get(i);
-//            ViewHolder1 holder = (ViewHolder1) userViewHolder;
-//            holder.mFullName.setText(item.getName());
-//        }
-//        else if (getItemViewType(i) == ItemList.CATALOG_TYPE) {
-//            CatalogListRes item = (CatalogListRes) mList.get(i);
-//            ViewHolder1 holder = (ViewHolder1) userViewHolder;
-//            holder.mFullName.setText(item.getName());
-//        }
-//        else if(getItemViewType(i) == ItemList.CATEGORY_TYPE) {
-//            MainListRes.Category item = (MainListRes.Category) mList.get(i);
-//            ViewHolder1 holder = (ViewHolder1) userViewHolder;
-//            holder.mFullName.setText(item.getName());
-//        }
-
-        //-------------------------------------------------------------
-
-//        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
-        int mi =1;
-//        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
-        if(holder.getItemViewType() == ItemList.SHARES_TYPE) {
-           // mShares.add(mList.get(i));
-            sharesView ((ViewHolder1) holder);
+        switch (holder.getItemViewType()) {
+                case ItemList.SHARES_TYPE:
+                    sharesView ((ViewHolder1) holder);
+                    break;
+                case ItemList.CATEGORY_TYPE:
+                    categoryView ((ViewHolder2) holder);
+                    break;
+                case ItemList.CATALOG_TYPE:
+                    catalogView ((ViewHolder3) holder);
+                    break;
         }
-        else if (holder.getItemViewType() == ItemList.CATEGORY_TYPE) {
-         //   mCategory.add(mList.get(i));
-            categoryView ((ViewHolder2) holder);
-        }
-//        else if(i == ItemList.CATALOG_TYPE) {
-//            mCategory.add(mList.get(i));
-//            sharesView ((ViewHolder1) holder);
-//        }
+
     }
-
-//    private void configureViewHolder1(ViewHolder1 userViewHolder, int i) {
-//        ItemList mNew = mList.get(i);
-//        userViewHolder.getText().setText(mList.get);
-//    }
 
     private void sharesView(ViewHolder1 holder){
 
-        MainSharesAdapter mSharesAdapter = new MainSharesAdapter(mShares);
-        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        holder.mRecyclerView.setAdapter(mSharesAdapter);
+        MainSharesAdapter sharesAdapter = new MainSharesAdapter(mShares);
+        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        holder.mRecyclerView.setAdapter(sharesAdapter);
 
     }
 
     private void categoryView(ViewHolder2 holder){
 
-        MainCategoryAdapter mCategoryAdapter = new MainCategoryAdapter(mCategory);
+        MainCategoryAdapter categoryAdapter = new MainCategoryAdapter(mCategory);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        holder.mRecyclerView.setAdapter(mCategoryAdapter);
+        holder.mRecyclerView.setAdapter(categoryAdapter);
+
+    }
+
+    private void catalogView(ViewHolder3 holder){
+
+        MainCatalogAdapter catalogAdapter = new MainCatalogAdapter(mCatalog);
+        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        holder.mRecyclerView.setAdapter(catalogAdapter);
 
     }
 
@@ -196,14 +115,70 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return mList.size();
     }
 
-//    public static class MainViewHolder extends RecyclerView.ViewHolder {
-//
-//        protected TextView mFullName;
-//
-//        public MainViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//
-//            mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
-//        }
-//    }
+    public class ViewHolder1 extends RecyclerView.ViewHolder {
+
+        private TextView mFullName;
+        private RecyclerView mRecyclerView;
+
+        private ViewHolder1(@NonNull View itemView) {
+            super(itemView);
+            mRecyclerView = itemView.findViewById(R.id.shares_recycler_view);
+
+            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
+        }
+
+        public TextView getText() {
+            return mFullName;
+        }
+
+        public void setText(TextView mFullName) {
+            this.mFullName = mFullName;
+        }
+
+    }
+
+    public class ViewHolder2 extends RecyclerView.ViewHolder {
+
+        private TextView mFullName;
+        private RecyclerView mRecyclerView;
+
+        private ViewHolder2(@NonNull View itemView) {
+            super(itemView);
+            mRecyclerView = itemView.findViewById(R.id.category_recycler_view);
+
+            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
+        }
+
+        public TextView getText() {
+            return mFullName;
+        }
+
+        public void setText(TextView mFullName) {
+            this.mFullName = mFullName;
+        }
+
+    }
+
+    public class ViewHolder3 extends RecyclerView.ViewHolder {
+
+        private TextView mFullName;
+        private RecyclerView mRecyclerView;
+
+        private ViewHolder3(@NonNull View itemView) {
+            super(itemView);
+            mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
+
+            //mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
+        }
+
+        public TextView getText() {
+            return mFullName;
+        }
+
+        public void setText(TextView mFullName) {
+            this.mFullName = mFullName;
+        }
+
+    }
+
 }

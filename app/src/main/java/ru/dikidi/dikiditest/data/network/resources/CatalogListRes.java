@@ -2,7 +2,6 @@ package ru.dikidi.dikiditest.data.network.resources;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class CatalogListRes implements ItemList{

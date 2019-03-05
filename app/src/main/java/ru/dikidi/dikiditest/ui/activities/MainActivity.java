@@ -19,22 +19,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.data.network.resources.AbstractListRes;
-import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
-import ru.dikidi.dikiditest.ui.adapters.MainCatalogAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
@@ -50,16 +43,10 @@ public class MainActivity extends AppCompatActivity
     Fragment mFrag;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
-    List<SharesListRes.ListShares> post;
-    List<MainListRes.Category> post2;
-    List<CatalogListRes> post3;
-    ArrayList<ArrayList<ItemList>> mList = new ArrayList();
-    ArrayList<ItemList> mShares = new ArrayList();
-    ArrayList<ItemList> mCategory = new ArrayList();
-    ArrayList<ItemList> mCatalog = new ArrayList();
-
-
-    FragmentTransaction fTrans;
+    ArrayList<ArrayList<ItemList>> mList = new ArrayList<>();
+    ArrayList<ItemList> mShares = new ArrayList<>();
+    ArrayList<ItemList> mCategory = new ArrayList<>();
+    ArrayList<ItemList> mCatalog = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,45 +173,26 @@ public class MainActivity extends AppCompatActivity
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
 
                         try {
-                            mCategory.addAll(response.body().getData().getBlocks().getCategories());
-
                             mShares.addAll(response.body().getData().getBlocks().getShares().getList());
-                            //post = response.body().Blocks();
-
-
-                            //post2.getType();
-
-                            post3 = response.body().getData().getBlocks().getCatalog();
-
-                          //  mShares.addAll(post);
-                          //  mCategory.addAll(post2);
-
-                            //  mShares
+                            mCategory.addAll(response.body().getData().getBlocks().getCategories());
+                            mCatalog.addAll(response.body().getData().getBlocks().getCatalog());
 
                             mList.add(mShares);
                             mList.add(mCategory);
-                            //                     mList.addAll(post2);
-                            // mList.addAll(post3);
+                            mList.add(mCatalog);
 
-//                            mList2.addAll( post2);
-
-
-                            //  mCatalog.addAll(post3);
-
-                            mRecyclerView = findViewById(R.id.user_list);
-//                            LinearLayoutManager layoutManager
-//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+                            mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
-                            mRecyclerView.setAdapter(mUserAdapter);
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog);
+                            mRecyclerView.setAdapter(mainAdapter);
 
 
                         } catch (NullPointerException e) {
                             Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Хрен там",
+                                    "Ошибка",
                                     Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
@@ -234,7 +202,7 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onFailure(Call<MainListRes> call, Throwable t) {
                         Toast toast = Toast.makeText(getApplicationContext(),
-                                "Провал",
+                                "Ошибка запроса",
                                 Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();

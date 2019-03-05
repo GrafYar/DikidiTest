@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.data.network.resources.UserListRes;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,8 +29,6 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    RecyclerView mRecyclerView;
-    List<UserListRes.New> post;
 
     private OnFragmentInteractionListener mListener;
 
@@ -72,17 +69,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.user_list);
-//
-//        LinearLayoutManager layoutManager
-//                = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-//        mRecyclerView.setLayoutManager(layoutManager);
-//
-//
-//
-//
-//
-//
+
 //        RetrofitService.getInstance()
 //                .getJSONApi()
 //                .getJson(468902)
