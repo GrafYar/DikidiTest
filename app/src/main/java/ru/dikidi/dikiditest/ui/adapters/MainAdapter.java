@@ -2,6 +2,7 @@ package ru.dikidi.dikiditest.ui.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -89,7 +90,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private void categoryView(ViewHolder2 holder){
 
         MainCategoryAdapter categoryAdapter = new MainCategoryAdapter(mCategory);
-        holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        holder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext,2,GridLayoutManager.HORIZONTAL,false));
+
         holder.mRecyclerView.setAdapter(categoryAdapter);
 
     }
