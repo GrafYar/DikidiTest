@@ -71,6 +71,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     break;
                 case ItemList.CATEGORY_TYPE:
                     categoryView ((ViewHolder2) holder);
+                    ((ViewHolder2) holder).mCountCategories.setText(String.format(Locale.getDefault(), "%d", mCategory.size()));
                     break;
                 case ItemList.CATALOG_TYPE:
                     catalogView ((ViewHolder3) holder);
@@ -135,12 +136,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public class ViewHolder2 extends RecyclerView.ViewHolder {
 
-        private TextView mFullName;
+        private TextView mCountCategories;;
         private RecyclerView mRecyclerView;
 
         private ViewHolder2(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.category_recycler_view);
+            mCountCategories = itemView.findViewById(R.id.category_count_categories);
         }
 
     }

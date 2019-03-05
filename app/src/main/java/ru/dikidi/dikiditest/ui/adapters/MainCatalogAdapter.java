@@ -62,7 +62,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         TextView mFullName;
         public MyViewHolder(View itemView){
             super(itemView);
-            mFullName = (TextView) itemView.findViewById(R.id.user_full_name_txt);
+            mFullName = (TextView) itemView.findViewById(R.id.category_name);
 
         }
     }

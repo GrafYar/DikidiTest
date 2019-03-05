@@ -7,35 +7,52 @@
     android:layout_height="wrap_content"
     app:cardCornerRadius="2dp"
     android:layout_marginTop="8dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginBottom="10dp"
     app:cardBackgroundColor="@color/white"
-    android:orientation="horizontal">
-
+    android:orientation="vertical"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/light_grey">
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:id="@+id/category_image"
+                android:scaleType="centerCrop"
+                android:src="@drawable/user_photo"/>
 
             <TextView
-                android:id="@+id/user_full_name_txt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:gravity="center_horizontal"
+                android:id="@+id/category_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/spacing_small_8"
+                android:paddingRight="@dimen/spacing_small_8"
+                android:paddingTop="@dimen/spacing_small_8"
+                android:paddingBottom="@dimen/spacing_small_8"
+                android:textSize="@dimen/font_small_14"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_gravity="center"
+                android:text="Название"/>
 
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="24dp"
-                android:text="Название"
-                android:textSize="24sp" />
+        </FrameLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/light_grey"></View>
+            android:background="@color/light_grey"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
