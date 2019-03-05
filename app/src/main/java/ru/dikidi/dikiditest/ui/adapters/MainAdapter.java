@@ -28,14 +28,16 @@ import static ru.dikidi.dikiditest.data.network.resources.ItemList.SHARES_TYPE;
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     Context mContext;
-    ArrayList<ItemList> mList = new ArrayList();
+    ArrayList<ArrayList<ItemList>> mList = new ArrayList();
     ArrayList<ItemList> mShares = new ArrayList();
     ArrayList<ItemList> mCategory = new ArrayList();
     ArrayList<ItemList> mCatalog = new ArrayList();
 
-    public MainAdapter ( Context context, ArrayList<ItemList> news) {
+    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category) {
         mContext = context;
         mList = news;
+        mShares = shares;
+        mCategory = category;
     }
 
     @NonNull
@@ -52,7 +54,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //        viewHolder = new ViewHolder1(v1);
 
         RecyclerView.ViewHolder mHolder;
-        View v;
+        View view;
         LayoutInflater mLayoutInflater = LayoutInflater.from(mContext);
        // LayoutInflater mLayoutInflater = (LayoutInflater) viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        ViewHolder2 viewHolder2;
@@ -93,18 +95,18 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //        }
         //--------------------------------------
         if(i == ItemList.SHARES_TYPE) {
-            v = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder1(v);
+            view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
+            mHolder = new ViewHolder1(view);
             return mHolder;
         }
         else if (i == ItemList.CATEGORY_TYPE) {
-            v = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder2(v);
+            view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
+            mHolder = new ViewHolder2(view);
             return mHolder;
         }
         else if (i == ItemList.CATALOG_TYPE) {
-            v = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-            mHolder = new ViewHolder1(v);
+            view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
+            mHolder = new ViewHolder1(view);
             return mHolder;
         }
 
@@ -142,12 +144,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 //        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
         int mi =1;
-        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
-            mShares.add(mList.get(i));
+//        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
+        if(holder.getItemViewType() == ItemList.SHARES_TYPE) {
+           // mShares.add(mList.get(i));
             sharesView ((ViewHolder1) holder);
         }
-        else if (getItemViewType(i) == ItemList.CATEGORY_TYPE) {
-            mCategory.add(mList.get(i));
+        else if (holder.getItemViewType() == ItemList.CATEGORY_TYPE) {
+         //   mCategory.add(mList.get(i));
             categoryView ((ViewHolder2) holder);
         }
 //        else if(i == ItemList.CATALOG_TYPE) {
@@ -184,7 +187,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         //int type = mList.get(position).getItemType();
 //        if (type == 0) return HEADER;
 //        else if (type == 1) return TYPE_ITEM1;
-        return mList.get(position).getItemType();
+        return mList.get(position).get(position).getItemType();
 
     }
 

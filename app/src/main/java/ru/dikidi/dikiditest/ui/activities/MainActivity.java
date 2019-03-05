@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,8 +54,10 @@ public class MainActivity extends AppCompatActivity
     List<SharesListRes.ListShares> post;
     List<MainListRes.Category> post2;
     List<CatalogListRes> post3;
-    ArrayList<ItemList> mList = new ArrayList();
-    ArrayList<AbstractListRes> mList2 = new ArrayList();
+    ArrayList<ArrayList<ItemList>> mList = new ArrayList();
+    ArrayList<ItemList> mShares = new ArrayList();
+    ArrayList<ItemList> mCategory = new ArrayList();
+    ArrayList<ItemList> mCatalog = new ArrayList();
 
     FragmentTransaction fTrans;
 
@@ -115,12 +118,20 @@ public class MainActivity extends AppCompatActivity
 
                             post3 = response.body().getData().getBlocks().getCatalog();
 
-                        mList.addAll(post2);
-                            mList.addAll(post);
+                        mShares.addAll(post);
+                        mCategory.addAll(post2);
+
+                      //  mShares
+
+                        mList.add(mShares);
+                            mList.add(mCategory);
        //                     mList.addAll(post2);
                            // mList.addAll(post3);
 
 //                            mList2.addAll( post2);
+
+
+                      //  mCatalog.addAll(post3);
 
                             mRecyclerView = findViewById(R.id.user_list);
 //                            LinearLayoutManager layoutManager
@@ -128,6 +139,9 @@ public class MainActivity extends AppCompatActivity
                         LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
+
+                        MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
+                            mRecyclerView.setAdapter(mUserAdapter);
 
 //                            mRecyclerView2 = findViewById(R.id.user_list2);
 //                            LinearLayoutManager layoutManager2
@@ -139,8 +153,8 @@ public class MainActivity extends AppCompatActivity
 //                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
 //                            mRecyclerView3.setLayoutManager(layoutManager3);
 
-                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList);
-                            mRecyclerView.setAdapter(mUserAdapter);
+//                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
+//                            mRecyclerView.setAdapter(mUserAdapter);
 
 //                            MainAdapter mUserAdapter2 = new MainAdapter(mList);
 //                            mRecyclerView2.setAdapter(mUserAdapter2);

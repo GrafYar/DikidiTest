@@ -26,11 +26,11 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     @Override
     public MainCategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        if(i == ItemList.CATEGORY_TYPE) {
+ //       if(i == ItemList.CATEGORY_TYPE) {
             View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list2,viewGroup,false);
             return new MainCategoryAdapter.MyViewHolder(view);
-        }
-        return null;
+//        }
+//        return null;
     }
 
     @Override
