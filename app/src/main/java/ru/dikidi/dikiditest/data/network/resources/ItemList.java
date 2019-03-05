@@ -6,6 +6,6 @@ public interface ItemList {
     int SHARES_TYPE = 1;
     int CATALOG_TYPE = 2;
 
-    abstract public int getItemType();
+    int getItemType();
 
 }

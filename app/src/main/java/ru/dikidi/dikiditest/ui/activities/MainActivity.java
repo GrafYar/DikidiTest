@@ -115,19 +115,21 @@ public class MainActivity extends AppCompatActivity
 
                             post3 = response.body().getData().getBlocks().getCatalog();
 
-
+                        mList.addAll(post2);
                             mList.addAll(post);
-                            mList.addAll(post2);
-                            mList.addAll(post3);
+       //                     mList.addAll(post2);
+                           // mList.addAll(post3);
 
 //                            mList2.addAll( post2);
 
                             mRecyclerView = findViewById(R.id.user_list);
-                            LinearLayoutManager layoutManager
-                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+//                            LinearLayoutManager layoutManager
+//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
+                        LinearLayoutManager layoutManager
+                                    = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-//                            mRecyclerView2 = findViewById(R.id.user_categories);
+//                            mRecyclerView2 = findViewById(R.id.user_list2);
 //                            LinearLayoutManager layoutManager2
 //                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
 //                            mRecyclerView2.setLayoutManager(layoutManager2);
@@ -137,8 +139,11 @@ public class MainActivity extends AppCompatActivity
 //                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
 //                            mRecyclerView3.setLayoutManager(layoutManager3);
 
-                            MainAdapter mUserAdapter = new MainAdapter(mList);
+                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList);
                             mRecyclerView.setAdapter(mUserAdapter);
+
+//                            MainAdapter mUserAdapter2 = new MainAdapter(mList);
+//                            mRecyclerView2.setAdapter(mUserAdapter2);
 //
 ////                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post2);
 ////                            mRecyclerView.setAdapter(mMainCatalogAdapter);

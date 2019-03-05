@@ -11,35 +11,35 @@ import java.util.ArrayList;
 
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
+import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 
-public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.MyViewHolder>{
-
+public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.MyViewHolder>{
     ArrayList<ItemList> mList = new ArrayList();
 
-    public MainSharesAdapter(ArrayList<ItemList> list){
+    public MainCategoryAdapter(ArrayList<ItemList> list){
         mList = list;
 
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public MainCategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-   //     if(i == ItemList.SHARES_TYPE) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list,viewGroup,false);
-            return new MyViewHolder(view);
-     //   }
-  //      return null;
+        if(i == ItemList.CATEGORY_TYPE) {
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list2,viewGroup,false);
+            return new MainCategoryAdapter.MyViewHolder(view);
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull MainCategoryAdapter.MyViewHolder holder, int i) {
 //        if(getItemViewType(i) == ItemList.SHARES_TYPE) {
-            SharesListRes.ListShares item = (SharesListRes.ListShares) mList.get(i);
-            MyViewHolder mHolder = (MyViewHolder) holder;
+            MainListRes.Category item = (MainListRes.Category) mList.get(i);
+            MainCategoryAdapter.MyViewHolder mHolder = (MyViewHolder) holder;
             mHolder.mFullName.setText(item.getName());
-//        }
+ //       }
     }
 
     @Override
@@ -65,5 +65,4 @@ public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.My
 
         }
     }
-
 }
