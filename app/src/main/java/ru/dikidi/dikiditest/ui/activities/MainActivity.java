@@ -40,14 +40,13 @@ import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
 import ru.dikidi.dikiditest.ui.fragments.SharesFragment;
 import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
+import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
-    RecyclerView mRecyclerView2;
-    RecyclerView mRecyclerView3;
     Fragment mFrag;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity
     ArrayList<ItemList> mShares = new ArrayList();
     ArrayList<ItemList> mCategory = new ArrayList();
     ArrayList<ItemList> mCatalog = new ArrayList();
+
 
     FragmentTransaction fTrans;
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
 
         openMainFragment();
 
@@ -94,12 +95,89 @@ public class MainActivity extends AppCompatActivity
 
     public void openMainFragment (){
 
-       mFrag = new MainFragment();
-       mFragmentTransaction = mFragmentManager.beginTransaction();
-       mFragmentTransaction.replace(R.id.lnrlay, mFrag);
-       mFragmentTransaction.commit();
+    if(NetworkStatusChecker.isNetworkAvailable(this)) {
 
+    mFrag = new MainFragment();
+    mFragmentManager = getSupportFragmentManager();
+    mFragmentTransaction = mFragmentManager.beginTransaction();
+    mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+    mFragmentTransaction.commit();
 
+    loadData();
+
+    } else {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Нет подключения",
+                Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
+    }
+
+    }
+
+    public void openSharesFragment () {
+
+        if (NetworkStatusChecker.isNetworkAvailable(this)) {
+            mFrag = new SharesFragment();
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+            mFragmentTransaction.commit();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+    public void openAppointmentFragment () {
+        if (NetworkStatusChecker.isNetworkAvailable(this)) {
+            mFrag = new AppointmentFragment();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+            mFragmentTransaction.commit();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+    public void openShareAppFragment () {
+        if (NetworkStatusChecker.isNetworkAvailable(this)) {
+            mFrag = new ShareAppFragment();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+            mFragmentTransaction.commit();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+    public void openSupportFragment () {
+        if (NetworkStatusChecker.isNetworkAvailable(this)) {
+            mFrag = new SupportFragment();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+            mFragmentTransaction.commit();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
+    public void loadData() {
         RetrofitService.getInstance()
                 .getJSONApi()
                 .getMainJson(mCityId)
@@ -107,10 +185,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
 
-//                        try {
-                            post2 = response.body().getData().getBlocks().getCategories();
+                        try {
+                            mCategory.addAll(response.body().getData().getBlocks().getCategories());
 
-                            post = response.body().getData().getBlocks().getShares().getList();
+                            mShares.addAll(response.body().getData().getBlocks().getShares().getList());
                             //post = response.body().Blocks();
 
 
@@ -118,98 +196,39 @@ public class MainActivity extends AppCompatActivity
 
                             post3 = response.body().getData().getBlocks().getCatalog();
 
-                        mShares.addAll(post);
-                        mCategory.addAll(post2);
+                          //  mShares.addAll(post);
+                          //  mCategory.addAll(post2);
 
-                      //  mShares
+                            //  mShares
 
-                        mList.add(mShares);
+                            mList.add(mShares);
                             mList.add(mCategory);
-       //                     mList.addAll(post2);
-                           // mList.addAll(post3);
+                            //                     mList.addAll(post2);
+                            // mList.addAll(post3);
 
 //                            mList2.addAll( post2);
 
 
-                      //  mCatalog.addAll(post3);
+                            //  mCatalog.addAll(post3);
 
                             mRecyclerView = findViewById(R.id.user_list);
 //                            LinearLayoutManager layoutManager
 //                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false);
-                        LinearLayoutManager layoutManager
+                            LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                        MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
+                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
                             mRecyclerView.setAdapter(mUserAdapter);
 
-//                            mRecyclerView2 = findViewById(R.id.user_list2);
-//                            LinearLayoutManager layoutManager2
-//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
-//                            mRecyclerView2.setLayoutManager(layoutManager2);
 
-//                            mRecyclerView3 = findViewById(R.id.user_catalog);
-//                            LinearLayoutManager layoutManager3
-//                                    = new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false);
-//                            mRecyclerView3.setLayoutManager(layoutManager3);
-
-//                            MainAdapter mUserAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory);
-//                            mRecyclerView.setAdapter(mUserAdapter);
-
-//                            MainAdapter mUserAdapter2 = new MainAdapter(mList);
-//                            mRecyclerView2.setAdapter(mUserAdapter2);
-//
-////                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post2);
-////                            mRecyclerView.setAdapter(mMainCatalogAdapter);
-//
-//                            MainCatalogAdapter mMainCatalogAdapter = new MainCatalogAdapter(post3);
-//                            mRecyclerView.setAdapter(mMainCatalogAdapter);
-
-
-
-
-                            //--------------------------------------------------------------
-
-//
-//                            MainListRes.Blocks mResponse = response.body().getData().getBlocks();
-
-
-
-//                            GridLayoutManager manager = new GridLayoutManager(getBaseContext(), 2);
-//                            manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-//                                @Override
-//                                public int getSpanSize(int position) {
-////                                    AbstractListRes item = mResponse.get(position);
-////                                    switch (item.getType()) {
-////                                        case AbstractItem.GRID_TYPE:
-////                                            // grid items to take 1 column
-////                                            return 1;
-////                                        default:
-////                                            // list items to take 2 columns
-////                                            return 2;
-////                                    }
-//                                }
-//                            });
-//
-//                            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.user_list);
-//                            recyclerView.setLayoutManager(manager);
-//
-//                            TestAdapter adapter = new TestAdapter(mResponse);
-//                            recyclerView.setAdapter(adapter);
-
-
-
-
-
-
-//----------------------------------------------------------------------------------
-//                        } catch (NullPointerException e) {
-//                            Toast toast = Toast.makeText(getApplicationContext(),
-//                                    "Хрен там",
-//                                    Toast.LENGTH_LONG);
-//                            toast.setGravity(Gravity.CENTER, 0, 0);
-//                            toast.show();
-//                        }
+                        } catch (NullPointerException e) {
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    "Хрен там",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
                     }
 
                     @Override
@@ -221,46 +240,7 @@ public class MainActivity extends AppCompatActivity
                         toast.show();
                     }
                 });
-
     }
-
-    public void openSharesFragment () {
-
-        mFrag = new SharesFragment();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
-        mFragmentTransaction.commit();
-
-    }
-
-    public void openAppointmentFragment () {
-
-        mFrag = new AppointmentFragment();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
-        mFragmentTransaction.commit();
-
-    }
-
-    public void openShareAppFragment () {
-
-        mFrag = new ShareAppFragment();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
-        mFragmentTransaction.commit();
-
-    }
-
-    public void openSupportFragment () {
-
-        mFrag = new SupportFragment();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.lnrlay, mFrag);
-        mFragmentTransaction.commit();
-
-    }
-
-
 
     @Override
     public void onBackPressed() {
