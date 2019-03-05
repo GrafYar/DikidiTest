@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 
 public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.MyViewHolder>{
     ArrayList<ItemList> mList = new ArrayList();
@@ -27,7 +26,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     public MainCategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
  //       if(i == ItemList.CATEGORY_TYPE) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list2,viewGroup,false);
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item,viewGroup,false);
             return new MainCategoryAdapter.MyViewHolder(view);
 //        }
 //        return null;

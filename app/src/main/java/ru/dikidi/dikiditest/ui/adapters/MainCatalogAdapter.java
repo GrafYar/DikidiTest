@@ -1,6 +1,5 @@
 package ru.dikidi.dikiditest.ui.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,12 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
-import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 
 
 public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.MyViewHolder>{
@@ -31,7 +28,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     public MainCatalogAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         //       if(i == ItemList.CATEGORY_TYPE) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list2,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item,viewGroup,false);
         return new MainCatalogAdapter.MyViewHolder(view);
 //        }
 //        return null;

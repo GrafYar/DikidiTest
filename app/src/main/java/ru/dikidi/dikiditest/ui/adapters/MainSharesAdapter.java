@@ -27,7 +27,7 @@ public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.My
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
    //     if(i == ItemList.SHARES_TYPE) {
-            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_user_list,viewGroup,false);
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shares_item,viewGroup,false);
             return new MyViewHolder(view);
      //   }
   //      return null;
