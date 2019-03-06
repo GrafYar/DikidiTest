@@ -18,6 +18,7 @@ import java.util.Locale;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
+import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
 
 public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.MyViewHolder>{
@@ -95,7 +96,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView mImageThumb, mImageAdv;
+        AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse;
         Button mBut;
         public MyViewHolder(View itemView){
