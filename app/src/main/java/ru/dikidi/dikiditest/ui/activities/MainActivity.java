@@ -1,5 +1,6 @@
 package ru.dikidi.dikiditest.ui.activities;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
+    CoordinatorLayout mCoordinatorLayout;
     Fragment mFrag;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
@@ -209,6 +211,9 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
     }
+//    private void showSnackBar(String message){
+//Snackbar.make(getApplicationContext(), message, Snackbar.LENGTH_LONG);
+//    }
 
     @Override
     public void onBackPressed() {

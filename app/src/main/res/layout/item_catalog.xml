@@ -7,7 +7,7 @@
     android:layout_marginEnd="@dimen/spacing_normal_16"
     android:layout_marginTop="@dimen/spacing_small_8"
     android:layout_marginBottom="@dimen/spacing_small_8"
-    android:background="@drawable/corners"
+    android:background="@drawable/frame_corners"
     app:cardCornerRadius="2dp">
 
     <LinearLayout
