@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CategoryListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
-import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
 public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapter.MyViewHolder>{
     Context mContext;
@@ -33,7 +31,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     public MainCategoryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         mContext = viewGroup.getContext();
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_category,viewGroup,false);
         return new MainCategoryAdapter.MyViewHolder(view);
 
     }

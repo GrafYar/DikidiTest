@@ -64,7 +64,15 @@
 
     <View
         android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey"/>
+    <View
+        android:layout_width="match_parent"
         android:layout_height="10dp"
+        android:background="@color/light_light_grey"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:background="@color/light_grey"/>
 
 </LinearLayout>

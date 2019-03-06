@@ -10,10 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.dikidi.dikiditest.R;
@@ -37,7 +34,7 @@ public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.My
 
         mContext = viewGroup.getContext();
 
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.shares_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_shares,viewGroup,false);
         return new MyViewHolder(view);
     }
 
