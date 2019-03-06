@@ -1,5 +1,6 @@
 package ru.dikidi.dikiditest.ui.activities;
 
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +20,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     Fragment mFrag;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    CollapsingToolbarLayout mCollapsingToolbarLayout;
     ArrayList<ArrayList<ItemList>> mList = new ArrayList<>();
     ArrayList<ItemList> mShares = new ArrayList<>();
     ArrayList<ItemList> mCategory = new ArrayList<>();
@@ -75,8 +82,12 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        mRecyclerView = findViewById(R.id.data_list);
+
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
+
+        mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
 
         openMainFragment();
 
@@ -183,6 +194,11 @@ public class MainActivity extends AppCompatActivity
                             mList.add(mCategory);
                             mList.add(mCatalog);
 
+
+//                            mCollapsingToolbarLayout.setT;
+//                            loadDat2a(response.body().getData().getTitle(),response.body().getData().getImage());
+                          //  getActionBar().setTitle(response.body().getData().getTitle());
+
                             mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
@@ -211,9 +227,17 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
     }
-//    private void showSnackBar(String message){
-//Snackbar.make(getApplicationContext(), message, Snackbar.LENGTH_LONG);
-//    }
+
+    public void loadDat2a(String mTitleApp, String mTitleImageURL) {
+
+        ImageView mTitleImage = findViewById(R.id.title_image);
+
+      //  getActionBar().setTitle("111");
+
+        Picasso.with(this)
+                .load(mTitleImageURL)
+                .into(mTitleImage);
+    }
 
     @Override
     public void onBackPressed() {

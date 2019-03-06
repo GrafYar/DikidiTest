@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -82,10 +83,6 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
     @Override
     public int getItemViewType(int position) {
-        // определяем какой тип в текущей позиции
-        //int type = mList.get(position).getItemType();
-//        if (type == 0) return HEADER;
-//        else if (type == 1) return TYPE_ITEM1;
         return mList.get(position).getItemType();
 
     }
@@ -97,15 +94,16 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         AspectRatioImageView mImageThumb, mImageAdv;
-        TextView mName, mRating, mStreetHouse;
+        TextView mName, mRating, mStreetHouse, mCategories;
         Button mBut;
         public MyViewHolder(View itemView){
             super(itemView);
 
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
-            mName = (TextView) itemView.findViewById(R.id.catalog_name);
-            mRating = (TextView) itemView.findViewById(R.id.catalog_rating);
+            mName = itemView.findViewById(R.id.catalog_name);
+            mRating = itemView.findViewById(R.id.catalog_rating);
             mStreetHouse = itemView.findViewById(R.id.catalog_street_house);
+            mCategories = itemView.findViewById(R.id.catalog_categories);
 
             mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
             mBut = itemView.findViewById(R.id.adv_button);
@@ -114,27 +112,32 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
         public void bind(CatalogListRes item) {
 
-
-
             if(item.getAdvertising()==null) {
+                String categories = "";
+                for(String object : item.getCategories()) {
+                    categories += ", " + object;
+                }
+
                 Picasso.with(mContext)
                         .load(item.getImage().getOrigin())
                         .error(mContext.getResources().getDrawable(R.drawable.placeholder))
                         .into(mImageThumb);
 
                 mName.setText(item.getName());
-                mRating.setText(String.format(Locale.getDefault(), "%f", item.getRating()));
+                mRating.setText(new DecimalFormat("#.#").format(item.getRating()));
+               // mRating.setText(String.format(Locale.getDefault(), "%f", item.getRating()));
                 mStreetHouse.setText(item.getStreet() + ", " + item.getHouse());
+                mCategories.setText(categories);
+
 
                 mImageThumb.setVisibility(View.VISIBLE);
                 mName.setVisibility(View.VISIBLE);
                 mRating.setVisibility(View.VISIBLE);
                 mStreetHouse.setVisibility(View.VISIBLE);
+                mCategories.setVisibility(View.VISIBLE);
 
                 mImageAdv.setVisibility(View.GONE);
                 mBut.setVisibility(View.GONE);
-
-
             }
             else {
 
