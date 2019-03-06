@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginStart="@dimen/spacing_medial_24"
+    android:layout_marginEnd="@dimen/spacing_medial_24"
+    android:layout_marginTop="@dimen/spacing_medial_24"
+    android:layout_marginBottom="@dimen/spacing_medial_24"
+    android:background="@drawable/corners"
+
+
+    app:cardCornerRadius="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+android:padding="1dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+>
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/spacing_normal_16"
+        android:background="@color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/catalog_rating"
+            android:text="3.5"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/catalog_name"
+            android:text="Салон"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/catalog_street_house"
+            android:text="Улица, дом"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/catalog_categories"
+            android:text="Категории"/>
+
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>

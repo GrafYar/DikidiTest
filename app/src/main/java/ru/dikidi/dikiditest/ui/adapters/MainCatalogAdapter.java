@@ -28,7 +28,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     public MainCatalogAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         //       if(i == ItemList.CATEGORY_TYPE) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.category_item,viewGroup,false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_catalog,viewGroup,false);
         return new MainCatalogAdapter.MyViewHolder(view);
 //        }
 //        return null;
@@ -62,7 +62,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         TextView mFullName;
         public MyViewHolder(View itemView){
             super(itemView);
-            mFullName = (TextView) itemView.findViewById(R.id.category_name);
+            mFullName = (TextView) itemView.findViewById(R.id.catalog_name);
 
         }
     }
