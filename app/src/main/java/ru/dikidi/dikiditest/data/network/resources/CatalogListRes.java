@@ -39,6 +39,9 @@ public class CatalogListRes implements ItemList{
     @SerializedName("isMaster")
     @Expose
     private boolean isMaster;
+    @SerializedName("advertising")
+    @Expose
+    private String advertising;
 
     @Override
     public int getItemType() {
@@ -133,7 +136,15 @@ public class CatalogListRes implements ItemList{
         this.isMaster = isMaster;
     }
 
-    public class Image {
+    public String getAdvertising() {
+        return advertising;
+    }
+
+    public void setAdvertising(String lng) {
+        this.advertising = advertising;
+    }
+
+    public class Image implements ItemList{
 
         @SerializedName("thumb")
         @Expose
@@ -141,6 +152,11 @@ public class CatalogListRes implements ItemList{
         @SerializedName("origin")
         @Expose
         private String origin;
+
+        @Override
+        public int getItemType() {
+            return CATALOG_TYPE;
+        }
 
         public String getThumb() {
             return thumb;

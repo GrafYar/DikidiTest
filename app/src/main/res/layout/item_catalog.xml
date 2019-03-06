@@ -28,6 +28,7 @@ android:padding="1dp">
         <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+            android:id="@+id/catalog_image_thumb"
         android:src="@drawable/icon"/>
 
     </LinearLayout>
