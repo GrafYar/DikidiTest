@@ -134,12 +134,6 @@ public class MainFragment extends Fragment {
 
         loadData();
 
-//        getActivity().setTitle(mTitleApp);
-//
-//        Picasso.with(getActivity())
-//                .load(mTitleImageURL)
-//                .into(mTitleImage);
-
         return rootView;
     }
 
@@ -210,13 +204,6 @@ public class MainFragment extends Fragment {
 //                });
     }
 
-    public void loadData2() {
-        getActivity().setTitle(mTitleApp);
-
-        Picasso.with(getActivity())
-                .load(mTitleImageURL)
-                .into(mTitleImage);
-    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -48,46 +48,117 @@
                 android:layout_marginStart="@dimen/spacing_normal_16"
                 android:background="@color/white"
                 android:layout_weight="0.6">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/catalog_rating"
-                    android:textSize="12sp"
-                    android:text="3.5"/>
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    android:progressTint="@color/gold"
-                    android:rating="3.5"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/catalog_name"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_small_14"
-                    android:text="Салон"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/catalog_street_house"
-                    android:text="Улица, дом"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/catalog_categories"
-                    android:textSize="8sp"
-                    android:text="Категории"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/adv_button"
-                    android:text="Реклама"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="0.25">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.15"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/catalog_rating"
+                                    android:textSize="12sp"
+                                    android:gravity="center_vertical"
+                                    android:text="3.5"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.55"
+                                android:orientation="vertical"
+                                android:gravity="center">
+                                <RatingBar
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/catalog_rating_bar"
+                                    style="?android:attr/ratingBarStyleSmall"
+                                    android:numStars="5"
+                                    android:stepSize="0.1"
+                                    android:progressTint="@color/gold"
+                                    android:layout_gravity="bottom"
+                                    android:rating="3.5"
+                                    />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.3"
+                                android:orientation="vertical">
+                                <Button
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/adv_button"
+                                    android:text="Реклама"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/catalog_name"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/font_small_14"
+                            android:gravity="bottom"
+                            android:text="Салон"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/catalog_street_house"
+                            android:gravity="top"
+                            android:text="Улица, дом"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.25">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/catalog_categories"
+                            android:gravity="top"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:textSize="10sp"
+                            android:text="Категории"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 </LinearLayout>
 

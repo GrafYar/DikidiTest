@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -95,6 +96,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
+        RatingBar mRatingBar;
         Button mBut;
         public MyViewHolder(View itemView){
             super(itemView);
@@ -104,7 +106,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
             mRating = itemView.findViewById(R.id.catalog_rating);
             mStreetHouse = itemView.findViewById(R.id.catalog_street_house);
             mCategories = itemView.findViewById(R.id.catalog_categories);
-
+            mRatingBar = itemView.findViewById(R.id.catalog_rating_bar);
             mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
             mBut = itemView.findViewById(R.id.adv_button);
 
@@ -125,6 +127,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
                 mName.setText(item.getName());
                 mRating.setText(new DecimalFormat("#.#").format(item.getRating()));
+                mRatingBar.setRating((float)item.getRating());
                // mRating.setText(String.format(Locale.getDefault(), "%f", item.getRating()));
                 mStreetHouse.setText(item.getStreet() + ", " + item.getHouse());
                 mCategories.setText(categories);
@@ -135,6 +138,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
                 mRating.setVisibility(View.VISIBLE);
                 mStreetHouse.setVisibility(View.VISIBLE);
                 mCategories.setVisibility(View.VISIBLE);
+                mRatingBar.setVisibility(View.VISIBLE);
 
                 mImageAdv.setVisibility(View.GONE);
                 mBut.setVisibility(View.GONE);
@@ -145,6 +149,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
                 mName.setVisibility(View.GONE);
                 mRating.setVisibility(View.GONE);
                 mStreetHouse.setVisibility(View.GONE);
+                mRatingBar.setVisibility(View.GONE);
 
                 mImageAdv.setVisibility(View.VISIBLE);
                 mBut.setVisibility(View.VISIBLE);

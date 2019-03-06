@@ -195,10 +195,6 @@ public class MainActivity extends AppCompatActivity
                             mList.add(mCatalog);
 
 
-//                            mCollapsingToolbarLayout.setT;
-//                            loadDat2a(response.body().getData().getTitle(),response.body().getData().getImage());
-                          //  getActionBar().setTitle(response.body().getData().getTitle());
-
                             mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
@@ -226,17 +222,6 @@ public class MainActivity extends AppCompatActivity
                         toast.show();
                     }
                 });
-    }
-
-    public void loadDat2a(String mTitleApp, String mTitleImageURL) {
-
-        ImageView mTitleImage = findViewById(R.id.title_image);
-
-      //  getActionBar().setTitle("111");
-
-        Picasso.with(this)
-                .load(mTitleImageURL)
-                .into(mTitleImage);
     }
 
     @Override
