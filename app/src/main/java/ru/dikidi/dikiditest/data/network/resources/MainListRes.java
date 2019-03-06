@@ -71,7 +71,7 @@ public class MainListRes{
 
         @SerializedName("categories")
         @Expose
-        private List<Category> categories = null;
+        private List<CategoryListRes> categories = null;
         @SerializedName("shares")
         @Expose
         private SharesListRes shares = null;
@@ -79,11 +79,11 @@ public class MainListRes{
         @Expose
         private List<CatalogListRes> catalog = null;
 
-        public List<Category> getCategories() {
+        public List<CategoryListRes> getCategories() {
             return categories;
         }
 
-        public void setCategories(List<Category> categories) {
+        public void setCategories(List<CategoryListRes> categories) {
             this.categories = categories;
         }
 
@@ -104,50 +104,5 @@ public class MainListRes{
         }
 
     }
-
-    public class Category implements ItemList {
-
-        @SerializedName("id")
-        @Expose
-        private String id;
-        @SerializedName("name")
-        @Expose
-        private String name;
-        @SerializedName("image")
-        @Expose
-        private String image;
-
-        @Override
-        public int getItemType() {
-            return CATEGORY_TYPE;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-    }
-
-
 
 }

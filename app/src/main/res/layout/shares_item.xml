@@ -6,10 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="2dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="4dp"
     android:layout_marginRight="4dp"
     android:layout_marginLeft="4dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="16dp"
     app:cardBackgroundColor="@color/white"
     android:orientation="vertical"
     app:cardElevation="5dp"
@@ -29,7 +29,7 @@
                 android:id="@+id/shares_icon"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user_photo"
-                app:aspect_ratio="1.6" />
+                app:aspect_ratio="1.5" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:background="@color/fade_black"
                 android:layout_gravity="bottom"
                 android:orientation="horizontal">
@@ -72,12 +72,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.15">
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:id="@+id/shares_company_image"
+                        android:layout_marginTop="@dimen/spacing_small_8"
+                        android:layout_marginRight="@dimen/spacing_small_8"
+                        android:layout_marginLeft="@dimen/spacing_small_8"
+                        android:layout_marginBottom="@dimen/spacing_small_8"
                         android:src="@drawable/icon"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="@dimen/spacing_small_8"/>
+                        android:gravity="center"/>
 
                 </LinearLayout>
 
@@ -86,21 +89,42 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.6"
                     android:orientation="vertical">
-                    <TextView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/shares_company_name"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:layout_gravity="center_vertical"
-                        android:text="Название"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/shares_company_street_house"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center_vertical"
-                        android:text="Улица"/>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/shares_company_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="bottom|center_vertical"
+                                android:text="Название"
+                                android:textColor="@color/white"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5">
+
+                            <TextView
+                                android:id="@+id/shares_company_street_house"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="top|center_vertical"
+                                android:text="Улица"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,39 +132,85 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.25"
                     android:orientation="vertical">
-
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_views"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/shares_views"
-                            android:textColor="@color/white"
-                            android:text="26"/>
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_used"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/shares_used"
-                            android:textColor="@color/white"
-                            android:text="0"/>
-                    </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/shares_time_stop"
-                    android:textColor="@color/white"
-                    android:text="до: 31 мая"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.25"
+                                    android:orientation="vertical">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:src="@drawable/ic_views"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.25"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:id="@+id/shares_views"
+                                        android:textColor="@color/white"
+                                        android:gravity="center"
+                                        android:text="26"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.25"
+                                    android:orientation="vertical">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:src="@drawable/ic_used"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.25"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/shares_used"
+                                        android:textColor="@color/white"
+                                        android:text="0"/>
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/shares_time_stop"
+                                android:textColor="@color/white"
+                                android:gravity="start|center_vertical"
+                                android:text="до: 31 мая"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 

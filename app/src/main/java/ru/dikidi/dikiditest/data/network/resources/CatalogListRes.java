@@ -144,7 +144,7 @@ public class CatalogListRes implements ItemList{
         this.advertising = advertising;
     }
 
-    public class Image implements ItemList{
+    public class Image {
 
         @SerializedName("thumb")
         @Expose
@@ -152,11 +152,6 @@ public class CatalogListRes implements ItemList{
         @SerializedName("origin")
         @Expose
         private String origin;
-
-        @Override
-        public int getItemType() {
-            return CATALOG_TYPE;
-        }
 
         public String getThumb() {
             return thumb;

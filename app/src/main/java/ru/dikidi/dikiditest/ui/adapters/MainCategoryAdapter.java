@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import ru.dikidi.dikiditest.R;
+import ru.dikidi.dikiditest.data.network.resources.CategoryListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
@@ -40,7 +41,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
     @Override
     public void onBindViewHolder(@NonNull MainCategoryAdapter.MyViewHolder holder, int i) {
 
-        MainListRes.Category item = (MainListRes.Category) mList.get(i);
+        CategoryListRes item = (CategoryListRes) mList.get(i);
         MainCategoryAdapter.MyViewHolder mHolder = (MyViewHolder) holder;
         mHolder.mCategoryName.setText(item.getName());
 
