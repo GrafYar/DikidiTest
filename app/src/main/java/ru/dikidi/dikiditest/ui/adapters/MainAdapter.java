@@ -27,12 +27,16 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
     private CatalogViewHolder.CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
     private CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
+    private SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
+    private SharesViewHolder.SharesButtonMoreClickListener mSharesButtonMoreClickListener;
 
     public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares,
                          ArrayList<ItemList> category, ArrayList<ItemList> catalog, String catalogCount,
                          CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener,
                          CatalogViewHolder.CatalogButtonMoreClickListener catalogButtonMoreClickListener,
-                         CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener) {
+                         CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener,
+                         SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener sharesItemClickListener,
+                         SharesViewHolder.SharesButtonMoreClickListener sharesButtonMoreClickListener) {
         mContext = context;
         mList = news;
         mShares = shares;
@@ -42,6 +46,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         mCatalogItemClickListener = catalogItemClickListener;
         mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
         mCategoryItemClickListener = categoryItemClickListener;
+        mSharesItemClickListener = sharesItemClickListener;
+        mSharesButtonMoreClickListener = sharesButtonMoreClickListener;
     }
 
 
@@ -56,7 +62,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         switch (i){
             case ItemList.SHARES_TYPE:
                 view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
-                holder = new SharesViewHolder(view);
+                holder = new SharesViewHolder(view, mSharesItemClickListener, mSharesButtonMoreClickListener);
                 break;
             case ItemList.CATEGORY_TYPE:
                 view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
@@ -97,7 +103,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void sharesView(SharesViewHolder holder){
 
-        SharesAdapter sharesAdapter = new SharesAdapter(mShares);
+        SharesAdapter sharesAdapter = new SharesAdapter(mShares, mSharesItemClickListener);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.mRecyclerView.setAdapter(sharesAdapter);
 
@@ -131,17 +137,34 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return mList.size();
     }
 
-    public class SharesViewHolder extends RecyclerView.ViewHolder {
+    public static class SharesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mCountShares;
         private RecyclerView mRecyclerView;
+        private Button mSharesButtonMore;
+        SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
+        SharesViewHolder.SharesButtonMoreClickListener mSharesButtonMoreClickListener;
 
-        private SharesViewHolder(@NonNull View itemView) {
+        private SharesViewHolder(@NonNull View itemView, SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener sharesItemClickListener, SharesViewHolder.SharesButtonMoreClickListener sharesButtonMoreClickListener) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.shares_recycler_view);
             mCountShares = itemView.findViewById(R.id.shares_count_shares);
+            mSharesButtonMore = itemView.findViewById(R.id.catalog_button_more);
+            mSharesItemClickListener = sharesItemClickListener;
+            mSharesButtonMoreClickListener = sharesButtonMoreClickListener;
+            mSharesButtonMore.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            if(mSharesButtonMoreClickListener!= null){
+                mSharesButtonMoreClickListener.onSharesButtonMoreClickListener(getAdapterPosition());
+            }
+        }
+
+        public interface SharesButtonMoreClickListener {
+            void onSharesButtonMoreClickListener (int position);
+        }
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
@@ -161,12 +184,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     public static class CatalogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-
         private TextView mCountCatalog;
         private Button mCatalogButtonMore;
         private CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
         private RecyclerView mRecyclerView;
-        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mClickItemListener;
+        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
 
         private CatalogViewHolder(@NonNull View itemView, CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener, CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
             super(itemView);
@@ -174,7 +196,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mCountCatalog = itemView.findViewById(R.id.catalog_count_catalogs);
             mCatalogButtonMore = itemView.findViewById(R.id.catalog_button_more);
             mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
-            this.mClickItemListener = catalogItemClickListener;
+            mCatalogItemClickListener = catalogItemClickListener;
             mCatalogButtonMore.setOnClickListener(this);
         }
 

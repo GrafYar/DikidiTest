@@ -26,10 +26,11 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
 
     ArrayList<ItemList> mList = new ArrayList();
     Context mContext;
+    SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
 
-    public SharesAdapter(ArrayList<ItemList> list){
+    public SharesAdapter(ArrayList<ItemList> list, SharesAdapterViewHolder.SharesItemClickListener sharesItemClickListener){
         mList = list;
-
+        mSharesItemClickListener = sharesItemClickListener;
     }
 
     @NonNull
@@ -39,7 +40,7 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
         mContext = viewGroup.getContext();
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_shares,viewGroup,false);
-        return new SharesAdapterViewHolder(view);
+        return new SharesAdapterViewHolder(view, mSharesItemClickListener);
     }
 
     @Override
@@ -92,14 +93,17 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
         return mList.size();
     }
 
-    public class SharesAdapterViewHolder extends RecyclerView.ViewHolder {
+    public static class SharesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         AspectRatioImageView mIcon;
         CircleImageView mCompanyImage;
         TextView mName, mDiscountValue, mCompanyName, mCompanyStreetHouse, mViews, mUsed, mTimeStop, mCountShares;
+        SharesItemClickListener mSharesItemClickListener;
 
 
-        public SharesAdapterViewHolder(View itemView){
+        private SharesAdapterViewHolder(View itemView, SharesItemClickListener sharesItemClickListener){
             super(itemView);
+            mSharesItemClickListener = sharesItemClickListener;
+
             mIcon = itemView.findViewById(R.id.shares_icon);
             mName = itemView.findViewById(R.id.shares_name);
             mDiscountValue = itemView.findViewById(R.id.shares_discount_value);
@@ -110,9 +114,17 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
             mUsed = itemView.findViewById(R.id.shares_used);
             mTimeStop = itemView.findViewById(R.id.shares_time_stop);
             mCountShares = itemView.findViewById(R.id.shares_count_shares);
-
+            itemView.setOnClickListener(this);
+        }
+        @Override
+        public void onClick(View v) {
+            if(mSharesItemClickListener!= null){
+                mSharesItemClickListener.onSharesItemClickListener(getAdapterPosition());
+            }
         }
 
+        public interface SharesItemClickListener {
+            void onSharesItemClickListener (int position);
+        }
     }
-
 }

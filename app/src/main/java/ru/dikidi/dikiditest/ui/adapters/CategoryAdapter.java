@@ -21,7 +21,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public CategoryAdapter(ArrayList<ItemList> list, CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener){
         mList = list;
-        this.mCategoryItemClickListener = categoryItemClickListener;
+        mCategoryItemClickListener = categoryItemClickListener;
     }
 
     @NonNull

@@ -12,9 +12,11 @@
     <string name="navigation_drawer_share">Поделиться приложением</string>
     <string name="navigation_drawer_business">DIKIDI Business</string>
     <string name="navigation_drawer_support">Служба поддержки</string>
-    <string name="catalog_item_activity_main">Элемент каталога</string>
-    <string name="category_item_activity_main">Элемент категории</string>
-    <string name="catalog_activity_main">Каталог</string>
+    <string name="catalog_item_activity_title">Элемент каталога</string>
+    <string name="category_item_activity_title">Элемент категории</string>
+    <string name="shares_item_activity_title">Элемент акций</string>
+    <string name="shares_activity_title">Акции</string>
+    <string name="catalog_activity_title">Каталог</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

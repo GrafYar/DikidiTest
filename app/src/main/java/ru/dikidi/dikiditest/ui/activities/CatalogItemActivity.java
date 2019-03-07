@@ -12,7 +12,7 @@ public class CatalogItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog_item);
-        setTitle(getString(R.string.catalog_item_activity_main));
+        setTitle(getString(R.string.catalog_item_activity_title));
         setupToolBar();
     }
 

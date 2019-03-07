@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.activities.CategoryItemActivity"></activity>
+        <activity android:name=".ui.activities.SharesActivity"></activity>
+        <activity android:name=".ui.activities.SharesItemActivity" />
+        <activity android:name=".ui.activities.CategoryItemActivity" />
         <activity android:name=".ui.activities.CatalogActivity" />
         <activity android:name=".ui.activities.CatalogItemActivity" />
         <activity

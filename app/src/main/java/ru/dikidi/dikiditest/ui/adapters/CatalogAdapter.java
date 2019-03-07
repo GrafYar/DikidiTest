@@ -23,7 +23,7 @@ import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogAdapterViewHolder>{
 
-   static Context mContext;
+    static Context mContext;
     View mView;
     ViewGroup mViewGroup;
     ArrayList<ItemList> mList = new ArrayList();

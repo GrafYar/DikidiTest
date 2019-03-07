@@ -34,6 +34,8 @@ import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
+import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
+import ru.dikidi.dikiditest.ui.adapters.SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
@@ -45,7 +47,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener,
         MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener,
-        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener{
+        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener,
+        SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener{
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -225,7 +228,23 @@ public class MainActivity extends AppCompatActivity
                                             Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
                                             startActivity(catalogIntent);
                                         }
+                                    },
+                                    new SharesItemClickListener() {
+                                        @Override
+                                        public void onSharesItemClickListener(int position) {
+                                            Intent catalogIntent = new Intent(MainActivity.this, SharesItemActivity.class);
+                                            startActivity(catalogIntent);
+                                        }
+                                    },
+                                    new MainAdapter.SharesViewHolder.SharesButtonMoreClickListener() {
+                                        @Override
+                                        public void onSharesButtonMoreClickListener(int position) {
+                                            Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
+                                            startActivity(catalogIntent);
+                                        }
                                     });
+
+
                             mRecyclerView.setAdapter(mainAdapter);
 
 
@@ -314,5 +333,10 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCategoryItemClickListener(int position) {
+    }
+
+    @Override
+    public void onSharesItemClickListener(int position) {
+
     }
 }

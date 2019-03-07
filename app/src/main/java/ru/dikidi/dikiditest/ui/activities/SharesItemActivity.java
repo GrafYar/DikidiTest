@@ -7,13 +7,13 @@ import android.view.MenuItem;
 
 import ru.dikidi.dikiditest.R;
 
-public class CategoryItemActivity extends AppCompatActivity {
+public class SharesItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_item);
-        setTitle(getString(R.string.category_item_activity_title));
+        setContentView(R.layout.activity_shares_item);
+        setTitle(getString(R.string.shares_item_activity_title));
         setupToolBar();
     }
 
