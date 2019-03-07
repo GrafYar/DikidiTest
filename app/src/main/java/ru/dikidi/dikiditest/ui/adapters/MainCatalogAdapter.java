@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -25,14 +26,16 @@ import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
 public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.MyViewHolder>{
 
-    Context mContext;
+   static Context mContext;
     View mView;
     ViewGroup mViewGroup;
     ArrayList<ItemList> mList = new ArrayList();
+    MyViewHolder.CatalogClickListener mCatalogClickListener;
 
-    public MainCatalogAdapter(ArrayList<ItemList> list){
+
+    public MainCatalogAdapter(ArrayList<ItemList> list, MyViewHolder.CatalogClickListener catalogClickListener){
         mList = list;
-
+        this.mCatalogClickListener = catalogClickListener;
     }
 
     @NonNull
@@ -53,8 +56,8 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
         mContext = mViewGroup.getContext();
 
-        mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog,mViewGroup,false);
-        return new MainCatalogAdapter.MyViewHolder(mView);
+        mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog, mViewGroup,false);
+        return new MainCatalogAdapter.MyViewHolder(mView, mCatalogClickListener);
 
 
     }
@@ -93,13 +96,27 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         return mList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+//    public void setListener(CatalogClickListener listener)
+//
+//
+//    public interface CatalogClickListener {
+//            void onCatalogItemClickListener (int position);
+//
+//        }
+
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
         RatingBar mRatingBar;
         Button mBut;
-        public MyViewHolder(View itemView){
+        CatalogClickListener mListener;
+        LinearLayout mLnr;
+
+        public MyViewHolder(View itemView, CatalogClickListener catalogClickListener){
             super(itemView);
+            this.mListener = catalogClickListener;
 
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
             mName = itemView.findViewById(R.id.catalog_name);
@@ -109,6 +126,8 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
             mRatingBar = itemView.findViewById(R.id.catalog_rating_bar);
             mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
             mBut = itemView.findViewById(R.id.adv_button);
+            mLnr = itemView.findViewById(R.id.lnr_catalog);
+            mLnr.setOnClickListener(this);
 
         }
 
@@ -155,6 +174,20 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
                 mBut.setVisibility(View.VISIBLE);
 
             }
+
+
+
+        }
+        @Override
+        public void onClick(View v) {
+            if(mListener!= null){
+                mListener.onCatalogItemClickListener(getAdapterPosition());
+            }
+        }
+
+
+        public interface CatalogClickListener {
+            void onCatalogItemClickListener (int position);
 
         }
     }

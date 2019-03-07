@@ -8,6 +8,7 @@
     android:layout_marginTop="@dimen/spacing_small_8"
     android:layout_marginBottom="@dimen/spacing_small_8"
     android:background="@drawable/frame_corners"
+    android:id="@+id/lnr_catalog"
     app:cardCornerRadius="2dp">
 
     <LinearLayout

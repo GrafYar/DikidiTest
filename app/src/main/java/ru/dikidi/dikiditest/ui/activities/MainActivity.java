@@ -1,5 +1,6 @@
 package ru.dikidi.dikiditest.ui.activities;
 
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,7 @@ import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
+import ru.dikidi.dikiditest.ui.adapters.MainCatalogAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
@@ -43,7 +45,7 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainCatalogAdapter.MyViewHolder.CatalogClickListener {
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -200,8 +202,21 @@ public class MainActivity extends AppCompatActivity
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog);
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, new MainCatalogAdapter.MyViewHolder.CatalogClickListener() {
+                                @Override
+                                public void onCatalogItemClickListener(int position) {
+//                                    Toast toast = Toast.makeText(getApplicationContext(),
+//                                            "123",
+//                                            Toast.LENGTH_LONG);
+//                                    toast.setGravity(Gravity.CENTER, 0, 0);
+//                                    toast.show();
+
+                                    Intent catalogIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
+                                    startActivity(catalogIntent);
+                                }
+                            });
                             mRecyclerView.setAdapter(mainAdapter);
+                           // mainAdapter.setListener()
 
 
                         } catch (NullPointerException e) {
@@ -277,5 +292,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onCatalogItemClickListener(int position) {
+
     }
 }
