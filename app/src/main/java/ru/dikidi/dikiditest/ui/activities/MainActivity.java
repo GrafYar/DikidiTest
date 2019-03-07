@@ -198,9 +198,9 @@ public class MainActivity extends AppCompatActivity
                             mCatalog.addAll(response.body().getData().getBlocks().getCatalog());
                             String catalogCount = response.body().getData().getCatalogCount();
 
-                            mList.add(ItemList.SHARES_TYPE, mShares);
-                            mList.add(ItemList.CATEGORY_TYPE, mCategory);
-                            mList.add(ItemList.CATALOG_TYPE, mCatalog);
+                            mList.add(mShares);
+                            mList.add(mCategory);
+                            mList.add(mCatalog);
 
                             mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager

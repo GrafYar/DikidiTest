@@ -61,19 +61,19 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         switch (i){
             case ItemList.SHARES_TYPE:
-                view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
+                view = mLayoutInflater.inflate(R.layout.recycler_view_shares, viewGroup, false);
                 holder = new SharesViewHolder(view, mSharesItemClickListener, mSharesButtonMoreClickListener);
                 break;
             case ItemList.CATEGORY_TYPE:
-                view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
+                view = mLayoutInflater.inflate(R.layout.recycler_view_category, viewGroup, false);
                 holder = new CategoryViewHolder(view, mCategoryItemClickListener);
                 break;
             case ItemList.CATALOG_TYPE:
-                view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
+                view = mLayoutInflater.inflate(R.layout.recycler_view_catalog, viewGroup, false);
                 holder = new CatalogViewHolder(view, mCatalogItemClickListener, mCatalogButtonMoreClickListener);
                 break;
             default:
-                view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
+                view = mLayoutInflater.inflate(R.layout.recycler_view_catalog, viewGroup, false);
                 holder = new CatalogViewHolder(view, mCatalogItemClickListener, mCatalogButtonMoreClickListener);
                 break;
         }

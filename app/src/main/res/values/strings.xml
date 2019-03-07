@@ -18,6 +18,11 @@
     <string name="shares_activity_title">Акции</string>
     <string name="catalog_activity_title">Каталог</string>
 
+    <string name="adv_txt_view">Реклама</string>
+    <string name="adv_name">Хотите попасть в каталог?</string>
+    <string name="adv_street_house">Скачайте бесплатное приложение DIKIDI Business и подключите вашу онлайн ...</string>
+    <string name="adv_categories">Узнать больше</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

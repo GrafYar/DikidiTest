@@ -70,7 +70,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
         RatingBar mRatingBar;
-        Button mBut;
+        TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
         CatalogItemClickListener mCatalogItemClickListener;
 
         private CatalogAdapterViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener){
@@ -84,7 +84,12 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
             mCategories = itemView.findViewById(R.id.catalog_categories);
             mRatingBar = itemView.findViewById(R.id.catalog_rating_bar);
             mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
-            mBut = itemView.findViewById(R.id.adv_button);
+
+            mAdvTextView = itemView.findViewById(R.id.adv_txt_view);
+            mAdvName = itemView.findViewById(R.id.adv_catalog_name);
+            mAdvStreetHouse = itemView.findViewById(R.id.adv_catalog_street_house);
+            mAdvCategories = itemView.findViewById(R.id.adv_catalog_categories);
+
             itemView.setOnClickListener(this);
 
         }
@@ -117,17 +122,27 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
                 mRatingBar.setVisibility(View.VISIBLE);
 
                 mImageAdv.setVisibility(View.GONE);
-                mBut.setVisibility(View.GONE);
+                mAdvTextView.setVisibility(View.GONE);
+                mAdvName.setVisibility(View.GONE);
+                mAdvStreetHouse.setVisibility(View.GONE);
+                mAdvCategories.setVisibility(View.GONE);
             }
             else {
                 mImageThumb.setVisibility(View.GONE);
                 mName.setVisibility(View.GONE);
-                mRating.setVisibility(View.GONE);
                 mStreetHouse.setVisibility(View.GONE);
-                mRatingBar.setVisibility(View.GONE);
+                mCategories.setVisibility(View.GONE);
 
+                mRating.setText("5,0");
+                mRatingBar.setRating(5);
+
+                mRating.setVisibility(View.VISIBLE);
+                mRatingBar.setVisibility(View.VISIBLE);
                 mImageAdv.setVisibility(View.VISIBLE);
-                mBut.setVisibility(View.VISIBLE);
+                mAdvTextView.setVisibility(View.VISIBLE);
+                mAdvName.setVisibility(View.VISIBLE);
+                mAdvStreetHouse.setVisibility(View.VISIBLE);
+                mAdvCategories.setVisibility(View.VISIBLE);
             }
         }
 
