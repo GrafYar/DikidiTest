@@ -25,13 +25,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<ItemList> mCategory;
     private ArrayList<ItemList> mCatalog;
     private MainCatalogAdapter.MyViewHolder.CatalogClickListener mCatalogClickListener;
+    String mCatalogCount;
 
-    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category, ArrayList<ItemList> catalog, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
+    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category, ArrayList<ItemList> catalog, String catalogCount, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
         mContext = context;
         mList = news;
         mShares = shares;
         mCategory = category;
         mCatalog = catalog;
+        mCatalogCount = catalogCount;
         this.mCatalogClickListener = catalogClickListener;
     }
 
@@ -47,19 +49,19 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         switch (i){
             case ItemList.SHARES_TYPE:
                 view = mLayoutInflater.inflate(R.layout.shares_recycler_view, viewGroup, false);
-                holder = new ViewHolder1(view);
+                holder = new SharesViewHolder(view);
                 break;
             case ItemList.CATEGORY_TYPE:
                 view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-                holder = new ViewHolder2(view);
+                holder = new CategoryViewHolder(view);
                 break;
             case ItemList.CATALOG_TYPE:
                 view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
-                holder = new ViewHolder3(view, mCatalogClickListener);
+                holder = new CatalogViewHolder(view, mCatalogClickListener);
                 break;
             default:
                 view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
-                holder = new ViewHolder3(view, mCatalogClickListener);
+                holder = new CatalogViewHolder(view, mCatalogClickListener);
                 break;
         }
 
@@ -71,21 +73,22 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         switch (holder.getItemViewType()) {
                 case ItemList.SHARES_TYPE:
-                    sharesView ((ViewHolder1) holder);
-                    ((ViewHolder1) holder).mCountShares.setText(String.format(Locale.getDefault(), "%d", mShares.size()));
+                    sharesView ((SharesViewHolder) holder);
+                    ((SharesViewHolder) holder).mCountShares.setText(String.format(Locale.getDefault(), "%d", mShares.size()));
                     break;
                 case ItemList.CATEGORY_TYPE:
-                    categoryView ((ViewHolder2) holder);
-                    ((ViewHolder2) holder).mCountCategories.setText(String.format(Locale.getDefault(), "%d", mCategory.size()));
+                    categoryView ((CategoryViewHolder) holder);
+                    ((CategoryViewHolder) holder).mCountCategories.setText(String.format(Locale.getDefault(), "%d", mCategory.size()));
                     break;
                 case ItemList.CATALOG_TYPE:
-                    catalogView ((ViewHolder3) holder);
+                    catalogView ((CatalogViewHolder) holder);
+                    ((CatalogViewHolder) holder).mCountCatalog.setText(mCatalogCount);
                     break;
         }
 
     }
 
-    private void sharesView(ViewHolder1 holder){
+    private void sharesView(SharesViewHolder holder){
 
         MainSharesAdapter sharesAdapter = new MainSharesAdapter(mShares);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
@@ -93,25 +96,17 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    private void categoryView(ViewHolder2 holder){
+    private void categoryView(CategoryViewHolder holder){
 
         MainCategoryAdapter categoryAdapter = new MainCategoryAdapter(mCategory);
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext,2,GridLayoutManager.HORIZONTAL,false));
-
         holder.mRecyclerView.setAdapter(categoryAdapter);
 
     }
 
-    private void catalogView(ViewHolder3 holder){
+    private void catalogView(CatalogViewHolder holder){
 
         MainCatalogAdapter catalogAdapter = new MainCatalogAdapter(mCatalog, mCatalogClickListener);
-//        {
-//            @Override
-//            public void onCatalogItemClickListener(int position) {
-//                Intent testInt = new Intent(mContext, ItemCatalogActivity.class);
-//                mContext.startActivity(testInt);
-//            }
-//        });
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.mRecyclerView.setAdapter(catalogAdapter);
 
@@ -129,12 +124,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return mList.size();
     }
 
-    public class ViewHolder1 extends RecyclerView.ViewHolder {
+    public class SharesViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mCountShares;
         private RecyclerView mRecyclerView;
 
-        private ViewHolder1(@NonNull View itemView) {
+        private SharesViewHolder(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.shares_recycler_view);
             mCountShares = itemView.findViewById(R.id.shares_count_shares);
@@ -142,12 +137,12 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    public class ViewHolder2 extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mCountCategories;
         private RecyclerView mRecyclerView;
 
-        private ViewHolder2(@NonNull View itemView) {
+        private CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.category_recycler_view);
             mCountCategories = itemView.findViewById(R.id.category_count_categories);
@@ -155,16 +150,17 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    public class ViewHolder3 extends RecyclerView.ViewHolder {
+    public class CatalogViewHolder extends RecyclerView.ViewHolder {
 
         MainCatalogAdapter.MyViewHolder.CatalogClickListener mClickListener;
 
-        private TextView mFullName;
+        private TextView mCountCatalog;
         private RecyclerView mRecyclerView;
 
-        private ViewHolder3(@NonNull View itemView, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
+        private CatalogViewHolder(@NonNull View itemView, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
+            mCountCatalog = itemView.findViewById(R.id.catalog_count_catalogs);
             this.mClickListener = catalogClickListener;
         }
 

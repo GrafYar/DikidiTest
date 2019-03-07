@@ -193,32 +193,26 @@ public class MainActivity extends AppCompatActivity
                             mShares.addAll(response.body().getData().getBlocks().getShares().getList());
                             mCategory.addAll(response.body().getData().getBlocks().getCategories());
                             mCatalog.addAll(response.body().getData().getBlocks().getCatalog());
+                            String catalogCount = response.body().getData().getCatalogCount();
 
-                            mList.add(mShares);
-                            mList.add(mCategory);
-                            mList.add(mCatalog);
-
+                            mList.add(ItemList.SHARES_TYPE, mShares);
+                            mList.add(ItemList.CATEGORY_TYPE, mCategory);
+                            mList.add(ItemList.CATALOG_TYPE, mCatalog);
 
                             mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, new MainCatalogAdapter.MyViewHolder.CatalogClickListener() {
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount, new MainCatalogAdapter.MyViewHolder.CatalogClickListener() {
                                 @Override
                                 public void onCatalogItemClickListener(int position) {
-//                                    Toast toast = Toast.makeText(getApplicationContext(),
-//                                            "123",
-//                                            Toast.LENGTH_LONG);
-//                                    toast.setGravity(Gravity.CENTER, 0, 0);
-//                                    toast.show();
 
                                     Intent catalogIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
                                     startActivity(catalogIntent);
                                 }
                             });
                             mRecyclerView.setAdapter(mainAdapter);
-                           // mainAdapter.setListener()
 
 
                         } catch (NullPointerException e) {
