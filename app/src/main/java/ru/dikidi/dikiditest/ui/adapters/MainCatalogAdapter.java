@@ -30,10 +30,10 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     View mView;
     ViewGroup mViewGroup;
     ArrayList<ItemList> mList = new ArrayList();
-    MyViewHolder.CatalogClickListener mCatalogClickListener;
+    MyViewHolder.CatalogItemClickListener mCatalogClickListener;
 
 
-    public MainCatalogAdapter(ArrayList<ItemList> list, MyViewHolder.CatalogClickListener catalogClickListener){
+    public MainCatalogAdapter(ArrayList<ItemList> list, MyViewHolder.CatalogItemClickListener catalogClickListener){
         mList = list;
         this.mCatalogClickListener = catalogClickListener;
     }
@@ -75,12 +75,12 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         TextView mName, mRating, mStreetHouse, mCategories;
         RatingBar mRatingBar;
         Button mBut;
-        CatalogClickListener mListener;
+        CatalogItemClickListener mCatalogItemClickListener;
         LinearLayout mLnr;
 
-        private MyViewHolder(View itemView, CatalogClickListener catalogClickListener){
+        private MyViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener){
             super(itemView);
-            this.mListener = catalogClickListener;
+            this.mCatalogItemClickListener = catalogItemClickListener;
 
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
             mName = itemView.findViewById(R.id.catalog_name);
@@ -145,13 +145,13 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         }
         @Override
         public void onClick(View v) {
-            if(mListener!= null){
-                mListener.onCatalogItemClickListener(getAdapterPosition());
+            if(mCatalogItemClickListener!= null){
+                mCatalogItemClickListener.onCatalogItemClickListener(getAdapterPosition());
             }
         }
 
 
-        public interface CatalogClickListener {
+        public interface CatalogItemClickListener {
             void onCatalogItemClickListener (int position);
 
         }

@@ -45,7 +45,8 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainCatalogAdapter.MyViewHolder.CatalogClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainCatalogAdapter.MyViewHolder.CatalogItemClickListener,
+                        MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener{
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -204,11 +205,16 @@ public class MainActivity extends AppCompatActivity
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount, new MainCatalogAdapter.MyViewHolder.CatalogClickListener() {
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount, new MainCatalogAdapter.MyViewHolder.CatalogItemClickListener() {
                                 @Override
                                 public void onCatalogItemClickListener(int position) {
-
-                                    Intent catalogIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
+                                    Intent catalogItemIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
+                                    startActivity(catalogItemIntent);
+                                }
+                            }, new MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener() {
+                                @Override
+                                public void onCatalogButtonMoreClickListener(int position) {
+                                    Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
                                     startActivity(catalogIntent);
                                 }
                             });
@@ -292,6 +298,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCatalogItemClickListener(int position) {
+        Intent catalogIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
+        startActivity(catalogIntent);
+    }
 
+    @Override
+    public void onCatalogButtonMoreClickListener(int position) {
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Ошибка запроса",
+                Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

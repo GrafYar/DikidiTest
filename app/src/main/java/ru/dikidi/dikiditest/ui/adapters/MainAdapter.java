@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -24,17 +25,22 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<ItemList> mShares;
     private ArrayList<ItemList> mCategory;
     private ArrayList<ItemList> mCatalog;
-    private MainCatalogAdapter.MyViewHolder.CatalogClickListener mCatalogClickListener;
-    String mCatalogCount;
+    private String mCatalogCount;
+    private MainCatalogAdapter.MyViewHolder.CatalogItemClickListener mCatalogItemClickListener;
+    private CatalogViewHolder.CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
 
-    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares, ArrayList<ItemList> category, ArrayList<ItemList> catalog, String catalogCount, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
+    public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares,
+                         ArrayList<ItemList> category, ArrayList<ItemList> catalog, String catalogCount,
+                         MainCatalogAdapter.MyViewHolder.CatalogItemClickListener catalogItemClickListener,
+                         CatalogViewHolder.CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
         mContext = context;
         mList = news;
         mShares = shares;
         mCategory = category;
         mCatalog = catalog;
         mCatalogCount = catalogCount;
-        this.mCatalogClickListener = catalogClickListener;
+        this.mCatalogItemClickListener = catalogItemClickListener;
+        mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
     }
 
 
@@ -57,11 +63,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 break;
             case ItemList.CATALOG_TYPE:
                 view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
-                holder = new CatalogViewHolder(view, mCatalogClickListener);
+                holder = new CatalogViewHolder(view, mCatalogItemClickListener, mCatalogButtonMoreClickListener);
                 break;
             default:
                 view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
-                holder = new CatalogViewHolder(view, mCatalogClickListener);
+                holder = new CatalogViewHolder(view, mCatalogItemClickListener, mCatalogButtonMoreClickListener);
                 break;
         }
 
@@ -106,7 +112,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void catalogView(CatalogViewHolder holder){
 
-        MainCatalogAdapter catalogAdapter = new MainCatalogAdapter(mCatalog, mCatalogClickListener);
+        MainCatalogAdapter catalogAdapter = new MainCatalogAdapter(mCatalog, mCatalogItemClickListener);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.mRecyclerView.setAdapter(catalogAdapter);
 
@@ -150,18 +156,36 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    public class CatalogViewHolder extends RecyclerView.ViewHolder {
+    public static class CatalogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        MainCatalogAdapter.MyViewHolder.CatalogClickListener mClickListener;
+        MainCatalogAdapter.MyViewHolder.CatalogItemClickListener mClickItemListener;
 
         private TextView mCountCatalog;
+        private Button mCatalogButtonMore;
+        private CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
         private RecyclerView mRecyclerView;
 
-        private CatalogViewHolder(@NonNull View itemView, MainCatalogAdapter.MyViewHolder.CatalogClickListener catalogClickListener) {
+        private CatalogViewHolder(@NonNull View itemView, MainCatalogAdapter.MyViewHolder.CatalogItemClickListener catalogItemClickListener, CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
             mCountCatalog = itemView.findViewById(R.id.catalog_count_catalogs);
-            this.mClickListener = catalogClickListener;
+            mCatalogButtonMore = itemView.findViewById(R.id.catalog_button_more);
+            mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
+            this.mClickItemListener = catalogItemClickListener;
+            mCatalogButtonMore.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(mCatalogButtonMoreClickListener!= null){
+                mCatalogButtonMoreClickListener.onCatalogButtonMoreClickListener(getAdapterPosition());
+            }
+        }
+
+
+        public interface CatalogButtonMoreClickListener {
+            void onCatalogButtonMoreClickListener (int position);
+
         }
 
     }
