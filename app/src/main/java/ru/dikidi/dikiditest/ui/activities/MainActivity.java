@@ -90,6 +90,8 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction = mFragmentManager.beginTransaction();
 
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+        mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
 
         openMainFragment();
 

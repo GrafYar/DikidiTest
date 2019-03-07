@@ -42,18 +42,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     @Override
     public MainCatalogAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
-//        mViewGroup = viewGroup;
-//
-//        if(viewType == ItemList.CATEGORY_TYPE) {
-//        mContext = viewGroup.getContext();
-//
-//        mView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_catalog,viewGroup,false);
-//        return new MainCatalogAdapter.MyViewHolder(mView);
-//        }
-
         mViewGroup = viewGroup;
-
-
         mContext = mViewGroup.getContext();
 
         mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog, mViewGroup,false);
@@ -66,22 +55,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
     public void onBindViewHolder(@NonNull MainCatalogAdapter.MyViewHolder holder, int position) {
 
         CatalogListRes item = (CatalogListRes) mList.get(position);
-//        if(item.getAdvertising()==null) {
-//            Picasso.with(mContext)
-//                    .load(item.getImage().getOrigin())
-//                    .error(mContext.getResources().getDrawable(R.drawable.placeholder))
-//                    .into(holder.mImageThumb);
-//            holder.mName.setText(item.getName());
-//            holder.mRating.setText(String.format(Locale.getDefault(), "%f", item.getRating()));
-//            holder.mStreetHouse.setText(item.getStreet() + ", " + item.getHouse());
-//
-//
-//
-//
-//        }
-//        else {
             holder.bind(item);
-//        }
 
     }
 
@@ -96,16 +70,6 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         return mList.size();
     }
 
-
-//    public void setListener(CatalogClickListener listener)
-//
-//
-//    public interface CatalogClickListener {
-//            void onCatalogItemClickListener (int position);
-//
-//        }
-
-
     public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
@@ -114,7 +78,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         CatalogClickListener mListener;
         LinearLayout mLnr;
 
-        public MyViewHolder(View itemView, CatalogClickListener catalogClickListener){
+        private MyViewHolder(View itemView, CatalogClickListener catalogClickListener){
             super(itemView);
             this.mListener = catalogClickListener;
 
@@ -131,12 +95,13 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
         }
 
-        public void bind(CatalogListRes item) {
+        private void bind(CatalogListRes item) {
 
             if(item.getAdvertising()==null) {
                 String categories = "";
                 for(String object : item.getCategories()) {
-                    categories += ", " + object;
+                    object += ", ";
+                    categories += object;
                 }
 
                 Picasso.with(mContext)

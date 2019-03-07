@@ -12,6 +12,7 @@
     <string name="navigation_drawer_share">Поделиться приложением</string>
     <string name="navigation_drawer_business">DIKIDI Business</string>
     <string name="navigation_drawer_support">Служба поддержки</string>
+    <string name="catalog_activity_main">Элемент каталога</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
