@@ -16,23 +16,19 @@
             android:id="@+id/nav_appointments"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/navigation_drawer_appointments" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/navigation_drawer_share" />
+        <item
+            android:id="@+id/nav_business"
+
+            android:title="@string/navigation_drawer_business" />
+        <item
+            android:id="@+id/nav_support"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/navigation_drawer_support" />
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/navigation_drawer_share" />
-            <item
-                android:id="@+id/nav_business"
-
-                android:title="@string/navigation_drawer_business" />
-            <item
-                android:id="@+id/nav_support"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/navigation_drawer_support" />
-        </menu>
-    </item>
 
 </menu>

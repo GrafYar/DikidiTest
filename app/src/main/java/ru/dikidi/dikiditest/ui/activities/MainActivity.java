@@ -37,7 +37,11 @@ import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
+import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener;
+import ru.dikidi.dikiditest.ui.adapters.MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener;
+import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener;
+import ru.dikidi.dikiditest.ui.adapters.MainAdapter.SharesViewHolder.SharesButtonMoreClickListener;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.BusinessFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
@@ -47,11 +51,7 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener,
-        MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener,
-        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener,
-        SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -64,25 +64,16 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         mRecyclerView = findViewById(R.id.data_list);
@@ -187,10 +178,11 @@ public class MainActivity extends AppCompatActivity
                             mRecyclerView.setLayoutManager(layoutManager);
 
                             MainAdapter mainAdapter = new MainAdapter(getBaseContext(), listAll, shares, category, catalog, catalogCount,
-                                    new CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener() {
+                                    new CatalogItemClickListener() {
                                         @Override
                                         public void onCatalogItemClickListener(boolean isAdv) {
                                             if (isAdv){
+
                                                 openBusinessFragment();
                                             } else {
                                                 Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
@@ -198,14 +190,14 @@ public class MainActivity extends AppCompatActivity
                                             }
                                         }
                                     },
-                                    new MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener() {
+                                    new CatalogButtonMoreClickListener() {
                                         @Override
                                         public void onCatalogButtonMoreClickListener(int position) {
                                             Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
                                             startActivity(catalogIntent);
                                         }
                                     },
-                                    new CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener() {
+                                    new CategoryItemClickListener() {
                                         @Override
                                         public void onCategoryItemClickListener(int position) {
                                             Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
@@ -219,7 +211,7 @@ public class MainActivity extends AppCompatActivity
                                             startActivity(catalogIntent);
                                         }
                                     },
-                                    new MainAdapter.SharesViewHolder.SharesButtonMoreClickListener() {
+                                    new SharesButtonMoreClickListener() {
                                         @Override
                                         public void onSharesButtonMoreClickListener(int position) {
                                             Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
@@ -311,7 +303,7 @@ public class MainActivity extends AppCompatActivity
             openSupportFragment();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -352,23 +344,5 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
-    }
-
-
-    @Override
-    public void onCatalogItemClickListener(boolean position) {
-    }
-
-    @Override
-    public void onCatalogButtonMoreClickListener(int position) {
-    }
-
-    @Override
-    public void onCategoryItemClickListener(int position) {
-    }
-
-    @Override
-    public void onSharesItemClickListener(int position) {
-
     }
 }
