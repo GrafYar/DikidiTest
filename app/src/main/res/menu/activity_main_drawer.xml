@@ -3,27 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_main"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_menu_send"
             android:title="@string/navigation_drawer_main" />
         <item
             android:id="@+id/nav_shares"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_menu_send"
             android:title="@string/navigation_drawer_shares" />
         <item
             android:id="@+id/nav_appointments"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_send"
             android:title="@string/navigation_drawer_appointments" />
+    </group>
 
+    <group android:id="@+id/menu_botoom"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_share"
+            android:icon="@drawable/ic_menu_send"
             android:title="@string/navigation_drawer_share" />
         <item
             android:id="@+id/nav_business"
-
+            android:icon="@drawable/ic_menu_send"
             android:title="@string/navigation_drawer_business" />
         <item
             android:id="@+id/nav_support"
