@@ -37,6 +37,7 @@ import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
+import ru.dikidi.dikiditest.ui.fragments.BusinessFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
 import ru.dikidi.dikiditest.ui.fragments.SharesFragment;
@@ -169,6 +170,21 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void openBusinessFragment () {
+        if (NetworkStatusChecker.isNetworkAvailable(this)) {
+            mFrag = new BusinessFragment();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
+            mFragmentTransaction.commit();
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Нет подключения",
+                    Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+    }
+
     public void openSupportFragment () {
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
             mFrag = new SupportFragment();
@@ -210,9 +226,13 @@ public class MainActivity extends AppCompatActivity
                             MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount,
                                     new CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener() {
                                         @Override
-                                        public void onCatalogItemClickListener(int position) {
-                                            Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
-                                            startActivity(catalogItemIntent);
+                                        public void onCatalogItemClickListener(boolean isAdv) {
+                                            if (isAdv){
+                                                openBusinessFragment();
+                                            } else {
+                                                Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
+                                                startActivity(catalogItemIntent);
+                                            }
                                         }
                                     },
                                     new MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener() {
@@ -314,6 +334,8 @@ public class MainActivity extends AppCompatActivity
             openAppointmentFragment();
         } else if (id == R.id.nav_share) {
             openShareAppFragment();
+        } else if (id == R.id.nav_business) {
+            openShareAppFragment();
         } else if (id == R.id.nav_support) {
             openSupportFragment();
         }
@@ -324,7 +346,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onCatalogItemClickListener(int position) {
+    public void onCatalogItemClickListener(boolean position) {
     }
 
     @Override

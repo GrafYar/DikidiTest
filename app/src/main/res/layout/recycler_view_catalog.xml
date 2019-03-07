@@ -63,9 +63,18 @@
         android:layout_height="match_parent"
         />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/light_grey"/>
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/catalog_button_all"
+    android:textColor="@color/light_blue"
+    android:layout_marginStart="@dimen/spacing_small_8"
+    android:layout_marginTop="@dimen/spacing_small_8"
+    android:layout_marginBottom="@dimen/spacing_small_8"
+    android:layout_marginEnd="@dimen/spacing_small_8"
+    android:layout_gravity="center"
+    android:padding="4dp"
+    android:text="ПОСМОТРЕТЬ ВСЕ"
+    android:background="@drawable/frame_corners_blue_solid"/>
 
 </LinearLayout>

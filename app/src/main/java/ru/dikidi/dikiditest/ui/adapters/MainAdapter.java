@@ -185,7 +185,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public static class CatalogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mCountCatalog;
-        private Button mCatalogButtonMore;
+        private Button mCatalogButtonMore, mCatalogButtonAll;
         private CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
         private RecyclerView mRecyclerView;
         CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
@@ -195,9 +195,11 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
             mCountCatalog = itemView.findViewById(R.id.catalog_count_catalogs);
             mCatalogButtonMore = itemView.findViewById(R.id.catalog_button_more);
+            mCatalogButtonAll = itemView.findViewById(R.id.catalog_button_all);
             mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
             mCatalogItemClickListener = catalogItemClickListener;
             mCatalogButtonMore.setOnClickListener(this);
+            mCatalogButtonAll.setOnClickListener(this);
         }
 
         @Override

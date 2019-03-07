@@ -9,6 +9,7 @@
     <color name="light_grey">#E9E9E9</color>
     <color name="light_light_grey">#FAFAFA</color>
     <color name="light_blue">#4267b2</color>
+    <color name="light_light_blue">#87CEFA</color>
     <color name="gold">#ffd700</color>
 
     <color name="translucent_scrim_top">#33000000</color>

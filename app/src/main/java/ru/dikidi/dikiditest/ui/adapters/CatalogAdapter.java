@@ -42,7 +42,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
         mViewGroup = viewGroup;
         mContext = mViewGroup.getContext();
         mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog, mViewGroup,false);
-        return new CatalogAdapter.CatalogAdapterViewHolder(mView, mCatalogItemClickListener);
+        return new CatalogAdapter.CatalogAdapterViewHolder(mView, mCatalogItemClickListener, mList);
 
 
     }
@@ -67,14 +67,17 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
     }
 
     public static class CatalogAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        ArrayList<ItemList> mList;
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
         RatingBar mRatingBar;
         TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
         CatalogItemClickListener mCatalogItemClickListener;
 
-        private CatalogAdapterViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener){
+        private CatalogAdapterViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener, ArrayList<ItemList> list){
             super(itemView);
+            mList = list;
             mCatalogItemClickListener = catalogItemClickListener;
 
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
@@ -96,7 +99,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
 
         private void bind(CatalogListRes item) {
 
-            if(item.getAdvertising()==null) {
+            if(!isAdvertising(item)) {
                 String categories = "";
                 for(String object : item.getCategories()) {
                     object += ", ";
@@ -146,15 +149,25 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
             }
         }
 
+        public boolean isAdvertising(CatalogListRes item) {
+            if(item.getAdvertising()==null) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
         @Override
         public void onClick(View v) {
             if(mCatalogItemClickListener!= null){
-                mCatalogItemClickListener.onCatalogItemClickListener(getAdapterPosition());
+                CatalogListRes item = (CatalogListRes) mList.get(getAdapterPosition());
+                mCatalogItemClickListener.onCatalogItemClickListener(isAdvertising(item));
             }
         }
 
         public interface CatalogItemClickListener {
-            void onCatalogItemClickListener (int position);
+            void onCatalogItemClickListener (boolean isAdv);
         }
     }
 }
