@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Красота и здоровье</string>
+    <string name="app_name">Dikidi Test</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Войти</string>
@@ -7,6 +7,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="navigation_drawer_main">Главная</string>
+    <string name="app_title">Красота и здоровье</string>
     <string name="navigation_drawer_shares">Акции</string>
     <string name="navigation_drawer_appointments">Мои записи</string>
     <string name="navigation_drawer_share">Поделиться приложением</string>
@@ -20,7 +21,7 @@
 
     <string name="adv_txt_view">Реклама</string>
     <string name="adv_name">Хотите попасть в каталог?</string>
-    <string name="adv_street_house">Скачайте бесплатное приложение DIKIDI Business и подключите вашу онлайн ...</string>
+    <string name="adv_street_house">Скачайте бесплатное приложение DIKIDI Business и подключите вашу онлайн</string>
     <string name="adv_categories">Узнать больше</string>
 
 

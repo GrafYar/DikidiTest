@@ -63,10 +63,7 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
         holder.mCompanyStreetHouse.setText(item.getCompanyStreet() + ", " + item.getCompanyHouse());
         holder.mViews.setText(item.getView());
         holder.mUsed.setText(item.getUsedCount());
-
-
         holder.mTimeStop.setText(getFormattedDate(item.getTimeStop()));
-       // holder.mCountShares.setText(String.format(Locale.getDefault(), "%d", mi));
 
 
     }

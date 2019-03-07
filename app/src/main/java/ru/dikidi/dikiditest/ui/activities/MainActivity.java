@@ -1,6 +1,7 @@
 package ru.dikidi.dikiditest.ui.activities;
 
 import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -54,14 +56,9 @@ public class MainActivity extends AppCompatActivity
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
     CoordinatorLayout mCoordinatorLayout;
-    Fragment mFrag;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
-    ArrayList<ArrayList<ItemList>> mList = new ArrayList<>();
-    ArrayList<ItemList> mShares = new ArrayList<>();
-    ArrayList<ItemList> mCategory = new ArrayList<>();
-    ArrayList<ItemList> mCatalog = new ArrayList<>();
+    AppBarLayout mAppBarLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,26 +87,26 @@ public class MainActivity extends AppCompatActivity
 
         mRecyclerView = findViewById(R.id.data_list);
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
         mCollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
 
+        mAppBarLayout = findViewById(R.id.app_bar_layout);
+
+        setTitle(getString(R.string.app_title));
+
         openMainFragment();
 
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     public void openMainFragment (){
 
     if(NetworkStatusChecker.isNetworkAvailable(this)) {
 
-    mFrag = new MainFragment();
-    mFragmentManager = getSupportFragmentManager();
-    mFragmentTransaction = mFragmentManager.beginTransaction();
-    mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-    mFragmentTransaction.commit();
+    Fragment fragment = new MainFragment();
+    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
 
     loadData();
 
@@ -125,79 +122,39 @@ public class MainActivity extends AppCompatActivity
 
     public void openSharesFragment () {
 
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            mFrag = new SharesFragment();
-            mFragmentManager = getSupportFragmentManager();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-            mFragmentTransaction.commit();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нет подключения",
-                    Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+        Fragment fragment = new SharesFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
     }
 
     public void openAppointmentFragment () {
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            mFrag = new AppointmentFragment();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-            mFragmentTransaction.commit();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нет подключения",
-                    Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+
+        Fragment fragment = new AppointmentFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+
     }
 
     public void openShareAppFragment () {
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            mFrag = new ShareAppFragment();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-            mFragmentTransaction.commit();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нет подключения",
-                    Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+
+        Fragment fragment = new ShareAppFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+
     }
 
     public void openBusinessFragment () {
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            mFrag = new BusinessFragment();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-            mFragmentTransaction.commit();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нет подключения",
-                    Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+        Fragment fragment = new BusinessFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+
     }
 
     public void openSupportFragment () {
-        if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            mFrag = new SupportFragment();
-            mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main_lnrlayout, mFrag);
-            mFragmentTransaction.commit();
-        } else {
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Нет подключения",
-                    Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
-        }
+        Fragment fragment = new SupportFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        //mFragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
     }
 
     public void loadData() {
@@ -209,21 +166,27 @@ public class MainActivity extends AppCompatActivity
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
 
                         try {
-                            mShares.addAll(response.body().getData().getBlocks().getShares().getList());
-                            mCategory.addAll(response.body().getData().getBlocks().getCategories());
-                            mCatalog.addAll(response.body().getData().getBlocks().getCatalog());
+
+                            ArrayList<ArrayList<ItemList>> listAll = new ArrayList<>();
+                            ArrayList<ItemList> shares = new ArrayList<>();
+                            ArrayList<ItemList> category = new ArrayList<>();
+                            ArrayList<ItemList> catalog = new ArrayList<>();
+
+                            shares.addAll(response.body().getData().getBlocks().getShares().getList());
+                            category.addAll(response.body().getData().getBlocks().getCategories());
+                            catalog.addAll(response.body().getData().getBlocks().getCatalog());
                             String catalogCount = response.body().getData().getCatalogCount();
 
-                            mList.add(mShares);
-                            mList.add(mCategory);
-                            mList.add(mCatalog);
+                            listAll.add(shares);
+                            listAll.add(category);
+                            listAll.add(catalog);
 
                             mRecyclerView = findViewById(R.id.data_list);
                             LinearLayoutManager layoutManager
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount,
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), listAll, shares, category, catalog, catalogCount,
                                     new CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener() {
                                         @Override
                                         public void onCatalogItemClickListener(boolean isAdv) {
@@ -290,7 +253,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -328,12 +291,20 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_main) {
             openMainFragment();
+            unCollapseAppBar();
+            unLockAppBar();
         } else if (id == R.id.nav_shares) {
             openSharesFragment();
+            collapseAppBar();
+            lockAppBar();
         } else if (id == R.id.nav_appointments) {
             openAppointmentFragment();
+            collapseAppBar();
+            lockAppBar();
         } else if (id == R.id.nav_share) {
             openShareAppFragment();
+            collapseAppBar();
+            lockAppBar();
         } else if (id == R.id.nav_business) {
             openShareAppFragment();
         } else if (id == R.id.nav_support) {
@@ -344,6 +315,45 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // Скрывает AppBar
+    private void collapseAppBar() {
+        mAppBarLayout.setExpanded(false, true);
+    }
+
+    // Раскрывает AppBar
+    private void unCollapseAppBar() {
+        mAppBarLayout.setExpanded(true, true);
+    }
+
+    //Блокирует раскрываение AppBar
+    private void lockAppBar() {
+    //Блокируем AppBar от раскрывания
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+            @Override
+            public boolean canDrag(AppBarLayout appBarLayout) {
+                return false;
+            }
+        });
+    }
+
+    //Разблокирует раскрываение AppBar
+    private void unLockAppBar() {
+        //Разблокируем AppBar от раскрывания
+        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
+        if (behavior != null) {
+            behavior.setDragCallback(new AppBarLayout.Behavior.DragCallback() {
+                @Override
+                public boolean canDrag(AppBarLayout appBarLayout) {
+                    return true;
+                }
+            });
+        }
+    }
+
 
     @Override
     public void onCatalogItemClickListener(boolean position) {
