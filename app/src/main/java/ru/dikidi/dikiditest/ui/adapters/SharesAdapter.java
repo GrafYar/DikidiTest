@@ -19,7 +19,7 @@ import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.SharesListRes;
 import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
-public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.MyViewHolder>{
+public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdapterViewHolder>{
 
     private static final String REST_RESPONSE_FORMAT="yyyy-MM-dd HH:mm:ss";
     private static final String MONTH_DAY_FORMAT = "d MMM";
@@ -27,23 +27,23 @@ public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.My
     ArrayList<ItemList> mList = new ArrayList();
     Context mContext;
 
-    public MainSharesAdapter(ArrayList<ItemList> list){
+    public SharesAdapter(ArrayList<ItemList> list){
         mList = list;
 
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public SharesAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
         mContext = viewGroup.getContext();
 
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_shares,viewGroup,false);
-        return new MyViewHolder(view);
+        return new SharesAdapterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull SharesAdapterViewHolder holder, int i) {
 
         SharesListRes.ListShares item = (SharesListRes.ListShares) mList.get(i);
 
@@ -92,13 +92,13 @@ public class MainSharesAdapter extends RecyclerView.Adapter<MainSharesAdapter.My
         return mList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class SharesAdapterViewHolder extends RecyclerView.ViewHolder {
         AspectRatioImageView mIcon;
         CircleImageView mCompanyImage;
         TextView mName, mDiscountValue, mCompanyName, mCompanyStreetHouse, mViews, mUsed, mTimeStop, mCountShares;
 
 
-        public MyViewHolder(View itemView){
+        public SharesAdapterViewHolder(View itemView){
             super(itemView);
             mIcon = itemView.findViewById(R.id.shares_icon);
             mName = itemView.findViewById(R.id.shares_name);

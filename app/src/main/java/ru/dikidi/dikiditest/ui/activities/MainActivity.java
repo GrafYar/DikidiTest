@@ -21,22 +21,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
+import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
-import ru.dikidi.dikiditest.ui.adapters.MainCatalogAdapter;
+import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
@@ -45,8 +42,10 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainCatalogAdapter.MyViewHolder.CatalogItemClickListener,
-                        MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener,
+        MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener,
+        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener{
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -205,19 +204,28 @@ public class MainActivity extends AppCompatActivity
                                     = new LinearLayoutManager(getBaseContext());
                             mRecyclerView.setLayoutManager(layoutManager);
 
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount, new MainCatalogAdapter.MyViewHolder.CatalogItemClickListener() {
-                                @Override
-                                public void onCatalogItemClickListener(int position) {
-                                    Intent catalogItemIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
-                                    startActivity(catalogItemIntent);
-                                }
-                            }, new MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener() {
-                                @Override
-                                public void onCatalogButtonMoreClickListener(int position) {
-                                    Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
-                                    startActivity(catalogIntent);
-                                }
-                            });
+                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), mList, mShares, mCategory, mCatalog, catalogCount,
+                                    new CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener() {
+                                        @Override
+                                        public void onCatalogItemClickListener(int position) {
+                                            Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
+                                            startActivity(catalogItemIntent);
+                                        }
+                                    },
+                                    new MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener() {
+                                        @Override
+                                        public void onCatalogButtonMoreClickListener(int position) {
+                                            Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
+                                            startActivity(catalogIntent);
+                                        }
+                                    },
+                                    new CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener() {
+                                        @Override
+                                        public void onCategoryItemClickListener(int position) {
+                                            Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
+                                            startActivity(catalogIntent);
+                                        }
+                                    });
                             mRecyclerView.setAdapter(mainAdapter);
 
 
@@ -298,16 +306,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onCatalogItemClickListener(int position) {
-        Intent catalogIntent = new Intent(MainActivity.this, ItemCatalogActivity.class);
-        startActivity(catalogIntent);
     }
 
     @Override
     public void onCatalogButtonMoreClickListener(int position) {
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Ошибка запроса",
-                Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+    }
+
+    @Override
+    public void onCategoryItemClickListener(int position) {
     }
 }

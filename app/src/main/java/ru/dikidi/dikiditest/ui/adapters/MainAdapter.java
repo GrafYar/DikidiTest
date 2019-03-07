@@ -1,7 +1,6 @@
 package ru.dikidi.dikiditest.ui.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +15,6 @@ import java.util.Locale;
 
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
-import ru.dikidi.dikiditest.ui.activities.ItemCatalogActivity;
 
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -26,21 +24,24 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private ArrayList<ItemList> mCategory;
     private ArrayList<ItemList> mCatalog;
     private String mCatalogCount;
-    private MainCatalogAdapter.MyViewHolder.CatalogItemClickListener mCatalogItemClickListener;
+    private CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
     private CatalogViewHolder.CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
+    private CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
 
     public MainAdapter ( Context context, ArrayList<ArrayList<ItemList>> news, ArrayList<ItemList> shares,
                          ArrayList<ItemList> category, ArrayList<ItemList> catalog, String catalogCount,
-                         MainCatalogAdapter.MyViewHolder.CatalogItemClickListener catalogItemClickListener,
-                         CatalogViewHolder.CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
+                         CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener,
+                         CatalogViewHolder.CatalogButtonMoreClickListener catalogButtonMoreClickListener,
+                         CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener) {
         mContext = context;
         mList = news;
         mShares = shares;
         mCategory = category;
         mCatalog = catalog;
         mCatalogCount = catalogCount;
-        this.mCatalogItemClickListener = catalogItemClickListener;
+        mCatalogItemClickListener = catalogItemClickListener;
         mCatalogButtonMoreClickListener = catalogButtonMoreClickListener;
+        mCategoryItemClickListener = categoryItemClickListener;
     }
 
 
@@ -59,7 +60,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 break;
             case ItemList.CATEGORY_TYPE:
                 view = mLayoutInflater.inflate(R.layout.category_recycler_view, viewGroup, false);
-                holder = new CategoryViewHolder(view);
+                holder = new CategoryViewHolder(view, mCategoryItemClickListener);
                 break;
             case ItemList.CATALOG_TYPE:
                 view = mLayoutInflater.inflate(R.layout.catalog_recycler_view, viewGroup, false);
@@ -96,7 +97,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void sharesView(SharesViewHolder holder){
 
-        MainSharesAdapter sharesAdapter = new MainSharesAdapter(mShares);
+        SharesAdapter sharesAdapter = new SharesAdapter(mShares);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.mRecyclerView.setAdapter(sharesAdapter);
 
@@ -104,7 +105,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void categoryView(CategoryViewHolder holder){
 
-        MainCategoryAdapter categoryAdapter = new MainCategoryAdapter(mCategory);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(mCategory, mCategoryItemClickListener);
         holder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext,2,GridLayoutManager.HORIZONTAL,false));
         holder.mRecyclerView.setAdapter(categoryAdapter);
 
@@ -112,7 +113,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private void catalogView(CatalogViewHolder holder){
 
-        MainCatalogAdapter catalogAdapter = new MainCatalogAdapter(mCatalog, mCatalogItemClickListener);
+        CatalogAdapter catalogAdapter = new CatalogAdapter(mCatalog, mCatalogItemClickListener);
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.mRecyclerView.setAdapter(catalogAdapter);
 
@@ -143,29 +144,31 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     }
 
-    public class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
         private TextView mCountCategories;
         private RecyclerView mRecyclerView;
+        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
 
-        private CategoryViewHolder(@NonNull View itemView) {
+        private CategoryViewHolder(@NonNull View itemView, CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.category_recycler_view);
             mCountCategories = itemView.findViewById(R.id.category_count_categories);
+            mCategoryItemClickListener = categoryItemClickListener;
         }
 
     }
 
     public static class CatalogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        MainCatalogAdapter.MyViewHolder.CatalogItemClickListener mClickItemListener;
 
         private TextView mCountCatalog;
         private Button mCatalogButtonMore;
         private CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
         private RecyclerView mRecyclerView;
+        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mClickItemListener;
 
-        private CatalogViewHolder(@NonNull View itemView, MainCatalogAdapter.MyViewHolder.CatalogItemClickListener catalogItemClickListener, CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
+        private CatalogViewHolder(@NonNull View itemView, CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener, CatalogButtonMoreClickListener catalogButtonMoreClickListener) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.catalog_recycler_view);
             mCountCatalog = itemView.findViewById(R.id.catalog_count_catalogs);
@@ -182,12 +185,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         }
 
-
         public interface CatalogButtonMoreClickListener {
             void onCatalogButtonMoreClickListener (int position);
-
         }
-
     }
 
 }

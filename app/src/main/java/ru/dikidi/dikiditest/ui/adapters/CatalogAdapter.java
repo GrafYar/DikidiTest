@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -16,46 +15,43 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
-
-public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.MyViewHolder>{
+public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogAdapterViewHolder>{
 
    static Context mContext;
     View mView;
     ViewGroup mViewGroup;
     ArrayList<ItemList> mList = new ArrayList();
-    MyViewHolder.CatalogItemClickListener mCatalogClickListener;
+    CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
 
 
-    public MainCatalogAdapter(ArrayList<ItemList> list, MyViewHolder.CatalogItemClickListener catalogClickListener){
+    public CatalogAdapter(ArrayList<ItemList> list, CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener){
         mList = list;
-        this.mCatalogClickListener = catalogClickListener;
+        this.mCatalogItemClickListener = catalogItemClickListener;
     }
 
     @NonNull
     @Override
-    public MainCatalogAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public CatalogAdapter.CatalogAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
 
         mViewGroup = viewGroup;
         mContext = mViewGroup.getContext();
-
         mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog, mViewGroup,false);
-        return new MainCatalogAdapter.MyViewHolder(mView, mCatalogClickListener);
+        return new CatalogAdapter.CatalogAdapterViewHolder(mView, mCatalogItemClickListener);
 
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainCatalogAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CatalogAdapter.CatalogAdapterViewHolder holder, int position) {
 
         CatalogListRes item = (CatalogListRes) mList.get(position);
-            holder.bind(item);
+        holder.bind(item);
 
     }
 
@@ -70,17 +66,16 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
         return mList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class CatalogAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         AspectRatioImageView mImageThumb, mImageAdv;
         TextView mName, mRating, mStreetHouse, mCategories;
         RatingBar mRatingBar;
         Button mBut;
         CatalogItemClickListener mCatalogItemClickListener;
-        LinearLayout mLnr;
 
-        private MyViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener){
+        private CatalogAdapterViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener){
             super(itemView);
-            this.mCatalogItemClickListener = catalogItemClickListener;
+            mCatalogItemClickListener = catalogItemClickListener;
 
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
             mName = itemView.findViewById(R.id.catalog_name);
@@ -90,8 +85,7 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
             mRatingBar = itemView.findViewById(R.id.catalog_rating_bar);
             mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
             mBut = itemView.findViewById(R.id.adv_button);
-            mLnr = itemView.findViewById(R.id.lnr_catalog);
-            mLnr.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 
@@ -112,10 +106,8 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
                 mName.setText(item.getName());
                 mRating.setText(new DecimalFormat("#.#").format(item.getRating()));
                 mRatingBar.setRating((float)item.getRating());
-               // mRating.setText(String.format(Locale.getDefault(), "%f", item.getRating()));
                 mStreetHouse.setText(item.getStreet() + ", " + item.getHouse());
                 mCategories.setText(categories);
-
 
                 mImageThumb.setVisibility(View.VISIBLE);
                 mName.setVisibility(View.VISIBLE);
@@ -128,7 +120,6 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
                 mBut.setVisibility(View.GONE);
             }
             else {
-
                 mImageThumb.setVisibility(View.GONE);
                 mName.setVisibility(View.GONE);
                 mRating.setVisibility(View.GONE);
@@ -137,12 +128,9 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
 
                 mImageAdv.setVisibility(View.VISIBLE);
                 mBut.setVisibility(View.VISIBLE);
-
             }
-
-
-
         }
+
         @Override
         public void onClick(View v) {
             if(mCatalogItemClickListener!= null){
@@ -150,10 +138,8 @@ public class MainCatalogAdapter extends RecyclerView.Adapter<MainCatalogAdapter.
             }
         }
 
-
         public interface CatalogItemClickListener {
             void onCatalogItemClickListener (int position);
-
         }
     }
 }
