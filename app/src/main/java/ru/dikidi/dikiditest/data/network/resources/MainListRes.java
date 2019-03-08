@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
+// POJO model for main Data and Blocks from REST API
 public class MainListRes{
 
     @SerializedName("data")
@@ -33,36 +34,12 @@ public class MainListRes{
         @Expose
         private Blocks blocks;
 
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
         public String getCatalogCount() {
             return catalogCount;
         }
 
-        public void setCatalogCount(String catalogCount) {
-            this.catalogCount = catalogCount;
-        }
-
         public Blocks getBlocks() {
             return blocks;
-        }
-
-        public void setBlocks(Blocks blocks) {
-            this.blocks = blocks;
         }
 
     }
@@ -83,24 +60,12 @@ public class MainListRes{
             return categories;
         }
 
-        public void setCategories(List<CategoryListRes> categories) {
-            this.categories = categories;
-        }
-
         public SharesListRes getShares() {
             return shares;
         }
 
-        public void setShares(SharesListRes shares) {
-            this.shares = shares;
-        }
-
         public List<CatalogListRes> getCatalog() {
             return catalog;
-        }
-
-        public void setCatalog(List<CatalogListRes> catalog) {
-            this.catalog = catalog;
         }
 
     }

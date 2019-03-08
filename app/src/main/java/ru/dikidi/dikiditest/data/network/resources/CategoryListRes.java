@@ -3,6 +3,7 @@ package ru.dikidi.dikiditest.data.network.resources;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+// POJO model for Category resources from REST API
 public class CategoryListRes implements ItemList {
 
     @SerializedName("id")
@@ -38,10 +39,6 @@ public class CategoryListRes implements ItemList {
 
     public String getImage() {
         return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
 }
