@@ -76,8 +76,7 @@
                                     android:layout_height="match_parent"
                                     android:id="@+id/catalog_rating"
                                     android:textSize="12sp"
-                                    android:gravity="center_vertical"
-                                    android:text="3.5"/>
+                                    android:gravity="center_vertical"/>
                             </LinearLayout>
 
                             <LinearLayout
@@ -134,8 +133,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:textSize="@dimen/font_small_14"
-                            android:gravity="bottom"
-                            android:text="Салон"/>
+                            android:gravity="bottom"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -155,8 +153,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/catalog_street_house"
-                            android:gravity="top"
-                            android:text="Улица, дом"/>
+                            android:gravity="top"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -177,8 +174,7 @@
                             android:gravity="top"
                             android:maxLines="2"
                             android:ellipsize="end"
-                            android:textSize="10sp"
-                            android:text="Категории"/>
+                            android:textSize="10sp"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

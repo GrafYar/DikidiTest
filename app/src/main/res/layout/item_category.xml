@@ -44,8 +44,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:gravity="center"
-                android:background="@color/fade_black"
-                android:text="Название"/>
+                android:background="@color/fade_black"/>
 
         </FrameLayout>
 

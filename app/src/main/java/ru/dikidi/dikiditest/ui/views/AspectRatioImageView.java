@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import ru.dikidi.dikiditest.R;
 
+// Custom imageview for shares cardview
 public class AspectRatioImageView extends android.support.v7.widget.AppCompatImageView {
     private static final float DEFAULT_ASPECT_RATIO = 1.78f;
     private final float mAspectRatio;

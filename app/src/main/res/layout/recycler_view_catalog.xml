@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="@dimen/layout_heights_55"
         android:layout_gravity="bottom"
         android:orientation="horizontal">
         <LinearLayout
@@ -18,10 +18,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Каталог"
+                android:text="@string/catalog_recyclerview_title"
                 android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_medial_18"
                 android:gravity="center"/>
 
         </LinearLayout>
@@ -34,9 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/catalog_count_catalogs"
-                android:text="99"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="@dimen/font_medial_18"
                 android:gravity="center_vertical"/>
         </LinearLayout>
         <LinearLayout
@@ -48,7 +47,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/catalog_button_more"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:text="ЕЩЕ"
+                android:text="@string/button_more_name"
                 android:textColor="@color/light_blue"
                 android:gravity="center_vertical"/>
 
@@ -73,8 +72,8 @@
     android:layout_marginBottom="@dimen/spacing_small_8"
     android:layout_marginEnd="@dimen/spacing_small_8"
     android:layout_gravity="center"
-    android:padding="4dp"
-    android:text="ПОСМОТРЕТЬ ВСЕ"
+    android:padding="@dimen/padding_small_4"
+    android:text="@string/button_view_all"
     android:background="@drawable/frame_corners_blue_solid"/>
 
 </LinearLayout>

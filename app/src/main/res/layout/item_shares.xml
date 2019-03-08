@@ -47,18 +47,16 @@
                     android:paddingBottom="@dimen/spacing_small_8"
                     android:textSize="@dimen/font_small_14"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:text="Название"/>
+                    android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/shares_discount_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/spacing_medium_32"
+                    android:paddingStart="@dimen/spacing_medium_32"
                     android:paddingTop="@dimen/spacing_medium_32"
                     android:textSize="@dimen/font_small_14"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:text="25"/>
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -105,7 +103,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="bottom|center_vertical"
-                                android:text="Название"
                                 android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -119,7 +116,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="top|center_vertical"
-                                android:text="Улица"
                                 android:textColor="@color/white" />
                         </LinearLayout>
 
@@ -168,8 +164,7 @@
                                         android:layout_height="match_parent"
                                         android:id="@+id/shares_views"
                                         android:textColor="@color/white"
-                                        android:gravity="center"
-                                        android:text="26"/>
+                                        android:gravity="center"/>
                                 </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -192,8 +187,7 @@
                                         android:layout_height="match_parent"
                                         android:id="@+id/shares_used"
                                         android:gravity="center_vertical"
-                                        android:textColor="@color/white"
-                                        android:text="0"/>
+                                        android:textColor="@color/white"/>
                                 </LinearLayout>
 
 
@@ -209,15 +203,14 @@
                                 android:layout_height="match_parent"
                                 android:textColor="@color/white"
                                 android:gravity="start|center_vertical"
-                                android:text="до: "/>
+                                android:text="@string/shares_before"/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:id="@+id/shares_time_stop"
                                 android:textColor="@color/white"
                                 android:gravity="start|center_vertical"
-                                android:textStyle="bold"
-                                android:text="до: "/>
+                                android:textStyle="bold"/>
                         </LinearLayout>
                     </LinearLayout>
 

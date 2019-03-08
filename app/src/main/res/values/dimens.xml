@@ -24,9 +24,22 @@
 
     <!--Fonts-->
     <dimen name="font_small_14">14sp</dimen>
+    <dimen name="font_medial_18">18sp</dimen>
     <dimen name="font_medium_20">20sp</dimen>
     <dimen name="font_large_24">24sp</dimen>
 
+    <!--Paddings-->
+    <dimen name="padding_small_4">4dp</dimen>
+
+    <!--Heights-->
+    <dimen name="layout_heights_55">55dp</dimen>
+    <dimen name="layout_heights_10">10dp</dimen>
+    <dimen name="layout_heights_1">1dp</dimen>
+    <dimen name="category_view_heights_10">10dp</dimen>
+
+    <!--Margins-->
+    <dimen name="margin_start_12">12dp</dimen>
+    <dimen name="margin_bottom_2">2dp</dimen>
 
     <dimen name="text_scrim_height_top">50dp</dimen>
     <dimen name="text_scrim_height_bottom">88dp</dimen>
