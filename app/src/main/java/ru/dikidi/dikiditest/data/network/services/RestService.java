@@ -6,7 +6,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 
-public interface JSONPlaceHolderApi {
+public interface RestService {
 
     @POST("home/info/")
     @FormUrlEncoded

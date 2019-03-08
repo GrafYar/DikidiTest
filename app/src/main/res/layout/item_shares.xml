@@ -29,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/shares_icon"
                 android:scaleType="centerCrop"
-                android:src="@drawable/user_photo"
                 app:aspect_ratio="1.5" />
 
             <LinearLayout

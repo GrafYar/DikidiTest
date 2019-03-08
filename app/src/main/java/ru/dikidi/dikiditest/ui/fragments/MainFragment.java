@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,20 +39,19 @@ import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
 import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
-
+import ru.dikidi.dikiditest.utilits.ConstantManager;
 
 
 public class MainFragment extends Fragment {
 
-    Integer mCityId = 468902;
-    RecyclerView mRecyclerView;
-    ImageView mTitleImage;
+    private static final String TAG = ConstantManager.TAG_PREFIX + " MainFragment";
+    private RecyclerView mRecyclerView;
     private CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
     private MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
     private CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
     private SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
     private MainAdapter.SharesViewHolder.SharesButtonMoreClickListener mSharesButtonMoreClickListener;
-    String mTitleApp, mTitleImageURL;
+    private String mTitleApp, mTitleImageURL;
 
     public MainFragment() {
         // Required empty public constructor
@@ -78,10 +80,6 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
@@ -103,7 +101,7 @@ public class MainFragment extends Fragment {
     public void loadData() {
         RetrofitService.getInstance()
                 .getJSONApi()
-                .getMainJson(mCityId)
+                .getMainJson(ConstantManager.CITY_ID)
                 .enqueue(new Callback<MainListRes>() {
                     @Override
                     public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
@@ -141,21 +139,13 @@ public class MainFragment extends Fragment {
 
 
                         } catch (NullPointerException e) {
-                            Toast toast = Toast.makeText(getContext(),
-                                    "Ошибка",
-                                    Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+                            Log.e(TAG, e.toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MainListRes> call, Throwable t) {
-                        Toast toast = Toast.makeText(getContext(),
-                                "Ошибка запроса",
-                                Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                        Log.e(TAG, t.toString());
                     }
                 });
 

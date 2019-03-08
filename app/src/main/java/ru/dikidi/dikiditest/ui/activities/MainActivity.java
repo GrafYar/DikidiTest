@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -43,13 +44,9 @@ public class MainActivity extends AppCompatActivity
         SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener,
         MainAdapter.SharesViewHolder.SharesButtonMoreClickListener {
 
-    Integer mCityId = 468902;
-    RecyclerView mRecyclerView;
-    CoordinatorLayout mCoordinatorLayout;
-    CollapsingToolbarLayout mCollapsingToolbarLayout;
-    AppBarLayout mAppBarLayout;
-    DrawerLayout mDrawer;
-
+    private CoordinatorLayout mCoordinatorLayout;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private AppBarLayout mAppBarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +55,16 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mDrawer = findViewById(R.id.drawer_layout);
+        mCoordinatorLayout = findViewById(R.id.coordinator_layout);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawer.addDrawerListener(toggle);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mRecyclerView = findViewById(R.id.data_list);
 
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
@@ -89,11 +86,7 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
 
     } else {
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Нет подключения",
-                Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
+        Snackbar.make(mCoordinatorLayout,"Нет подключения", Snackbar.LENGTH_LONG).show();
     }
 
     }
