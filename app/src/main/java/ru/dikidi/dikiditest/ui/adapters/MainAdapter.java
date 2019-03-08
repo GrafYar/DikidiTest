@@ -120,7 +120,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public int getItemViewType(int position) {
         return mList.get(position).get(position).getItemType();
-
     }
 
     @Override

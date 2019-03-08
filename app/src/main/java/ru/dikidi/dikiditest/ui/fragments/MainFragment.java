@@ -1,6 +1,7 @@
 package ru.dikidi.dikiditest.ui.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -26,45 +27,11 @@ import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
+import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
+import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import ru.dikidi.dikiditest.R;
-import ru.dikidi.dikiditest.data.network.resources.ItemList;
-import ru.dikidi.dikiditest.data.network.resources.MainListRes;
-import ru.dikidi.dikiditest.data.network.services.RetrofitService;
-import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
-import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
-import ru.dikidi.dikiditest.ui.fragments.MainFragment;
-import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
-import ru.dikidi.dikiditest.ui.fragments.SharesFragment;
-import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
-import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,18 +50,14 @@ public class MainFragment extends Fragment {
     // TODO: Rename and change types of parameters
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
-    CoordinatorLayout mCoordinatorLayout;
-    Fragment mFrag;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
-    ArrayList<ArrayList<ItemList>> mList = new ArrayList<>();
-    ArrayList<ItemList> mShares = new ArrayList<>();
-    ArrayList<ItemList> mCategory = new ArrayList<>();
-    ArrayList<ItemList> mCatalog = new ArrayList<>();
-    String mTitleApp, mTitleImageURL;
     ImageView mTitleImage;
+    private CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
+    private MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener mCatalogButtonMoreClickListener;
+    private CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
+    private SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
+    private MainAdapter.SharesViewHolder.SharesButtonMoreClickListener mSharesButtonMoreClickListener;
 
-    private OnFragmentInteractionListener mListener;
+ //   private OnFragmentInteractionListener mListener;
 
     public MainFragment() {
         // Required empty public constructor
@@ -116,6 +79,26 @@ public class MainFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+    super.onAttach(context);
+        if (context instanceof CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener){
+            mCatalogItemClickListener = (CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener) context;
+        }
+        if (context instanceof MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener){
+            mCatalogButtonMoreClickListener = (MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener) context;
+        }
+        if (context instanceof CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener){
+            mCategoryItemClickListener = (CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener) context;
+        }
+        if (context instanceof SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener){
+            mSharesItemClickListener = (SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener) context;
+        }
+        if (context instanceof MainAdapter.SharesViewHolder.SharesButtonMoreClickListener){
+            mSharesButtonMoreClickListener = (MainAdapter.SharesViewHolder.SharesButtonMoreClickListener) context;
+        }
     }
 
     @Override
@@ -202,14 +185,60 @@ public class MainFragment extends Fragment {
 //                        toast.show();
 //                    }
 //                });
-    }
+
+        RetrofitService.getInstance()
+                .getJSONApi()
+                .getMainJson(mCityId)
+                .enqueue(new Callback<MainListRes>() {
+                    @Override
+                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
+
+                        try {
+
+                            ArrayList<ArrayList<ItemList>> listAll = new ArrayList<>();
+                            ArrayList<ItemList> shares = new ArrayList<>();
+                            ArrayList<ItemList> category = new ArrayList<>();
+                            ArrayList<ItemList> catalog = new ArrayList<>();
+
+                            shares.addAll(response.body().getData().getBlocks().getShares().getList());
+                            category.addAll(response.body().getData().getBlocks().getCategories());
+                            catalog.addAll(response.body().getData().getBlocks().getCatalog());
+                            String catalogCount = response.body().getData().getCatalogCount();
+
+                            listAll.add(shares);
+                            listAll.add(category);
+                            listAll.add(catalog);
+
+                            LinearLayoutManager layoutManager
+                                    = new LinearLayoutManager(getContext());
+                            mRecyclerView.setLayoutManager(layoutManager);
+
+                            MainAdapter mainAdapter = new MainAdapter(getContext(), listAll, shares, category, catalog, catalogCount,
+                                    mCatalogItemClickListener,mCatalogButtonMoreClickListener, mCategoryItemClickListener, mSharesItemClickListener, mSharesButtonMoreClickListener);
+
+                            mRecyclerView.setAdapter(mainAdapter);
 
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
+                        } catch (NullPointerException e) {
+                            Toast toast = Toast.makeText(getContext(),
+                                    "Ошибка",
+                                    Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<MainListRes> call, Throwable t) {
+                        Toast toast = Toast.makeText(getContext(),
+                                "Ошибка запроса",
+                                Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                    }
+                });
+
     }
 
 
@@ -217,7 +246,11 @@ public class MainFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCatalogItemClickListener = null;
+        mCatalogButtonMoreClickListener = null;
+        mCategoryItemClickListener = null;
+        mSharesItemClickListener = null;
+        mSharesButtonMoreClickListener = null;
     }
 
     /**

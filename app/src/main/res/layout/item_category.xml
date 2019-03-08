@@ -9,7 +9,7 @@
     android:layout_marginRight="@dimen/margin_medial_4"
     android:layout_marginLeft="@dimen/margin_medial_4"
     android:layout_marginBottom="@dimen/margin_medial_4"
-    android:background="@drawable/corners"
+    android:background="@drawable/frame_corners"
     android:orientation="vertical"
     app:cardUseCompatPadding="true">
 
@@ -30,7 +30,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/hairdressing"
                 android:background="@drawable/corners"/>
-
 
             <TextView
                 android:id="@+id/category_name"

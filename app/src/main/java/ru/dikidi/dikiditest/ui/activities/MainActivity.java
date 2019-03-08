@@ -28,10 +28,13 @@ import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 import ru.dikidi.dikiditest.data.network.resources.MainListRes;
 import ru.dikidi.dikiditest.data.network.services.RetrofitService;
+import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
+import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener;
 import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener;
+import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter.SharesViewHolder.SharesButtonMoreClickListener;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
@@ -43,7 +46,12 @@ import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CatalogAdapter.CatalogAdapterViewHolder.CatalogItemClickListener,
+        MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener,
+        CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener,
+        SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener,
+        MainAdapter.SharesViewHolder.SharesButtonMoreClickListener {
 
     Integer mCityId = 468902;
     RecyclerView mRecyclerView;
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity
     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
     fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
 
-    loadData();
+  //  loadData();
 
     } else {
         Toast toast = Toast.makeText(getApplicationContext(),
@@ -141,98 +149,98 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadData() {
-        RetrofitService.getInstance()
-                .getJSONApi()
-                .getMainJson(mCityId)
-                .enqueue(new Callback<MainListRes>() {
-                    @Override
-                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
-
-                        try {
-
-                            ArrayList<ArrayList<ItemList>> listAll = new ArrayList<>();
-                            ArrayList<ItemList> shares = new ArrayList<>();
-                            ArrayList<ItemList> category = new ArrayList<>();
-                            ArrayList<ItemList> catalog = new ArrayList<>();
-
-                            shares.addAll(response.body().getData().getBlocks().getShares().getList());
-                            category.addAll(response.body().getData().getBlocks().getCategories());
-                            catalog.addAll(response.body().getData().getBlocks().getCatalog());
-                            String catalogCount = response.body().getData().getCatalogCount();
-
-                            listAll.add(shares);
-                            listAll.add(category);
-                            listAll.add(catalog);
-
-                            mRecyclerView = findViewById(R.id.data_list);
-                            LinearLayoutManager layoutManager
-                                    = new LinearLayoutManager(getBaseContext());
-                            mRecyclerView.setLayoutManager(layoutManager);
-
-                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), listAll, shares, category, catalog, catalogCount,
-                                    new CatalogItemClickListener() {
-                                        @Override
-                                        public void onCatalogItemClickListener(boolean isAdv) {
-                                            if (isAdv){
-
-                                                openBusinessFragment();
-                                            } else {
-                                                Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
-                                                startActivity(catalogItemIntent);
-                                            }
-                                        }
-                                    },
-                                    new CatalogButtonMoreClickListener() {
-                                        @Override
-                                        public void onCatalogButtonMoreClickListener(int position) {
-                                            Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
-                                            startActivity(catalogIntent);
-                                        }
-                                    },
-                                    new CategoryItemClickListener() {
-                                        @Override
-                                        public void onCategoryItemClickListener(int position) {
-                                            Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
-                                            startActivity(catalogIntent);
-                                        }
-                                    },
-                                    new SharesItemClickListener() {
-                                        @Override
-                                        public void onSharesItemClickListener(int position) {
-                                            Intent catalogIntent = new Intent(MainActivity.this, SharesItemActivity.class);
-                                            startActivity(catalogIntent);
-                                        }
-                                    },
-                                    new SharesButtonMoreClickListener() {
-                                        @Override
-                                        public void onSharesButtonMoreClickListener(int position) {
-                                            Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
-                                            startActivity(catalogIntent);
-                                        }
-                                    });
-
-
-                            mRecyclerView.setAdapter(mainAdapter);
-
-
-                        } catch (NullPointerException e) {
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    "Ошибка",
-                                    Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<MainListRes> call, Throwable t) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Ошибка запроса",
-                                Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                    }
-                });
+//        RetrofitService.getInstance()
+//                .getJSONApi()
+//                .getMainJson(mCityId)
+//                .enqueue(new Callback<MainListRes>() {
+//                    @Override
+//                    public void onResponse(Call<MainListRes> call, Response<MainListRes> response) {
+//
+//                        try {
+//
+//                            ArrayList<ArrayList<ItemList>> listAll = new ArrayList<>();
+//                            ArrayList<ItemList> shares = new ArrayList<>();
+//                            ArrayList<ItemList> category = new ArrayList<>();
+//                            ArrayList<ItemList> catalog = new ArrayList<>();
+//
+//                            shares.addAll(response.body().getData().getBlocks().getShares().getList());
+//                            category.addAll(response.body().getData().getBlocks().getCategories());
+//                            catalog.addAll(response.body().getData().getBlocks().getCatalog());
+//                            String catalogCount = response.body().getData().getCatalogCount();
+//
+//                            listAll.add(shares);
+//                            listAll.add(category);
+//                            listAll.add(catalog);
+//
+//                            mRecyclerView = findViewById(R.id.data_list);
+//                            LinearLayoutManager layoutManager
+//                                    = new LinearLayoutManager(getBaseContext());
+//                            mRecyclerView.setLayoutManager(layoutManager);
+//
+//                            MainAdapter mainAdapter = new MainAdapter(getBaseContext(), listAll, shares, category, catalog, catalogCount,
+//                                    new CatalogItemClickListener() {
+//                                        @Override
+//                                        public void onCatalogItemClickListener(boolean isAdv) {
+//                                            if (isAdv){
+//
+//                                                openBusinessFragment();
+//                                            } else {
+//                                                Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
+//                                                startActivity(catalogItemIntent);
+//                                            }
+//                                        }
+//                                    },
+//                                    new CatalogButtonMoreClickListener() {
+//                                        @Override
+//                                        public void onCatalogButtonMoreClickListener(int position) {
+//                                            Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
+//                                            startActivity(catalogIntent);
+//                                        }
+//                                    },
+//                                    new CategoryItemClickListener() {
+//                                        @Override
+//                                        public void onCategoryItemClickListener(int position) {
+//                                            Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
+//                                            startActivity(catalogIntent);
+//                                        }
+//                                    },
+//                                    new SharesItemClickListener() {
+//                                        @Override
+//                                        public void onSharesItemClickListener(int position) {
+//                                            Intent catalogIntent = new Intent(MainActivity.this, SharesItemActivity.class);
+//                                            startActivity(catalogIntent);
+//                                        }
+//                                    },
+//                                    new SharesButtonMoreClickListener() {
+//                                        @Override
+//                                        public void onSharesButtonMoreClickListener(int position) {
+//                                            Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
+//                                            startActivity(catalogIntent);
+//                                        }
+//                                    });
+//
+//
+//                            mRecyclerView.setAdapter(mainAdapter);
+//
+//
+//                        } catch (NullPointerException e) {
+//                            Toast toast = Toast.makeText(getApplicationContext(),
+//                                    "Ошибка",
+//                                    Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MainListRes> call, Throwable t) {
+//                        Toast toast = Toast.makeText(getApplicationContext(),
+//                                "Ошибка запроса",
+//                                Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
+//                    }
+//                });
     }
 
     @Override
@@ -333,5 +341,40 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+    }
+
+    @Override
+    public void onCatalogItemClickListener(boolean isAdv) {
+        if (isAdv){
+
+            openBusinessFragment();
+        } else {
+            Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
+            startActivity(catalogItemIntent);
+        }
+    }
+
+    @Override
+    public void onCatalogButtonMoreClickListener(int position) {
+        Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
+        startActivity(catalogIntent);
+    }
+
+    @Override
+    public void onCategoryItemClickListener(int position) {
+        Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
+        startActivity(catalogIntent);
+    }
+
+    @Override
+    public void onSharesItemClickListener(int position) {
+        Intent catalogIntent = new Intent(MainActivity.this, SharesItemActivity.class);
+        startActivity(catalogIntent);
+    }
+
+    @Override
+    public void onSharesButtonMoreClickListener(int position) {
+        Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
+        startActivity(catalogIntent);
     }
 }
