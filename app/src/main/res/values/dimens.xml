@@ -5,7 +5,7 @@
 
     
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">140dp</dimen>
+
     <dimen name="fab_margin">16dp</dimen>
 
     <!--Sizes-->
@@ -13,8 +13,7 @@
     <dimen name="size_medium_56">56dp</dimen>
     <dimen name="size_large_72">72dp</dimen>
 
-    <!--Sizes-->
-
+    <!--Spacing-->
     <dimen name="spacing_small_8">8dp</dimen>
     <dimen name="spacing_normal_16">16dp</dimen>
     <dimen name="spacing_medial_24">24dp</dimen>
@@ -23,25 +22,42 @@
     <dimen name="spacing_larger_72">72dp</dimen>
 
     <!--Fonts-->
+    <dimen name="font_micro_10">10sp</dimen>
     <dimen name="font_small_14">14sp</dimen>
     <dimen name="font_medial_18">18sp</dimen>
     <dimen name="font_medium_20">20sp</dimen>
     <dimen name="font_large_24">24sp</dimen>
 
     <!--Paddings-->
-    <dimen name="padding_small_4">4dp</dimen>
+    <dimen name="padding_micro_1">1dp</dimen>
+    <dimen name="padding_small_2">2dp</dimen>
+    <dimen name="padding_medium_4">4dp</dimen>
 
     <!--Heights-->
-    <dimen name="layout_heights_55">55dp</dimen>
-    <dimen name="layout_heights_10">10dp</dimen>
-    <dimen name="layout_heights_1">1dp</dimen>
+    <dimen name="nav_header_height_140">140dp</dimen>
+    <dimen name="appbar_height_180">180dp</dimen>
+    <dimen name="layout_height_115">115dp</dimen>
+    <dimen name="layout_height_55">55dp</dimen>
+    <dimen name="layout_height_50">50dp</dimen>
+    <dimen name="layout_height_10">10dp</dimen>
+    <dimen name="layout_height_1">1dp</dimen>
     <dimen name="category_view_heights_10">10dp</dimen>
 
-    <!--Margins-->
-    <dimen name="margin_start_12">12dp</dimen>
-    <dimen name="margin_bottom_2">2dp</dimen>
+    <!--Widths-->
+    <dimen name="layout_width_210">210dp</dimen>
+    <dimen name="layout_width_0">0dp</dimen>
 
-    <dimen name="text_scrim_height_top">50dp</dimen>
-    <dimen name="text_scrim_height_bottom">88dp</dimen>
+    <!--Margins-->
+    <dimen name="margin_small_2">2dp</dimen>
+    <dimen name="margin_medial_4">4dp</dimen>
+    <dimen name="margin_medium_8">8dp</dimen>
+    <dimen name="margin_large_12">12dp</dimen>
+    <dimen name="margin_very_large_16">16dp</dimen>
+
+    <!--Corners-->
+    <dimen name="corner_radius_2">2dp</dimen>
+
+    <!--Elevations-->
+    <dimen name="elevation_5">5dp</dimen>
 
     </resources>

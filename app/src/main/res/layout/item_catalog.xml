@@ -9,19 +9,19 @@
     android:layout_marginBottom="@dimen/spacing_small_8"
     android:background="@drawable/frame_corners"
     android:id="@+id/lnr_catalog"
-    app:cardCornerRadius="2dp">
+    app:cardCornerRadius="@dimen/corner_radius_2">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="1dp">
+        android:padding="@dimen/padding_micro_1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:baselineAligned="false">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/layout_width_0"
                 android:layout_height="match_parent"
                 android:background="@color/white"
                 android:orientation="vertical"
@@ -42,7 +42,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="@dimen/layout_width_0"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center_vertical"
@@ -80,7 +80,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/layout_width_0"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.45"
                                 android:orientation="vertical"
@@ -94,13 +94,12 @@
                                     android:stepSize="0.1"
                                     android:progressTint="@color/gold"
                                     android:layout_gravity="bottom"
-                                    android:rating="3.5"
                                     />
 
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="@dimen/layout_width_0"
                                 android:layout_height="match_parent"
                                 android:layout_weight="0.4"
                                 android:orientation="vertical"
@@ -111,7 +110,7 @@
                                     android:id="@+id/adv_txt_view"
                                     android:background="@color/light_grey"
                                     android:layout_gravity="center"
-                                    android:padding="4dp"
+                                    android:padding="@dimen/padding_medium_4"
                                     android:layout_marginTop="@dimen/spacing_small_8"
                                     android:text="@string/adv_txt_view"/>
 
@@ -141,7 +140,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/black"
                             android:textSize="@dimen/font_small_14"
-                            android:gravity="top"
+                            android:gravity="bottom"
                             android:text="@string/adv_name"/>
                     </LinearLayout>
                     <LinearLayout
@@ -159,6 +158,9 @@
                             android:layout_height="match_parent"
                             android:id="@+id/adv_catalog_street_house"
                             android:gravity="top"
+                            android:textSize="@dimen/font_micro_10"
+                            android:maxLines="2"
+                            android:ellipsize="end"
                             android:text="@string/adv_street_house"/>
 
                     </LinearLayout>
@@ -174,13 +176,15 @@
                             android:gravity="top"
                             android:maxLines="2"
                             android:ellipsize="end"
-                            android:textSize="10sp"/>
+                            android:textSize="@dimen/font_micro_10"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/adv_catalog_categories"
                             android:gravity="top"
                             android:textColor="@color/light_blue"
+                            android:layout_marginTop="@dimen/margin_small_2"
+                            android:padding="@dimen/padding_small_2"
                             android:text="@string/adv_categories"
                             android:background="@drawable/frame_corners_blue"/>
 

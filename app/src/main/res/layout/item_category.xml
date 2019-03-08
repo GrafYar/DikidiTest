@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
-    android:layout_width="210dp"
-    android:layout_height="115dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginLeft="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_width="@dimen/layout_width_210"
+    android:layout_height="@dimen/layout_height_115"
+    android:layout_marginTop="@dimen/margin_medial_4"
+    android:layout_marginRight="@dimen/margin_medial_4"
+    android:layout_marginLeft="@dimen/margin_medial_4"
+    android:layout_marginBottom="@dimen/margin_medial_4"
     android:background="@drawable/corners"
     android:orientation="vertical"
     app:cardUseCompatPadding="true">
@@ -50,9 +50,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="@dimen/layout_height_1"
+            android:layout_marginTop="@dimen/margin_very_large_16"
+            android:layout_marginBottom="@dimen/margin_medium_8"
             android:background="@color/light_grey"/>
     </LinearLayout>
 </LinearLayout>
