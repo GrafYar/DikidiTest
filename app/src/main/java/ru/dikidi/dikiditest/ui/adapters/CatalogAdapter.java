@@ -6,16 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
@@ -23,11 +18,8 @@ import ru.dikidi.dikiditest.ui.views.AspectRatioImageView;
 
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogAdapterViewHolder>{
 
-    static Context mContext;
-    View mView;
-    ViewGroup mViewGroup;
-    ArrayList<ItemList> mList = new ArrayList();
-    CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
+    private ArrayList<ItemList> mList;
+    private CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
 
 
     public CatalogAdapter(ArrayList<ItemList> list, CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener){
@@ -38,27 +30,20 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
     @NonNull
     @Override
     public CatalogAdapter.CatalogAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-
-        mViewGroup = viewGroup;
-        mContext = mViewGroup.getContext();
-        mView = LayoutInflater.from(mContext).inflate(R.layout.item_catalog, mViewGroup,false);
-        return new CatalogAdapter.CatalogAdapterViewHolder(mView, mCatalogItemClickListener, mList);
-
-
+        Context context = viewGroup.getContext();
+        View view = LayoutInflater.from(context).inflate(R.layout.item_catalog, viewGroup,false);
+        return new CatalogAdapter.CatalogAdapterViewHolder(view, context, mCatalogItemClickListener, mList);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CatalogAdapter.CatalogAdapterViewHolder holder, int position) {
-
         CatalogListRes item = (CatalogListRes) mList.get(position);
         holder.bind(item);
-
     }
 
     @Override
     public int getItemViewType(int position) {
         return mList.get(position).getItemType();
-
     }
 
     @Override
@@ -74,9 +59,11 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
         RatingBar mRatingBar;
         TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
         CatalogItemClickListener mCatalogItemClickListener;
+        Context mContext;
 
-        private CatalogAdapterViewHolder(View itemView, CatalogItemClickListener catalogItemClickListener, ArrayList<ItemList> list){
+        private CatalogAdapterViewHolder(View itemView, Context context, CatalogItemClickListener catalogItemClickListener, ArrayList<ItemList> list){
             super(itemView);
+            mContext = context;
             mList = list;
             mCatalogItemClickListener = catalogItemClickListener;
 
@@ -97,6 +84,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
 
         }
 
+        //Method for choosing what to show inside catalog item: advertising or catalog item.
         private void bind(CatalogListRes item) {
 
             if(!isAdvertising(item)) {
@@ -149,13 +137,12 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
             }
         }
 
-        public boolean isAdvertising(CatalogListRes item) {
+        private boolean isAdvertising(CatalogListRes item) {
             if(item.getAdvertising()==null) {
                 return false;
             } else {
                 return true;
             }
-
         }
 
         @Override
