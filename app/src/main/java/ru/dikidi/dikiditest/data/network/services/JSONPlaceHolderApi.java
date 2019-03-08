@@ -12,5 +12,4 @@ public interface JSONPlaceHolderApi {
     @FormUrlEncoded
     Call<MainListRes> getMainJson(@Field("city_id") int city_id);
 
-
 }

@@ -16,9 +16,6 @@ public class RetrofitService {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        //OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-        //        .addInterceptor(interceptor);
-
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
