@@ -7,18 +7,25 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="navigation_drawer_main">Главная</string>
-    <string name="app_title">Красота и здоровье</string>
     <string name="navigation_drawer_shares">Акции</string>
     <string name="navigation_drawer_appointments">Мои записи</string>
     <string name="navigation_drawer_share">Поделиться приложением</string>
     <string name="navigation_drawer_business">DIKIDI Business</string>
     <string name="navigation_drawer_support">Служба поддержки</string>
+
     <string name="catalog_item_activity_title">Элемент каталога</string>
     <string name="category_item_activity_title">Элемент категории</string>
     <string name="shares_item_activity_title">Элемент акций</string>
     <string name="location_activity_title">Выбор города</string>
     <string name="shares_activity_title">Акции</string>
     <string name="catalog_activity_title">Каталог</string>
+
+    <string name="main_fragment_title">Красота и здоровье</string>
+    <string name="shares_fragment_title">Акции</string>
+    <string name="appointment_fragment_title">Мои записи</string>
+    <string name="share_app_fragment_title">Поделиться</string>
+    <string name="business_fragment_title">DIKIDI Business</string>
+    <string name="support_fragment_title">Служба поддержки</string>
 
     <string name="shares_before">до: </string>
     <string name="catalog_recyclerview_title">Каталог</string>

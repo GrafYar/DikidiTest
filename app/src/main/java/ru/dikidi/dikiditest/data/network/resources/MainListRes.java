@@ -42,6 +42,13 @@ public class MainListRes{
             return blocks;
         }
 
+        public String getTitle() {
+            return title;
+        }
+
+        public String getImage() {
+            return image;
+        }
     }
 
     public class Blocks{
