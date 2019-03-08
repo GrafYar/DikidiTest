@@ -15,11 +15,11 @@ import ru.dikidi.dikiditest.data.network.resources.CategoryListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryAdapterViewHolder>{
-    Context mContext;
-    ArrayList<ItemList> mList = new ArrayList();
-    CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
+    private Context mContext;
+    private ArrayList<ItemList> mList;
+    private CategoryAdapterViewHolder.CategoryItemClickListener mCategoryItemClickListener;
 
-    public CategoryAdapter(ArrayList<ItemList> list, CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener){
+    protected CategoryAdapter(ArrayList<ItemList> list, CategoryAdapterViewHolder.CategoryItemClickListener categoryItemClickListener){
         mList = list;
         mCategoryItemClickListener = categoryItemClickListener;
     }
@@ -27,16 +27,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @NonNull
     @Override
     public CategoryAdapter.CategoryAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-
         mContext = viewGroup.getContext();
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_category,viewGroup,false);
         return new CategoryAdapter.CategoryAdapterViewHolder(view, mCategoryItemClickListener);
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryAdapter.CategoryAdapterViewHolder holder, int i) {
-
         CategoryListRes item = (CategoryListRes) mList.get(i);
         holder.mCategoryName.setText(item.getName());
 
@@ -44,7 +41,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 .load(item.getImage())
                 .error(mContext.getResources().getDrawable(R.drawable.placeholder))
                 .into(holder.mImage);
-
     }
 
     @Override
@@ -58,14 +54,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public static class CategoryAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        ImageView mImage;
-        TextView mCategoryName;
-        CategoryItemClickListener mCategoryItemClickListener;
+        private ImageView mImage;
+        private TextView mCategoryName;
+        private CategoryItemClickListener mCategoryItemClickListener;
 
         private CategoryAdapterViewHolder(View itemView, CategoryItemClickListener categoryItemClickListener){
             super(itemView);
             mCategoryItemClickListener = categoryItemClickListener;
-
             mCategoryName = itemView.findViewById(R.id.category_name);
             mImage = itemView.findViewById(R.id.category_image);
             itemView.setOnClickListener(this);

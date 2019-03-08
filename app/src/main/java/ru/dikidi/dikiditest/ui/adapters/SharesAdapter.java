@@ -24,11 +24,11 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
     private static final String REST_RESPONSE_FORMAT="yyyy-MM-dd HH:mm:ss";
     private static final String MONTH_DAY_FORMAT = "d MMM";
 
-    ArrayList<ItemList> mList = new ArrayList();
-    Context mContext;
-    SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
+    private ArrayList<ItemList> mList;
+    private Context mContext;
+    private SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
 
-    public SharesAdapter(ArrayList<ItemList> list, SharesAdapterViewHolder.SharesItemClickListener sharesItemClickListener){
+    protected SharesAdapter(ArrayList<ItemList> list, SharesAdapterViewHolder.SharesItemClickListener sharesItemClickListener){
         mList = list;
         mSharesItemClickListener = sharesItemClickListener;
     }
@@ -91,10 +91,10 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
     }
 
     public static class SharesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        AspectRatioImageView mIcon;
-        CircleImageView mCompanyImage;
-        TextView mName, mDiscountValue, mCompanyName, mCompanyStreetHouse, mViews, mUsed, mTimeStop, mCountShares;
-        SharesItemClickListener mSharesItemClickListener;
+        private AspectRatioImageView mIcon;
+        private CircleImageView mCompanyImage;
+        private TextView mName, mDiscountValue, mCompanyName, mCompanyStreetHouse, mViews, mUsed, mTimeStop, mCountShares;
+        private SharesItemClickListener mSharesItemClickListener;
 
 
         private SharesAdapterViewHolder(View itemView, SharesItemClickListener sharesItemClickListener){

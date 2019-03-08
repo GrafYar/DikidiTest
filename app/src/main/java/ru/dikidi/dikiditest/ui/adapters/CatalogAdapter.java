@@ -22,7 +22,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
     private CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
 
 
-    public CatalogAdapter(ArrayList<ItemList> list, CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener){
+    protected CatalogAdapter(ArrayList<ItemList> list, CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener){
         mList = list;
         this.mCatalogItemClickListener = catalogItemClickListener;
     }
@@ -53,13 +53,13 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
 
     public static class CatalogAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        ArrayList<ItemList> mList;
-        AspectRatioImageView mImageThumb, mImageAdv;
-        TextView mName, mRating, mStreetHouse, mCategories;
-        RatingBar mRatingBar;
-        TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
-        CatalogItemClickListener mCatalogItemClickListener;
-        Context mContext;
+        private ArrayList<ItemList> mList;
+        private AspectRatioImageView mImageThumb, mImageAdv;
+        private TextView mName, mRating, mStreetHouse, mCategories;
+        private RatingBar mRatingBar;
+        private TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
+        private CatalogItemClickListener mCatalogItemClickListener;
+        private Context mContext;
 
         private CatalogAdapterViewHolder(View itemView, Context context, CatalogItemClickListener catalogItemClickListener, ArrayList<ItemList> list){
             super(itemView);
