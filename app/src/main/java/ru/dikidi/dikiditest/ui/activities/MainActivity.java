@@ -45,7 +45,8 @@ public class MainActivity extends AppCompatActivity
         MainAdapter.CatalogViewHolder.CatalogButtonMoreClickListener,
         CategoryAdapter.CategoryAdapterViewHolder.CategoryItemClickListener,
         SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener,
-        MainAdapter.SharesViewHolder.SharesButtonMoreClickListener {
+        MainAdapter.SharesViewHolder.SharesButtonMoreClickListener,
+        View.OnClickListener {
 
     private static final String TAG = ConstantManager.TAG_PREFIX + " MainActivity";
     private CoordinatorLayout mCoordinatorLayout;
@@ -83,206 +84,6 @@ public class MainActivity extends AppCompatActivity
         openMainFragment();
 
         mNavigationView.getMenu().getItem(0).setChecked(true);
-    }
-
-    public void openMainFragment (){
-        if(NetworkStatusChecker.isNetworkAvailable(this)) {
-
-            unCollapseAppBar();
-            unLockAppBar();
-
-            Fragment fragment = new MainFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-
-        } else {
-            Snackbar.make(mCoordinatorLayout,"Нет подключения", Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    public void openSharesFragment () {
-        collapseAppBar();
-        lockAppBar();
-        setActionBarTitle(getString(R.string.shares_fragment_title));
-
-        Fragment fragment = new SharesFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-    }
-
-    public void openAppointmentFragment () {
-        collapseAppBar();
-        lockAppBar();
-        setActionBarTitle(getString(R.string.appointment_fragment_title));
-
-        Fragment fragment = new AppointmentFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-    }
-
-    public void openShareAppFragment () {
-        collapseAppBar();
-        lockAppBar();
-        setActionBarTitle(getString(R.string.share_app_fragment_title));
-
-        Fragment fragment = new ShareAppFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-    }
-
-    public void openBusinessFragment () {
-        collapseAppBar();
-        lockAppBar();
-        setActionBarTitle(getString(R.string.business_fragment_title));
-
-        Fragment fragment = new ShareAppFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-
-    }
-
-    public void openSupportFragment () {
-        collapseAppBar();
-        lockAppBar();
-        setActionBarTitle(getString(R.string.support_fragment_title));
-
-        Fragment fragment = new SupportFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-    }
-
-    public void openCatalogItemFragment () {
-        Fragment fragment = new CatalogItemFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.catalog_item_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    public void openCatalogMoreFragment () {
-        Fragment fragment = new CatalogMoreFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.catalog_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    public void openCategoryItemFragment () {
-        Fragment fragment = new CategoryItemFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.category_item_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    public void openSharesItemFragment () {
-        Fragment fragment = new SharesItemFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.shares_item_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    public void openSharesMoreFragment () {
-        Fragment fragment = new SharesMoreFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.shares_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    public void openLocationFragment () {
-        Fragment fragment = new LocationFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
-        fragmentTransaction.addToBackStack(null);
-
-        collapseAppBar();
-        lockAppBar();
-        disableNavigationDrawer();
-        setActionBarTitle(getString(R.string.location_fragment_title));
-
-        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            enableNavigationDrawer();
-            unCollapseAppBar();
-            unLockAppBar();
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -331,16 +132,180 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            enableNavigationDrawer();
+            unCollapseAppBar();
+            unLockAppBar();
+            super.onBackPressed();
+        }
+    }
+
+    public void openMainFragment (){
+        if(NetworkStatusChecker.isNetworkAvailable(this)) {
+            unCollapseAppBar();
+            unLockAppBar();
+
+            Fragment fragment = new MainFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+        } else {
+            Snackbar.make(mCoordinatorLayout,"Нет подключения", Snackbar.LENGTH_LONG).show();
+        }
+    }
+
+    public void openSharesFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.shares_fragment_title));
+
+        Fragment fragment = new SharesFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+    }
+
+    public void openAppointmentFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.appointment_fragment_title));
+
+        Fragment fragment = new AppointmentFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+    }
+
+    public void openShareAppFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.share_app_fragment_title));
+
+        Fragment fragment = new ShareAppFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+    }
+
+    public void openBusinessFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.business_fragment_title));
+
+        Fragment fragment = new ShareAppFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+    }
+
+    public void openSupportFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.support_fragment_title));
+
+        Fragment fragment = new SupportFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+    }
+
+    public void openCatalogItemFragment () {
+        Fragment fragment = new CatalogItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.catalog_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
+
+    public void openCatalogMoreFragment () {
+        Fragment fragment = new CatalogMoreFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.catalog_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
+
+    public void openCategoryItemFragment () {
+        Fragment fragment = new CategoryItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.category_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
+
+    public void openSharesItemFragment () {
+        Fragment fragment = new SharesItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.shares_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
+
+    public void openSharesMoreFragment () {
+        Fragment fragment = new SharesMoreFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.shares_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
+
+    public void openLocationFragment () {
+        Fragment fragment = new LocationFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.location_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(this);
+        fragmentTransaction.commit();
+    }
 
     private void collapseAppBar() {
         mAppBarLayout.setExpanded(false, true);
     }
 
-
     private void unCollapseAppBar() {
         mAppBarLayout.setExpanded(true, true);
     }
-
 
     private void lockAppBar() {
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
@@ -352,8 +317,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-
-
+    
     private void unLockAppBar() {
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
         AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
@@ -397,10 +361,14 @@ public class MainActivity extends AppCompatActivity
         openSharesMoreFragment();
     }
 
+    @Override
+    public void onClick(View v) {
+        onBackPressed();
+    }
+
     public void setActionBarTitle(String title) {
         mCollapsingToolbarLayout.setTitle(title);
     }
-
 
     public void setActionBarImage(String url) {
         ImageView icon = findViewById(R.id.title_image);
@@ -411,7 +379,7 @@ public class MainActivity extends AppCompatActivity
                 .into(icon);
     }
 
-    public void disableNavigationDrawer() {
+    private void disableNavigationDrawer() {
         // Locks NavDrawer
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         // Remove hamburger
@@ -425,7 +393,7 @@ public class MainActivity extends AppCompatActivity
         mMenu.findItem(R.id.action_location).setVisible(false);
     }
 
-    public void enableNavigationDrawer() {
+    private void enableNavigationDrawer() {
         // Unlocks NavDrawer
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         // Removes back button
