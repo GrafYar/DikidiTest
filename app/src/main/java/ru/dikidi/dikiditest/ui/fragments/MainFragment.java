@@ -24,7 +24,6 @@ import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
 import ru.dikidi.dikiditest.utilits.ConstantManager;
 
-
 public class MainFragment extends Fragment {
 
     private static final String TAG = ConstantManager.TAG_PREFIX + " MainFragment";
@@ -35,10 +34,6 @@ public class MainFragment extends Fragment {
     private SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener mSharesItemClickListener;
     private MainAdapter.SharesViewHolder.SharesButtonMoreClickListener mSharesButtonMoreClickListener;
     private String mTitleApp, mTitleImageURL;
-
-    public MainFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onAttach(Context context) {

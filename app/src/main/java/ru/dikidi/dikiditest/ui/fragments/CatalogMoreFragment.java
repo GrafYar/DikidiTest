@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import ru.dikidi.dikiditest.R;
 
-public class SupportFragment extends Fragment {
+public class CatalogMoreFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -17,9 +17,7 @@ public class SupportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        getActivity().setTitle("Team B");
-        return inflater.inflate(R.layout.fragment_support, container, false);
+        return inflater.inflate(R.layout.fragment_catalog_more, container, false);
     }
 
 }

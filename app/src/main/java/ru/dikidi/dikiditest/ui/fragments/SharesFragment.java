@@ -7,12 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import ru.dikidi.dikiditest.R;
 
-
 public class SharesFragment extends Fragment {
-
-    public SharesFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -5,14 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import ru.dikidi.dikiditest.R;
 
 public class ShareAppFragment extends Fragment {
-
-    public ShareAppFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

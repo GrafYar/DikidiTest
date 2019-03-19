@@ -13,12 +13,11 @@
     <string name="navigation_drawer_business">DIKIDI Business</string>
     <string name="navigation_drawer_support">Служба поддержки</string>
 
-    <string name="catalog_item_activity_title">Элемент каталога</string>
-    <string name="category_item_activity_title">Элемент категории</string>
-    <string name="shares_item_activity_title">Элемент акций</string>
-    <string name="location_activity_title">Выбор города</string>
-    <string name="shares_activity_title">Акции</string>
-    <string name="catalog_activity_title">Каталог</string>
+    <string name="catalog_item_fragment_title">Элемент каталога</string>
+    <string name="category_item_fragment_title">Элемент категории</string>
+    <string name="shares_item_fragment_title">Элемент акций</string>
+    <string name="location_fragment_title">Выбор города</string>
+    <string name="catalog_fragment_title">Каталог</string>
 
     <string name="main_fragment_title">Красота и здоровье</string>
     <string name="shares_fragment_title">Акции</string>

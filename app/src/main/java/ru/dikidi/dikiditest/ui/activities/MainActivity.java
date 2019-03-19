@@ -1,7 +1,5 @@
 package ru.dikidi.dikiditest.ui.activities;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,19 +8,17 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.ui.adapters.CatalogAdapter;
@@ -30,10 +26,17 @@ import ru.dikidi.dikiditest.ui.adapters.CategoryAdapter;
 import ru.dikidi.dikiditest.ui.adapters.MainAdapter;
 import ru.dikidi.dikiditest.ui.adapters.SharesAdapter;
 import ru.dikidi.dikiditest.ui.fragments.AppointmentFragment;
+import ru.dikidi.dikiditest.ui.fragments.CatalogItemFragment;
+import ru.dikidi.dikiditest.ui.fragments.CatalogMoreFragment;
+import ru.dikidi.dikiditest.ui.fragments.CategoryItemFragment;
+import ru.dikidi.dikiditest.ui.fragments.LocationFragment;
 import ru.dikidi.dikiditest.ui.fragments.MainFragment;
 import ru.dikidi.dikiditest.ui.fragments.ShareAppFragment;
 import ru.dikidi.dikiditest.ui.fragments.SharesFragment;
+import ru.dikidi.dikiditest.ui.fragments.SharesItemFragment;
+import ru.dikidi.dikiditest.ui.fragments.SharesMoreFragment;
 import ru.dikidi.dikiditest.ui.fragments.SupportFragment;
+import ru.dikidi.dikiditest.utilits.ConstantManager;
 import ru.dikidi.dikiditest.utilits.NetworkStatusChecker;
 
 public class MainActivity extends AppCompatActivity
@@ -44,9 +47,14 @@ public class MainActivity extends AppCompatActivity
         SharesAdapter.SharesAdapterViewHolder.SharesItemClickListener,
         MainAdapter.SharesViewHolder.SharesButtonMoreClickListener {
 
+    private static final String TAG = ConstantManager.TAG_PREFIX + " MainActivity";
     private CoordinatorLayout mCoordinatorLayout;
     private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private AppBarLayout mAppBarLayout;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private NavigationView mNavigationView;
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +65,14 @@ public class MainActivity extends AppCompatActivity
 
         mCoordinatorLayout = findViewById(R.id.coordinator_layout);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        mNavigationView = findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(this);
 
         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
         mCollapsingToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
@@ -74,24 +82,28 @@ public class MainActivity extends AppCompatActivity
 
         openMainFragment();
 
-        navigationView.getMenu().getItem(0).setChecked(true);
+        mNavigationView.getMenu().getItem(0).setChecked(true);
     }
 
     public void openMainFragment (){
+        if(NetworkStatusChecker.isNetworkAvailable(this)) {
 
-    if(NetworkStatusChecker.isNetworkAvailable(this)) {
+            unCollapseAppBar();
+            unLockAppBar();
 
-        Fragment fragment = new MainFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
+            Fragment fragment = new MainFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
 
-    } else {
-        Snackbar.make(mCoordinatorLayout,"Нет подключения", Snackbar.LENGTH_LONG).show();
-    }
-
+        } else {
+            Snackbar.make(mCoordinatorLayout,"Нет подключения", Snackbar.LENGTH_LONG).show();
+        }
     }
 
     public void openSharesFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.shares_fragment_title));
 
         Fragment fragment = new SharesFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -99,22 +111,30 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void openAppointmentFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.appointment_fragment_title));
 
         Fragment fragment = new AppointmentFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-
     }
 
     public void openShareAppFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.share_app_fragment_title));
 
         Fragment fragment = new ShareAppFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
-
     }
 
     public void openBusinessFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.business_fragment_title));
+
         Fragment fragment = new ShareAppFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
@@ -122,25 +142,154 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void openSupportFragment () {
+        collapseAppBar();
+        lockAppBar();
+        setActionBarTitle(getString(R.string.support_fragment_title));
+
         Fragment fragment = new SupportFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment).commit();
     }
 
+    public void openCatalogItemFragment () {
+        Fragment fragment = new CatalogItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.catalog_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
+    public void openCatalogMoreFragment () {
+        Fragment fragment = new CatalogMoreFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.catalog_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
+    public void openCategoryItemFragment () {
+        Fragment fragment = new CategoryItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.category_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
+    public void openSharesItemFragment () {
+        Fragment fragment = new SharesItemFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.shares_item_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
+    public void openSharesMoreFragment () {
+        Fragment fragment = new SharesMoreFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.shares_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
+    public void openLocationFragment () {
+        Fragment fragment = new LocationFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_main_lnrlayout, fragment);
+        fragmentTransaction.addToBackStack(null);
+
+        collapseAppBar();
+        lockAppBar();
+        disableNavigationDrawer();
+        setActionBarTitle(getString(R.string.location_fragment_title));
+
+        mDrawerToggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        fragmentTransaction.commit();
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            enableNavigationDrawer();
+            unCollapseAppBar();
+            unLockAppBar();
             super.onBackPressed();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mMenu = menu;
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, mMenu);
         return true;
     }
 
@@ -150,8 +299,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_location) {
-            Intent intent = new Intent(this, LocationActivity.class);
-            startActivity(intent);
+            openLocationFragment();
+        } else if (id == R.id.home) {
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
@@ -164,34 +314,16 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_main) {
             openMainFragment();
-            unCollapseAppBar();
-            unLockAppBar();
-          //  setActionBarTitle(getString(R.string.main_fragment_title));
         } else if (id == R.id.nav_shares) {
             openSharesFragment();
-            collapseAppBar();
-            lockAppBar();
-            setActionBarTitle(getString(R.string.shares_fragment_title));
         } else if (id == R.id.nav_appointments) {
             openAppointmentFragment();
-            collapseAppBar();
-            lockAppBar();
-            setActionBarTitle(getString(R.string.appointment_fragment_title));
         } else if (id == R.id.nav_share) {
             openShareAppFragment();
-            collapseAppBar();
-            lockAppBar();
-            setActionBarTitle(getString(R.string.share_app_fragment_title));
         } else if (id == R.id.nav_business) {
             openBusinessFragment();
-            collapseAppBar();
-            lockAppBar();
-            setActionBarTitle(getString(R.string.business_fragment_title));
         } else if (id == R.id.nav_support) {
             openSupportFragment();
-            collapseAppBar();
-            lockAppBar();
-            setActionBarTitle(getString(R.string.support_fragment_title));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -238,36 +370,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onCatalogItemClickListener(boolean isAdv) {
         if (isAdv){
-
+            mNavigationView.getMenu().getItem(4).setChecked(true);
             openBusinessFragment();
         } else {
-            Intent catalogItemIntent = new Intent(MainActivity.this, CatalogItemActivity.class);
-            startActivity(catalogItemIntent);
+            openCatalogItemFragment();
         }
     }
 
     @Override
     public void onCatalogButtonMoreClickListener(int position) {
-        Intent catalogIntent = new Intent(MainActivity.this, CatalogActivity.class);
-        startActivity(catalogIntent);
+        openCatalogMoreFragment();
     }
 
     @Override
     public void onCategoryItemClickListener(int position) {
-        Intent catalogIntent = new Intent(MainActivity.this, CategoryItemActivity.class);
-        startActivity(catalogIntent);
+        openCategoryItemFragment();
     }
 
     @Override
     public void onSharesItemClickListener(int position) {
-        Intent catalogIntent = new Intent(MainActivity.this, SharesItemActivity.class);
-        startActivity(catalogIntent);
+        openSharesItemFragment();
     }
 
     @Override
     public void onSharesButtonMoreClickListener(int position) {
-        Intent catalogIntent = new Intent(MainActivity.this, SharesActivity.class);
-        startActivity(catalogIntent);
+        openSharesMoreFragment();
     }
 
     public void setActionBarTitle(String title) {
@@ -282,5 +409,35 @@ public class MainActivity extends AppCompatActivity
                 .load(url)
                 .error(getBaseContext().getResources().getDrawable(R.drawable.placeholder))
                 .into(icon);
+    }
+
+    public void disableNavigationDrawer() {
+        // Locks NavDrawer
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        // Remove hamburger
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        // Show back button
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        } catch (NullPointerException e) {
+            Log.e(TAG, e.toString());
+        }
+        mMenu.findItem(R.id.action_location).setVisible(false);
+    }
+
+    public void enableNavigationDrawer() {
+        // Unlocks NavDrawer
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        // Removes back button
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        } catch (NullPointerException e) {
+            Log.e(TAG, e.toString());
+        }
+        // Shows hamburger
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        // Removes the/any drawer toggle listener
+        mDrawerToggle.setToolbarNavigationClickListener(null);
+        mMenu.findItem(R.id.action_location).setVisible(true);
     }
 }
