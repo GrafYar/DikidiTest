@@ -67,6 +67,8 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
             mList = list;
             mCatalogItemClickListener = catalogItemClickListener;
 
+            //TODO: Использовать ButterKnife
+
             mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
             mName = itemView.findViewById(R.id.catalog_name);
             mRating = itemView.findViewById(R.id.catalog_rating);

@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity
     private NavigationView mNavigationView;
     private Menu mMenu;
 
+    //TODO: Почистить разметку от лишних View
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -317,7 +319,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    
+
     private void unLockAppBar() {
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
         AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) params.getBehavior();
