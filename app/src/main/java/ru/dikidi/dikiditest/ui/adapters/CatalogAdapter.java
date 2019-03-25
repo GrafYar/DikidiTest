@@ -11,6 +11,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
+import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.ButterKnife;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CatalogListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
@@ -20,6 +24,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
 
     private ArrayList<ItemList> mList;
     private CatalogAdapterViewHolder.CatalogItemClickListener mCatalogItemClickListener;
+
 
 
     protected CatalogAdapter(ArrayList<ItemList> list, CatalogAdapterViewHolder.CatalogItemClickListener catalogItemClickListener){
@@ -54,39 +59,29 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
     public static class CatalogAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private ArrayList<ItemList> mList;
-        private AspectRatioImageView mImageThumb, mImageAdv;
-        private TextView mName, mRating, mStreetHouse, mCategories;
-        private RatingBar mRatingBar;
-        private TextView mAdvTextView, mAdvName, mAdvStreetHouse, mAdvCategories;
-        private CatalogItemClickListener mCatalogItemClickListener;
         private Context mContext;
+        @BindView(R.id.catalog_image_thumb) AspectRatioImageView mImageThumb;
+        @BindView(R.id.catalog_name) TextView mName;
+        @BindView(R.id.catalog_rating) TextView mRating;
+        @BindView(R.id.catalog_street_house) TextView mStreetHouse;
+        @BindView(R.id.catalog_categories) TextView mCategories;
+        @BindView(R.id.catalog_rating_bar) RatingBar mRatingBar;
+        private CatalogItemClickListener mCatalogItemClickListener;
+        @BindViews({R.id.catalog_image_thumb, R.id.catalog_name, R.id.catalog_rating, R.id.catalog_street_house, R.id.catalog_categories, R.id.catalog_rating_bar}) List<View> viewList;
+        @BindViews({R.id.adv_image_thumb, R.id.adv_txt_view, R.id.adv_catalog_name, R.id.adv_catalog_street_house, R.id.adv_catalog_categories}) List<View> viewListAdv;
 
         private CatalogAdapterViewHolder(View itemView, Context context, CatalogItemClickListener catalogItemClickListener, ArrayList<ItemList> list){
             super(itemView);
             mContext = context;
             mList = list;
             mCatalogItemClickListener = catalogItemClickListener;
-
-            mImageThumb = itemView.findViewById(R.id.catalog_image_thumb);
-            mName = itemView.findViewById(R.id.catalog_name);
-            mRating = itemView.findViewById(R.id.catalog_rating);
-            mStreetHouse = itemView.findViewById(R.id.catalog_street_house);
-            mCategories = itemView.findViewById(R.id.catalog_categories);
-            mRatingBar = itemView.findViewById(R.id.catalog_rating_bar);
-            mImageAdv = itemView.findViewById(R.id.adv_image_thumb);
-
-            mAdvTextView = itemView.findViewById(R.id.adv_txt_view);
-            mAdvName = itemView.findViewById(R.id.adv_catalog_name);
-            mAdvStreetHouse = itemView.findViewById(R.id.adv_catalog_street_house);
-            mAdvCategories = itemView.findViewById(R.id.adv_catalog_categories);
-
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
 
         }
 
         //Method for choosing what to show inside catalog item: advertising or catalog item.
         private void bind(CatalogListRes item) {
-
             if(!isAdvertising(item)) {
                 String categories = "";
                 for(String object : item.getCategories()) {
@@ -105,35 +100,15 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.CatalogA
                 mStreetHouse.setText(item.getStreet() + ", " + item.getHouse());
                 mCategories.setText(categories);
 
-                mImageThumb.setVisibility(View.VISIBLE);
-                mName.setVisibility(View.VISIBLE);
-                mRating.setVisibility(View.VISIBLE);
-                mStreetHouse.setVisibility(View.VISIBLE);
-                mCategories.setVisibility(View.VISIBLE);
-                mRatingBar.setVisibility(View.VISIBLE);
-
-                mImageAdv.setVisibility(View.GONE);
-                mAdvTextView.setVisibility(View.GONE);
-                mAdvName.setVisibility(View.GONE);
-                mAdvStreetHouse.setVisibility(View.GONE);
-                mAdvCategories.setVisibility(View.GONE);
+                ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.VISIBLE);
+                ButterKnife.apply(viewListAdv, (view, value, index) -> view.setVisibility(value), View.GONE);
             }
             else {
-                mImageThumb.setVisibility(View.GONE);
-                mName.setVisibility(View.GONE);
-                mStreetHouse.setVisibility(View.GONE);
-                mCategories.setVisibility(View.GONE);
+                ButterKnife.apply(viewList, (view, value, index) -> view.setVisibility(value), View.GONE);
+                ButterKnife.apply(viewListAdv, (view, value, index) -> view.setVisibility(value), View.VISIBLE);
 
                 mRating.setText("5,0");
                 mRatingBar.setRating(5);
-
-                mRating.setVisibility(View.VISIBLE);
-                mRatingBar.setVisibility(View.VISIBLE);
-                mImageAdv.setVisibility(View.VISIBLE);
-                mAdvTextView.setVisibility(View.VISIBLE);
-                mAdvName.setVisibility(View.VISIBLE);
-                mAdvStreetHouse.setVisibility(View.VISIBLE);
-                mAdvCategories.setVisibility(View.VISIBLE);
             }
         }
 

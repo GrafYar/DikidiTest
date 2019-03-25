@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.CategoryListRes;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
@@ -54,15 +57,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public static class CategoryAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView mImage;
-        private TextView mCategoryName;
+        @BindView(R.id.category_image) ImageView mImage;
+        @BindView(R.id.category_name) TextView mCategoryName;
         private CategoryItemClickListener mCategoryItemClickListener;
 
         private CategoryAdapterViewHolder(View itemView, CategoryItemClickListener categoryItemClickListener){
             super(itemView);
+            ButterKnife.bind(this, itemView);
             mCategoryItemClickListener = categoryItemClickListener;
-            mCategoryName = itemView.findViewById(R.id.category_name);
-            mImage = itemView.findViewById(R.id.category_image);
             itemView.setOnClickListener(this);
         }
         @Override
