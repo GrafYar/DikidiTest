@@ -13,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import ru.dikidi.dikiditest.R;
 import ru.dikidi.dikiditest.data.network.resources.ItemList;
@@ -91,26 +94,22 @@ public class SharesAdapter extends RecyclerView.Adapter<SharesAdapter.SharesAdap
     }
 
     public static class SharesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private AspectRatioImageView mIcon;
-        private CircleImageView mCompanyImage;
-        private TextView mName, mDiscountValue, mCompanyName, mCompanyStreetHouse, mViews, mUsed, mTimeStop, mCountShares;
+        @BindView(R.id.shares_icon) AspectRatioImageView mIcon;
+        @BindView(R.id.shares_company_image) CircleImageView mCompanyImage;
+        @BindView(R.id.shares_name) TextView mName;
+        @BindView(R.id.shares_discount_value) TextView mDiscountValue;
+        @BindView(R.id.shares_company_name) TextView mCompanyName;
+        @BindView(R.id.shares_company_street_house) TextView mCompanyStreetHouse;
+        @BindView(R.id.shares_views) TextView mViews;
+        @BindView(R.id.shares_used) TextView mUsed;
+        @BindView(R.id.shares_time_stop) TextView mTimeStop;
         private SharesItemClickListener mSharesItemClickListener;
 
 
         private SharesAdapterViewHolder(View itemView, SharesItemClickListener sharesItemClickListener){
             super(itemView);
             mSharesItemClickListener = sharesItemClickListener;
-
-            mIcon = itemView.findViewById(R.id.shares_icon);
-            mName = itemView.findViewById(R.id.shares_name);
-            mDiscountValue = itemView.findViewById(R.id.shares_discount_value);
-            mCompanyImage = itemView.findViewById(R.id.shares_company_image);
-            mCompanyName = itemView.findViewById(R.id.shares_company_name);
-            mCompanyStreetHouse = itemView.findViewById(R.id.shares_company_street_house);
-            mViews = itemView.findViewById(R.id.shares_views);
-            mUsed = itemView.findViewById(R.id.shares_used);
-            mTimeStop = itemView.findViewById(R.id.shares_time_stop);
-            mCountShares = itemView.findViewById(R.id.shares_count_shares);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
         @Override
